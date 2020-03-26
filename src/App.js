@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { FishTable } from "./components/FishTable";
+import { FishTableBody } from "./components/FishTableBody";
 import { SearchBar } from "./components/SearchBar";
 import { fishData } from "./data/FishData";
+import { FishTableHead } from "./components/FishTableHead";
+
 
 function App() {
   const [modifiedFishData, setmodifiedFishData] = useState(fishData);
@@ -12,11 +14,17 @@ function App() {
       )
     );
   };
+  const handleRequestSort = () => {
+    
+  }
 
   return (
     <div>
       <SearchBar searchCritter={searchCritter} />
-      <FishTable fishData={modifiedFishData} />
+      <FishTableBody fishData={modifiedFishData}>
+        <FishTableHead onRequestSort={handleRequestSort} />
+      </FishTableBody>
+      {/* <FishTable fishData={modifiedFishData} /> */}
     </div>
   );
 }
