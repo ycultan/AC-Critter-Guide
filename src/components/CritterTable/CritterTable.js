@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const FishTable = ({ fishData, children }) => {
+export const CritterTable = ({ title, fishData, critterTableHead }) => {
   const classes = useStyles();
   const style = {
     marginLeft: '15px'
@@ -28,9 +28,9 @@ export const FishTable = ({ fishData, children }) => {
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Typography variant="h6" style={style}>All Fish</Typography>
+  <Typography variant="h6" style={style}>{title}</Typography>
         <Table stickyHeader size="small">
-            {children}
+            {critterTableHead}
           <TableBody>
             {fishData.map(fish => (
               <TableRow key={fish.id}>

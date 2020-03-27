@@ -4,7 +4,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { TableSortLabel } from "@material-ui/core";
 
-export const FishTableHead = ({ onRequestSort }) => {
+export const CritterTableHead = ({ onRequestSort }) => {
   const [isAsc, setIsAsc] = useState(true);
   const [orderBy, setOrderBy] = useState('')
   const createSortHandler = headerName => () => {
@@ -36,7 +36,7 @@ export const FishTableHead = ({ onRequestSort }) => {
             direction={"asc"}
             onClick={createSortHandler("month")}
           >
-            Month (Northern Hempishere)
+            Month (Northern Hemisphere)
           </TableSortLabel>
         </TableCell>
       </TableRow>
