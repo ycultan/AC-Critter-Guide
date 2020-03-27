@@ -268,7 +268,7 @@ export const fishData = [
     "700",
     "All day",
     false,
-    "September "
+    "September"
   ),
   createData(
     32,
@@ -278,7 +278,7 @@ export const fishData = [
     "1,800",
     "All day",
     false,
-    "September "
+    "September"
   ),
   createData(
     33,
