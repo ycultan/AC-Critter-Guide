@@ -5,7 +5,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
-import { Paper } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -21,10 +21,14 @@ const useStyles = makeStyles({
 
 export const FishTable = ({ fishData, children }) => {
   const classes = useStyles();
+  const style = {
+    marginLeft: '15px'
+  }
 
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
+        <Typography variant="h6" style={style}>All Fish</Typography>
         <Table stickyHeader size="small">
             {children}
           <TableBody>

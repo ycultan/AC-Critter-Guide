@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     width: 290,
     height: 40,
-    margin: "25px 10px 20px 0px",
+    margin: "25px 10px 0px 0px",
     float: "right"
   },
   input: {

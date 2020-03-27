@@ -42,7 +42,6 @@ function App() {
       <FishTable fishData={modifiedFishData}>
         <FishTableHead onRequestSort={handleRequestSort} />
       </FishTable>
-      {/* <FishTable fishData={modifiedFishData} /> */}
     </div>
   );
 }
