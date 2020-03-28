@@ -23,9 +23,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const style = {
+    tabPanel: {
+        maxWidth: '1278px',
+        margin: 'auto'
+    }
+}
+
 const TabPanel = ({ importantFish, fishTable, value, index }) => {
   return (
     <Typography
+    style={style.tabPanel}
       component="div"
       role="tabpanel"
       hidden={value !== index}
