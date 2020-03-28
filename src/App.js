@@ -7,10 +7,12 @@ import { ImportantFish } from "./components/ImportantFish/ImportantFish";
 
 
 function App() {
-  const [modifiedFishData, setmodifiedFishData] = useState(fishData);
+  const [modifiedFishData, setModifiedFishData] = useState(fishData);
+  const [isCritterSearched, setIsCritterSearched] = useState(false)
 
   const searchCritter = value => {
-    setmodifiedFishData(
+    setIsCritterSearched(true)
+    setModifiedFishData(
       fishData.filter(fish =>
         fish.name.toLowerCase().includes(value.toLowerCase())
       )
@@ -18,6 +20,7 @@ function App() {
   };
 
   const handleRequestSort = headerName => {
+    setIsCritterSearched(false)
     switch (headerName) {
       case "month":
         const months = [
@@ -46,10 +49,10 @@ function App() {
           const bMonth = b.month.substring(0, b.month.indexOf("-")) || b.month;
           return months.indexOf(aMonth) - months.indexOf(bMonth);
         });
-        setmodifiedFishData(sortedFishWithDates.concat(fishWithoutDates));
+        setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates));
         break;
       case "id":
-        setmodifiedFishData(fishData);
+        setModifiedFishData(fishData);
         break;
       default:
         return modifiedFishData;
@@ -63,6 +66,7 @@ function App() {
         importantFish={<ImportantFish importantFishData={importantFishData} />}
         modifiedFishData={modifiedFishData}
         handleRequestSort={handleRequestSort}
+        isCritterSearched={isCritterSearched}
       />
       {/* <CritterTable
       title="All Fish"

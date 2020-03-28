@@ -41,7 +41,8 @@ const TabPanel = ({ importantFish, fishTable, value, index }) => {
 export const HeaderTabs = ({
   importantFish,
   modifiedFishData,
-  handleRequestSort
+  handleRequestSort,
+  isCritterSearched
 }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -72,7 +73,7 @@ export const HeaderTabs = ({
             title="All Fish"
             fishData={modifiedFishData}
             critterTableHead={
-              <CritterTableHead onRequestSort={handleRequestSort} />
+              <CritterTableHead onRequestSort={handleRequestSort} isCritterSearched={isCritterSearched} />
             }
           />
         }
