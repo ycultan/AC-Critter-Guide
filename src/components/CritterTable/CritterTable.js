@@ -22,34 +22,38 @@ const useStyles = makeStyles({
 export const CritterTable = ({ title, fishData, critterTableHead }) => {
   const classes = useStyles();
   const style = {
-    marginLeft: '15px'
-  }
+    marginLeft: "15px"
+  };
 
   return (
-    <Paper className={classes.root}>
-      <TableContainer className={classes.container}>
-  <Typography variant="h6" style={style}>{title}</Typography>
-        <Table stickyHeader size="small">
+    <>
+      <Typography variant="h6" style={style}>
+        {title}
+      </Typography>
+      <Paper className={classes.root}>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader size="small">
             {critterTableHead}
-          <TableBody>
-            {fishData.map(fish => (
-              <TableRow key={fish.id}>
-                <TableCell component="th" scope="row">
-                  {fish.id}
-                </TableCell>
-                <TableCell>{fish.name}</TableCell>
-                <TableCell>{fish.location}</TableCell>
-                <TableCell>{fish.shadowSize}</TableCell>
-                <TableCell>{fish.value}</TableCell>
-                <TableCell>{fish.time}</TableCell>
-                <TableCell>
-                  {fish.isYearRound ? "Year Round" : fish.month}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+            <TableBody>
+              {fishData.map(fish => (
+                <TableRow key={fish.id}>
+                  <TableCell component="th" scope="row">
+                    {fish.id}
+                  </TableCell>
+                  <TableCell>{fish.name}</TableCell>
+                  <TableCell>{fish.location}</TableCell>
+                  <TableCell>{fish.shadowSize}</TableCell>
+                  <TableCell>{fish.value}</TableCell>
+                  <TableCell>{fish.time}</TableCell>
+                  <TableCell>
+                    {fish.isYearRound ? "Year Round" : fish.month}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </>
   );
 };

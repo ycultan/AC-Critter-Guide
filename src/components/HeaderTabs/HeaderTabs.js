@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  makeStyles,
-  AppBar,
-  Tabs,
-  Tab,
-  Typography,
-  Box
-} from "@material-ui/core";
+import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
@@ -30,11 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TabPanel = props => {
-  const { fishTable, value, index, ...other } = props;
-  console.log("value", value);
-  console.log("index", index);
-
+const TabPanel = ({ importantFish, fishTable, value, index }) => {
   return (
     <Typography
       component="div"
@@ -42,19 +31,22 @@ const TabPanel = props => {
       hidden={value !== index}
       id={`scrollable-force-tabpanel-${index}`}
       aria-labelledby={`scrollable-force-tab-${index}`}
-      {...other}
     >
+      {importantFish && importantFish}
       {value === index && fishTable}
     </Typography>
   );
 };
 
-export const HeaderTabs = ({ modifiedFishData, handleRequestSort }) => {
+export const HeaderTabs = ({
+  importantFish,
+  modifiedFishData,
+  handleRequestSort
+}) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
-    console.log("new value", newValue);
     setValue(newValue);
   };
 
@@ -74,6 +66,7 @@ export const HeaderTabs = ({ modifiedFishData, handleRequestSort }) => {
       <TabPanel
         value={value}
         index={0}
+        importantFish={importantFish}
         fishTable={
           <CritterTable
             title="All Fish"
@@ -83,8 +76,8 @@ export const HeaderTabs = ({ modifiedFishData, handleRequestSort }) => {
             }
           />
         }
-      ></TabPanel>
+      />
+      <TabPanel value={value} index={1} />
     </div>
   );
 };
-

@@ -10,7 +10,6 @@ export const NavBar = ({searchBar}) => {
         alt=""
       />
       {searchBar}
-      
     </div>
   );
 };

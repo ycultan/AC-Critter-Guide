@@ -117,7 +117,7 @@ export const fishData = [
     "100",
     "All day",
     false,
-    "March-July "
+    "March-July"
   ),
   createData(
     15,
@@ -127,7 +127,7 @@ export const fishData = [
     "120",
     "All day",
     false,
-    "May-August "
+    "May-August"
   ),
   createData(
     16,
@@ -146,7 +146,7 @@ export const fishData = [
     "400",
     "All day",
     false,
-    "March-May "
+    "March-May"
   ),
   createData(
     18,
@@ -156,7 +156,7 @@ export const fishData = [
     "800",
     "4 p.m. - 9 a.m.",
     false,
-    "May-October "
+    "May-October"
   ),
   createData(
     19,
@@ -166,7 +166,7 @@ export const fishData = [
     "5,500",
     "9 a.m. - 4 p.m.",
     false,
-    "June-August "
+    "June-August"
   ),
   createData(20, "Bluegill", "River", "Small", "180", "9 a.m. - 4 p.m.", true),
   createData(
@@ -177,7 +177,7 @@ export const fishData = [
     "300",
     "All day",
     false,
-    "October-March "
+    "October-March"
   ),
   createData(22, "Black Bass", "River", "Large", "400", "All day", true),
   createData(
@@ -188,7 +188,7 @@ export const fishData = [
     "800",
     "All day",
     false,
-    "June-October "
+    "June-October"
   ),
   createData(
     24,
@@ -198,7 +198,7 @@ export const fishData = [
     "1,800",
     "All day",
     false,
-    "September-December "
+    "September-December"
   ),
   createData(
     25,
@@ -208,7 +208,7 @@ export const fishData = [
     "500",
     "All day",
     false,
-    "December-February "
+    "December-February"
   ),
   createData(
     26,
@@ -218,7 +218,7 @@ export const fishData = [
     "900",
     "All day",
     false,
-    "July-September "
+    "July-September"
   ),
   createData(
     27,
@@ -228,7 +228,7 @@ export const fishData = [
     "1,000",
     "All day",
     false,
-    "March-June, September-November "
+    "March-June, September-November"
   ),
   createData(
     28,
@@ -238,7 +238,7 @@ export const fishData = [
     "3,800",
     "4 p.m. - 9 a.m.",
     false,
-    "March-June, September-November "
+    "March-June, September-November"
   ),
   createData(
     29,
@@ -248,7 +248,7 @@ export const fishData = [
     "15,000",
     "4 p.m. - 9 a.m.",
     false,
-    "March-June, September-November "
+    "March-June, September-November"
   ),
   createData(
     30,
@@ -258,7 +258,7 @@ export const fishData = [
     "15,000",
     "4 p.m. - 9 a.m.",
     false,
-    "December-March "
+    "December-March"
   ),
   createData(
     31,
@@ -288,7 +288,7 @@ export const fishData = [
     "2,000",
     "4 p.m. - 9 a.m.",
     false,
-    "September-November "
+    "September-November"
   ),
   createData(
     34,
@@ -298,7 +298,7 @@ export const fishData = [
     "1,300",
     "9 a.m. - 4 p.m.",
     false,
-    "April-November "
+    "April-November"
   ),
   createData(
     35,
@@ -308,7 +308,7 @@ export const fishData = [
     "1,500",
     "9 a.m. - 4 p.m.",
     false,
-    "May-September "
+    "May-September"
   ),
   createData(
     36,
@@ -318,7 +318,7 @@ export const fishData = [
     "3,000",
     "4 p.m. - 9 a.m.",
     false,
-    "May-October "
+    "May-October"
   ),
   createData(
     37,
@@ -328,7 +328,7 @@ export const fishData = [
     "2,500",
     "9 a.m. - 4 p.m.",
     false,
-    "May-October "
+    "May-October"
   ),
   createData(
     38,
@@ -338,7 +338,7 @@ export const fishData = [
     "500",
     "9 a.m. - 4 p.m.",
     false,
-    "April-November "
+    "April-November"
   ),
   createData(
     39,
@@ -348,7 +348,7 @@ export const fishData = [
     "800",
     "9 a.m. - 4 p.m.",
     false,
-    "May-October "
+    "May-October"
   ),
   createData(
     40,
@@ -358,7 +358,7 @@ export const fishData = [
     "2,500",
     "9 a.m. - 4 p.m., 9 p.m. - 4 a.m.",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     41,
@@ -368,7 +368,7 @@ export const fishData = [
     "10,000",
     "4 p.m. - 9 a.m.",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     42,
@@ -378,7 +378,7 @@ export const fishData = [
     "15,000",
     "4 a.m - 9 p.m.",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     43,
@@ -388,7 +388,7 @@ export const fishData = [
     "6,000",
     "4 p.m. - 9 a.m.",
     false,
-    "July-October "
+    "July-October"
   ),
   createData(
     44,
@@ -398,7 +398,7 @@ export const fishData = [
     "10,000",
     "4 p.m. - 9 a.m.",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     45,
@@ -408,7 +408,7 @@ export const fishData = [
     "4,000",
     "9 p.m. - 4 a.m.",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     46,
@@ -418,7 +418,7 @@ export const fishData = [
     "10,000",
     "All day",
     false,
-    "September-March "
+    "September-March"
   ),
   createData(
     47,
@@ -428,7 +428,7 @@ export const fishData = [
     "1,000",
     "All day",
     false,
-    "December-March "
+    "December-March"
   ),
   createData(
     48,
@@ -438,7 +438,7 @@ export const fishData = [
     "1,100",
     "All day",
     false,
-    "April-November "
+    "April-November"
   ),
   createData(
     49,
@@ -448,7 +448,7 @@ export const fishData = [
     "650",
     "All day",
     false,
-    "April-September "
+    "April-September"
   ),
   createData(
     50,
@@ -458,7 +458,7 @@ export const fishData = [
     "1,000",
     "All day",
     false,
-    "April-September "
+    "April-September"
   ),
   createData(
     51,
@@ -468,7 +468,7 @@ export const fishData = [
     "1,000",
     "All day",
     false,
-    "April-September "
+    "April-September"
   ),
   createData(
     52,
@@ -478,7 +478,7 @@ export const fishData = [
     "10,000",
     "4 a.m. - 9 p.m.",
     false,
-    "July-August "
+    "July-August"
   ),
   createData(
     53,
@@ -488,7 +488,7 @@ export const fishData = [
     "500",
     "All day",
     false,
-    "April-November "
+    "April-November"
   ),
   createData(
     54,
@@ -498,7 +498,7 @@ export const fishData = [
     "5,000",
     "6 p.m. - 4 a.m.",
     false,
-    "November-February "
+    "November-February"
   ),
   createData(
     55,
@@ -508,7 +508,7 @@ export const fishData = [
     "250",
     "All day",
     false,
-    "July-September "
+    "July-September"
   ),
   createData(56, "Anchovy", "Sea", "Small", "200", "4 a.m. - 9 p.m.", true),
   createData(57, "Horse Mackerel", "Sea", "Small", "150", "All day", true),
@@ -520,7 +520,7 @@ export const fishData = [
     "5,000",
     "All day",
     false,
-    "March-November "
+    "March-November"
   ),
   createData(59, "Sea Bass", "Sea", "X Large", "400", "All day", true),
   createData(60, "Red Snapper", "Sea", "Medium", "3,000", "All day", true),
@@ -532,7 +532,7 @@ export const fishData = [
     "300",
     "All day",
     false,
-    "October-April "
+    "October-April"
   ),
   createData(62, "Olive Flounder", "Sea", "Large", "800", "All day", true),
   createData(
@@ -543,7 +543,7 @@ export const fishData = [
     "500",
     "All day",
     false,
-    "December-August "
+    "December-August"
   ),
   createData(
     64,
@@ -553,7 +553,7 @@ export const fishData = [
     "2,000",
     "All day",
     false,
-    "August-October "
+    "August-October"
   ),
   createData(
     65,
@@ -563,7 +563,7 @@ export const fishData = [
     "600",
     "All day",
     false,
-    "June-October "
+    "June-October"
   ),
   createData(
     66,
@@ -573,7 +573,7 @@ export const fishData = [
     "7,000",
     "All day",
     false,
-    "November-April "
+    "November-April"
   ),
   createData(
     67,
@@ -583,7 +583,7 @@ export const fishData = [
     "10,000",
     "All day",
     false,
-    "July-September, November-April "
+    "July-September, November-April"
   ),
   createData(
     68,
@@ -593,7 +593,7 @@ export const fishData = [
     "4,500",
     "All day",
     false,
-    "May-October "
+    "May-October"
   ),
   createData(
     69,
@@ -603,7 +603,7 @@ export const fishData = [
     "6,000",
     "All day",
     false,
-    "May-October "
+    "May-October"
   ),
   createData(
     70,
@@ -613,7 +613,7 @@ export const fishData = [
     "4,000",
     "4 a.m. - 9 p.m.",
     false,
-    "July-September "
+    "July-September"
   ),
   createData(
     71,
@@ -623,7 +623,7 @@ export const fishData = [
     "3,000",
     "4 a.m. - 9 p.m.",
     false,
-    "August-November "
+    "August-November"
   ),
   createData(
     72,
@@ -633,7 +633,7 @@ export const fishData = [
     "12,000",
     "4 p.m. - 9 a.m.",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     73,
@@ -643,7 +643,7 @@ export const fishData = [
     "8,000",
     "4 p.m. - 9 a.m.",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     74,
@@ -653,7 +653,7 @@ export const fishData = [
     "15,000",
     "4 p.m. - 9 a.m.",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     75,
@@ -663,7 +663,7 @@ export const fishData = [
     "13,000",
     "All day",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     76,
@@ -673,7 +673,7 @@ export const fishData = [
     "1,500",
     "All day",
     false,
-    "June-September "
+    "June-September"
   ),
   createData(
     77,
@@ -683,7 +683,7 @@ export const fishData = [
     "2,500",
     "4 p.m. - 9 a.m.",
     false,
-    "November-March "
+    "November-March"
   ),
   createData(
     78,
@@ -693,7 +693,7 @@ export const fishData = [
     "9,000",
     "All day",
     false,
-    "December-May "
+    "December-May"
   ),
   createData(
     79,
@@ -714,3 +714,17 @@ export const fishData = [
     true
   )
 ];
+
+const fishWithDates = fishData.filter(fish => fish.isYearRound === false);
+
+export const importantFishData = fishWithDates.reduce((acc, fish) => {
+  const currentMonth = new Date().toLocaleDateString("default", {
+    month: "long"
+  });
+  const fishEndMonths = fish.month.split(/[-,]/g)
+
+  if (fishEndMonths[1] === currentMonth || (fishEndMonths[3] && fishEndMonths[3] === currentMonth)) acc.push(fish)
+
+  return acc;
+
+}, []);

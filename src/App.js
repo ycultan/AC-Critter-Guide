@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { SearchBar } from "./components/SearchBar/SearchBar";
-import { fishData } from "./data/FishData";
+import { fishData, importantFishData } from "./data/FishData";
 import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
+import { ImportantFish } from "./components/ImportantFish/ImportantFish";
+
 
 function App() {
   const [modifiedFishData, setmodifiedFishData] = useState(fishData);
+
   const searchCritter = value => {
     setmodifiedFishData(
-      modifiedFishData.filter(fish =>
+      fishData.filter(fish =>
         fish.name.toLowerCase().includes(value.toLowerCase())
       )
     );
   };
+
   const handleRequestSort = headerName => {
     switch (headerName) {
       case "month":
@@ -30,11 +34,12 @@ function App() {
           "November",
           "December"
         ];
-        const fishWithDates = modifiedFishData.filter(
-          fish => fish.isYearRound === false
-        );
+        
         const fishWithoutDates = modifiedFishData.filter(
           fish => fish.isYearRound === true
+        );
+        const fishWithDates = modifiedFishData.filter(
+          fish => fish.isYearRound === false
         );
         const sortedFishWithDates = fishWithDates.sort((a, b) => {
           const aMonth = a.month.substring(0, a.month.indexOf("-")) || a.month;
@@ -55,6 +60,7 @@ function App() {
     <div>
       <NavBar searchBar={<SearchBar searchCritter={searchCritter} />} />
       <HeaderTabs
+        importantFish={<ImportantFish importantFishData={importantFishData} />}
         modifiedFishData={modifiedFishData}
         handleRequestSort={handleRequestSort}
       />
