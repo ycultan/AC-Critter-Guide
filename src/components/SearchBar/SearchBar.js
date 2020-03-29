@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+import { TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     width: 290,
     height: 40,
-    margin: "auto 10px auto auto",
+    margin: "auto 10px auto auto"
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -23,17 +24,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const SearchBar = ({searchCritter}) => {
+export const SearchBar = ({ searchCritter }) => {
   const classes = useStyles();
   const [search, setSearch] = useState("");
 
   const onSearchInputChange = e => {
     setSearch(e.target.value);
-    searchCritter(e.target.value)
+    searchCritter(e.target.value);
   };
 
   return (
-    <Paper component="form" className={classes.root}>
+    <Paper component="div" className={classes.root}>
       <InputBase
         className={classes.input}
         placeholder="Search..."
