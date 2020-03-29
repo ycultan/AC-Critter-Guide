@@ -81,6 +81,7 @@ export const HeaderTabs = ({
           <CritterTable
             title="All Fish"
             fishData={modifiedFishData}
+            isSearchingForCritter={isSearchingForCritter}
             critterTableHead={
               <CritterTableHead onRequestSort={handleRequestSort} isCritterSearched={isCritterSearched} />
             }

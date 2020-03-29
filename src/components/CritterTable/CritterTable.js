@@ -19,7 +19,12 @@ const useStyles = makeStyles({
   }
 });
 
-export const CritterTable = ({ title, fishData, critterTableHead }) => {
+export const CritterTable = ({
+  title,
+  fishData,
+  critterTableHead,
+  isSearchingForCritter
+}) => {
   const classes = useStyles();
   const style = {
     marginLeft: "15px"
@@ -35,21 +40,27 @@ export const CritterTable = ({ title, fishData, critterTableHead }) => {
           <Table stickyHeader size="small">
             {critterTableHead}
             <TableBody>
-              {fishData.length < 1 ? <TableCell>No fish leaving this month</TableCell> : fishData.map(fish => (
-                <TableRow key={fish.id}>
-                  <TableCell component="th" scope="row">
-                    {fish.id}
-                  </TableCell>
-                  <TableCell>{fish.name}</TableCell>
-                  <TableCell>{fish.location}</TableCell>
-                  <TableCell>{fish.shadowSize}</TableCell>
-                  <TableCell>{fish.value}</TableCell>
-                  <TableCell>{fish.time}</TableCell>
-                  <TableCell>
-                    {fish.isYearRound ? "Year Round" : fish.month}
-                  </TableCell>
+              {fishData.length < 1 && !isSearchingForCritter ? (
+                <TableRow>
+                  <TableCell>No fish leaving this month</TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                fishData.map(fish => (
+                  <TableRow key={fish.id}>
+                    <TableCell component="th" scope="row">
+                      {fish.id}
+                    </TableCell>
+                    <TableCell>{fish.name}</TableCell>
+                    <TableCell>{fish.location}</TableCell>
+                    <TableCell>{fish.shadowSize}</TableCell>
+                    <TableCell>{fish.value}</TableCell>
+                    <TableCell>{fish.time}</TableCell>
+                    <TableCell>
+                      {fish.isYearRound ? "Year Round" : fish.month}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>
