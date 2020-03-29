@@ -30,7 +30,7 @@ const style = {
     }
 }
 
-const TabPanel = ({ importantFish, fishTable, value, index }) => {
+const TabPanel = ({ importantFish, fishTable, value, index, isSearchingForCritter }) => {
   return (
     <Typography
     style={style.tabPanel}
@@ -40,7 +40,7 @@ const TabPanel = ({ importantFish, fishTable, value, index }) => {
       id={`scrollable-force-tabpanel-${index}`}
       aria-labelledby={`scrollable-force-tab-${index}`}
     >
-      {importantFish && importantFish}
+      {importantFish && !isSearchingForCritter && importantFish}
       {value === index && fishTable}
     </Typography>
   );
@@ -50,7 +50,8 @@ export const HeaderTabs = ({
   importantFish,
   modifiedFishData,
   handleRequestSort,
-  isCritterSearched
+  isCritterSearched,
+  isSearchingForCritter
 }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -85,6 +86,7 @@ export const HeaderTabs = ({
             }
           />
         }
+        isSearchingForCritter={isSearchingForCritter}
       />
       <TabPanel value={value} index={1} />
     </div>

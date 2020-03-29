@@ -35,7 +35,7 @@ export const CritterTable = ({ title, fishData, critterTableHead }) => {
           <Table stickyHeader size="small">
             {critterTableHead}
             <TableBody>
-              {fishData.map(fish => (
+              {fishData.length < 1 ? <TableCell>No fish leaving this month</TableCell> : fishData.map(fish => (
                 <TableRow key={fish.id}>
                   <TableCell component="th" scope="row">
                     {fish.id}

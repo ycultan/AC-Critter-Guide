@@ -5,13 +5,18 @@ import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
 import { ImportantFish } from "./components/ImportantFish/ImportantFish";
 
-
 function App() {
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
-  const [isCritterSearched, setIsCritterSearched] = useState(false)
+  const [isCritterSearched, setIsCritterSearched] = useState(false);
+  const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
 
   const searchCritter = value => {
-    setIsCritterSearched(true)
+    if (value === "") {
+      setIsSearchingForCritter(false);
+    } else {
+      setIsSearchingForCritter(true);
+    }
+    setIsCritterSearched(true);
     setModifiedFishData(
       fishData.filter(fish =>
         fish.name.toLowerCase().includes(value.toLowerCase())
@@ -20,7 +25,7 @@ function App() {
   };
 
   const handleRequestSort = headerName => {
-    setIsCritterSearched(false)
+    setIsCritterSearched(false);
     switch (headerName) {
       case "month":
         const months = [
@@ -37,7 +42,7 @@ function App() {
           "November",
           "December"
         ];
-        
+
         const fishWithoutDates = modifiedFishData.filter(
           fish => fish.isYearRound === true
         );
@@ -67,14 +72,8 @@ function App() {
         modifiedFishData={modifiedFishData}
         handleRequestSort={handleRequestSort}
         isCritterSearched={isCritterSearched}
+        isSearchingForCritter={isSearchingForCritter}
       />
-      {/* <CritterTable
-      title="All Fish"
-        fishData={modifiedFishData}
-        critterTableHead={
-          <CritterTableHead onRequestSort={handleRequestSort} />
-        }
-      /> */}
     </div>
   );
 }
