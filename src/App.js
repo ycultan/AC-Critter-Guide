@@ -26,6 +26,7 @@ function App() {
 
   const handleRequestSort = headerName => {
     setIsCritterSearched(false);
+
     switch (headerName) {
       case "month":
         const months = [
@@ -57,7 +58,11 @@ function App() {
         setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates));
         break;
       case "id":
-        setModifiedFishData(fishData);
+        setModifiedFishData([...fishData]);
+        break;
+      case "value":
+        const sortedByValue = modifiedFishData.sort((a, b) => parseInt(a.value.replace(/,/g, '') - b.value.replace(/,/g, ''))).reverse()
+        setModifiedFishData([...sortedByValue]);
         break;
       default:
         return modifiedFishData;

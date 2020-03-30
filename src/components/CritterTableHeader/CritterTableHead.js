@@ -31,7 +31,17 @@ export const CritterTableHead = ({ onRequestSort, isSortableTable = true, isCrit
         <TableCell>Fish</TableCell>
         <TableCell>Location</TableCell>
         <TableCell>Shadow Size</TableCell>
-        <TableCell>Value (Bells)</TableCell>
+        {isSortableTable ? (
+          <TableCell>
+            <TableSortLabel
+              active={orderBy === "value" && !isCritterSearched}
+              direction={"desc"}
+              onClick={createSortHandler("value")}
+            >
+              Value (Bells)
+            </TableSortLabel>
+          </TableCell>
+        ):(<TableCell>Value (Bells)</TableCell>)}
         <TableCell>Time</TableCell>
         {isSortableTable ? (
           <TableCell>
