@@ -21,7 +21,8 @@ const useStyles = makeStyles({
 
 export const CritterTable = ({
   title,
-  fishData,
+  critter,
+  critterData,
   critterTableHead,
   isSearchingForCritter
 }) => {
@@ -40,23 +41,25 @@ export const CritterTable = ({
           <Table stickyHeader size="small">
             {critterTableHead}
             <TableBody>
-              {fishData.length < 1 && !isSearchingForCritter ? (
+              {critterData.length < 1 && !isSearchingForCritter ? (
                 <TableRow>
-                  <TableCell>No fish leaving this month</TableCell>
+                  <TableCell>`No ${critter} leaving this month`</TableCell>
                 </TableRow>
               ) : (
-                fishData.map(fish => (
-                  <TableRow key={fish.id}>
+                critterData.map(critter => (
+                  <TableRow key={critter.id}>
                     <TableCell component="th" scope="row">
-                      {fish.id}
+                      {critter.id}
                     </TableCell>
-                    <TableCell>{fish.name}</TableCell>
-                    <TableCell>{fish.location}</TableCell>
-                    <TableCell>{fish.shadowSize}</TableCell>
-                    <TableCell>{fish.value}</TableCell>
-                    <TableCell>{fish.time}</TableCell>
+                    <TableCell>{critter.name}</TableCell>
+                    <TableCell>{critter.location}</TableCell>
+                    {critter.shadowSize && (
+                      <TableCell>{critter.shadowSize}</TableCell>
+                    )}
+                    <TableCell>{critter.value}</TableCell>
+                    <TableCell>{critter.time}</TableCell>
                     <TableCell>
-                      {fish.isYearRound ? "Year Round" : fish.month}
+                      {critter.isYearRound ? "Year Round" : critter.month}
                     </TableCell>
                   </TableRow>
                 ))

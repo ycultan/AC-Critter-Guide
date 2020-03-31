@@ -11,14 +11,14 @@
     }
  */
 
-const createData = (
+export const createData = (
   id,
   name,
   location,
-  shadowSize,
+  shadowSize = null,
   value,
   time,
-  isYearRound,
+  isYearRound = null,
   month = null
 ) => {
   return {

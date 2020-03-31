@@ -4,6 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { CritterTableHead } from "../CritterTableHeader/CritterTableHead";
+import { importantFishData } from "../../data/FishData"
+import { importantInsectData } from "../../data/InsectData"
+import { ImportantCritter } from "../ImportantCritter/ImportantCritter";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,7 +75,6 @@ const TabPanel = ({
 };
 
 export const HeaderTabs = ({
-  importantFish,
   modifiedFishData,
   handleRequestSort,
   isSearchingForCritter,
@@ -101,11 +104,12 @@ export const HeaderTabs = ({
       <TabPanel
         value={value}
         index={0}
-        importantFish={importantFish}
+        importantFish={<ImportantCritter importantCritterData={importantFishData} />}
         fishTable={
           <CritterTable
             title="All Fish"
-            fishData={modifiedFishData}
+            critter="fish"
+            critterData={modifiedFishData}
             isSearchingForCritter={isSearchingForCritter}
             critterTableHead={
               <CritterTableHead
@@ -119,7 +123,11 @@ export const HeaderTabs = ({
         }
         isSearchingForCritter={isSearchingForCritter}
       />
-      <TabPanel value={value} index={1} />
+      <TabPanel 
+        value={value} 
+        index={1}
+        importantInsect={<ImportantCritter importantCritterData={importantInsectData} />}
+        />
     </div>
   );
 };

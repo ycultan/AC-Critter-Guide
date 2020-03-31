@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { SearchBar } from "./components/SearchBar/SearchBar";
-import { fishData, importantFishData } from "./data/FishData";
+import { fishData } from "./data/FishData";
 import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
-import { ImportantFish } from "./components/ImportantFish/ImportantFish";
 
 function App() {
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
@@ -118,7 +117,6 @@ function App() {
     <div>
       <NavBar searchBar={<SearchBar searchCritter={searchCritter} />} />
       <HeaderTabs
-        importantFish={<ImportantFish importantFishData={importantFishData} />}
         modifiedFishData={modifiedFishData}
         handleRequestSort={handleRequestSort}
         isSearchingForCritter={isSearchingForCritter}
