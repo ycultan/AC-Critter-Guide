@@ -7,8 +7,9 @@ import { ImportantFish } from "./components/ImportantFish/ImportantFish";
 
 function App() {
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
-  const [isCritterSearched, setIsCritterSearched] = useState(false);
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
+  const [order, setOrder] = useState("asc")
+  const [orderBy, setOrderBy] = useState("number")
 
   const searchCritter = value => {
     if (value === "") {
@@ -16,7 +17,6 @@ function App() {
     } else {
       setIsSearchingForCritter(true);
     }
-    setIsCritterSearched(true);
     setModifiedFishData(
       fishData.filter(fish =>
         fish.name.toLowerCase().includes(value.toLowerCase())
@@ -24,34 +24,42 @@ function App() {
     );
   };
 
-  const sortData = title =>
-    modifiedFishData.sort((a, b) => (a[title] > b[title] ? 1 : -1));
+  const sortData = (title, order) => {
+    if (order === "asc") {
+      return modifiedFishData.sort((a, b) => (a[title] > b[title] ? 1 : -1));
+    } else {
+      return modifiedFishData.sort((a, b) => (a[title] > b[title] ? 1 : -1)).reverse();
+    }
+  }
 
-  const handleRequestSort = headerName => {
-    setIsCritterSearched(false);
+  const handleRequestSort = header => {
+    const isAsc = orderBy === header.id && order === "asc"
+    const newOrder = isAsc ? "desc" : "asc";
+    setOrder(newOrder)
+    setOrderBy(header.id)
 
-    switch (headerName) {
-      case "Fish #":
-        setModifiedFishData([...sortData("id")]);
+    switch (header.id) {
+      case "number":
+          setModifiedFishData([...sortData("id", newOrder)]);
         break;
-      case "Fish":
-        setModifiedFishData([...sortData("name")]);
+      case "name":
+        setModifiedFishData([...sortData("name", newOrder)]);
         break;
-      case "Location":
-        setModifiedFishData([...sortData("location")]);
+      case "location":
+        setModifiedFishData([...sortData("location",newOrder)]);
         break;
-      case "Shadow Size":
-        setModifiedFishData([...sortData("shadowSize")]);
+      case "shadowSize":
+        setModifiedFishData([...sortData("shadowSize",newOrder)]);
         break;
-      case "Value (Bells)":
+      case "value":
         const sortedByValue = modifiedFishData
           .sort((a, b) =>
             parseInt(a.value.replace(/,/g, "") - b.value.replace(/,/g, ""))
           )
           .reverse();
-        setModifiedFishData([...sortedByValue]);
+        newOrder === "asc" ? setModifiedFishData([...sortedByValue]) : setModifiedFishData([...sortedByValue.reverse()]);
         break;
-      case "Time":
+      case "time":
         const allDayFish = modifiedFishData.filter(
           fish => fish.time === "All day"
         );
@@ -70,9 +78,9 @@ function App() {
             new Date("1970/01/01 " + bTime.join(" "))
           );
         });
-        setModifiedFishData([...sortByTime, ...allDayFish]);
+     newOrder === "asc" ? setModifiedFishData([...sortByTime, ...allDayFish]) : setModifiedFishData(([...sortByTime, ...allDayFish]).reverse());
         break;
-      case "Month (Northern Hemisphere)":
+      case "month":
         const months = [
           "January",
           "February",
@@ -99,7 +107,7 @@ function App() {
           const bMonth = b.month.substring(0, b.month.indexOf("-")) || b.month;
           return months.indexOf(aMonth) - months.indexOf(bMonth);
         });
-        setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates));
+        newOrder === "asc" ? setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates)) : setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates).reverse());
         break;
       default:
         return modifiedFishData;
@@ -113,8 +121,9 @@ function App() {
         importantFish={<ImportantFish importantFishData={importantFishData} />}
         modifiedFishData={modifiedFishData}
         handleRequestSort={handleRequestSort}
-        isCritterSearched={isCritterSearched}
         isSearchingForCritter={isSearchingForCritter}
+        order={order}
+        orderBy={orderBy}
       />
     </div>
   );

@@ -31,21 +31,21 @@ const style = {
 };
 
 const fishTableHeaders = [
-  "Fish #",
-  "Fish",
-  "Location",
-  "Shadow Size",
-  "Value (Bells)",
-  "Time",
-  "Month (Northern Hemisphere)"
+  {id: "number", name: "Fish #"},
+  {id: "name", name: "Fish"},
+  {id: "location", name: "Location"},
+  {id: "shadowSize", name: "Shadow Size"},
+  {id: "value", name: "Value (Bells)"},
+  {id: "time", name: "Time"},
+  {id: "month", name: "Month (Northern Hemisphere)"}
 ];
 const insectTableHeaders = [
-  "Insect #",
-  "Insect",
-  "Location",
-  "Value",
-  "Time",
-  "Month (Northern Hemisphere)"
+{id: "number", name: "Insect #"},
+{id: "name", name: "Insect"},
+{id: "location", name: "Location"},
+{id: "value", name: "Value"},
+{id: "time", name: "Time"},
+{id: "month", name: "Month (Northern Hemisphere)"}
 ];
 
 const TabPanel = ({
@@ -74,8 +74,9 @@ export const HeaderTabs = ({
   importantFish,
   modifiedFishData,
   handleRequestSort,
-  isCritterSearched,
-  isSearchingForCritter
+  isSearchingForCritter,
+  order,
+  orderBy
 }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -109,8 +110,9 @@ export const HeaderTabs = ({
             critterTableHead={
               <CritterTableHead
                 onRequestSort={handleRequestSort}
-                isCritterSearched={isCritterSearched}
                 tableHeaders={fishTableHeaders}
+                order={order}
+                orderBy={orderBy}
               />
             }
           />
