@@ -24,16 +24,40 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const style = {
-    tabPanel: {
-        maxWidth: '1278px',
-        margin: 'auto'
-    }
-}
+  tabPanel: {
+    maxWidth: "1278px",
+    margin: "auto"
+  }
+};
 
-const TabPanel = ({ importantFish, fishTable, value, index, isSearchingForCritter }) => {
+const fishTableHeaders = [
+  "Fish #",
+  "Fish",
+  "Location",
+  "Shadow Size",
+  "Value (Bells)",
+  "Time",
+  "Month (Northern Hemisphere)"
+];
+const insectTableHeaders = [
+  "Insect #",
+  "Insect",
+  "Location",
+  "Value",
+  "Time",
+  "Month (Northern Hemisphere)"
+];
+
+const TabPanel = ({
+  importantFish,
+  fishTable,
+  value,
+  index,
+  isSearchingForCritter
+}) => {
   return (
     <Typography
-    style={style.tabPanel}
+      style={style.tabPanel}
       component="div"
       role="tabpanel"
       hidden={value !== index}
@@ -83,7 +107,11 @@ export const HeaderTabs = ({
             fishData={modifiedFishData}
             isSearchingForCritter={isSearchingForCritter}
             critterTableHead={
-              <CritterTableHead onRequestSort={handleRequestSort} isCritterSearched={isCritterSearched} />
+              <CritterTableHead
+                onRequestSort={handleRequestSort}
+                isCritterSearched={isCritterSearched}
+                tableHeaders={fishTableHeaders}
+              />
             }
           />
         }

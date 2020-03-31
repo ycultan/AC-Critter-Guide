@@ -24,11 +24,55 @@ function App() {
     );
   };
 
+  const sortData = title =>
+    modifiedFishData.sort((a, b) => (a[title] > b[title] ? 1 : -1));
+
   const handleRequestSort = headerName => {
     setIsCritterSearched(false);
 
     switch (headerName) {
-      case "month":
+      case "Fish #":
+        setModifiedFishData([...sortData("id")]);
+        break;
+      case "Fish":
+        setModifiedFishData([...sortData("name")]);
+        break;
+      case "Location":
+        setModifiedFishData([...sortData("location")]);
+        break;
+      case "Shadow Size":
+        setModifiedFishData([...sortData("shadowSize")]);
+        break;
+      case "Value (Bells)":
+        const sortedByValue = modifiedFishData
+          .sort((a, b) =>
+            parseInt(a.value.replace(/,/g, "") - b.value.replace(/,/g, ""))
+          )
+          .reverse();
+        setModifiedFishData([...sortedByValue]);
+        break;
+      case "Time":
+        const allDayFish = modifiedFishData.filter(
+          fish => fish.time === "All day"
+        );
+        const fishWithTimes = modifiedFishData.filter(
+          fish => fish.time !== "All day"
+        );
+        const sortByTime = fishWithTimes.sort((a, b) => {
+          const aTime = a.time.substring(0, a.time.indexOf("-")).split(" ");
+          const bTime = b.time.substring(0, b.time.indexOf("-")).split(" ");
+          aTime[0] = aTime[0].concat(":00");
+          aTime[1] = aTime[1].replace(/[.]/g, "").toUpperCase();
+          bTime[0] = bTime[0].concat(":00");
+          bTime[1] = bTime[1].replace(/[.]/g, "").toUpperCase();
+          return (
+            new Date("1970/01/01 " + aTime.join(" ")) -
+            new Date("1970/01/01 " + bTime.join(" "))
+          );
+        });
+        setModifiedFishData([...sortByTime, ...allDayFish]);
+        break;
+      case "Month (Northern Hemisphere)":
         const months = [
           "January",
           "February",
@@ -56,13 +100,6 @@ function App() {
           return months.indexOf(aMonth) - months.indexOf(bMonth);
         });
         setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates));
-        break;
-      case "id":
-        setModifiedFishData([...fishData]);
-        break;
-      case "value":
-        const sortedByValue = modifiedFishData.sort((a, b) => parseInt(a.value.replace(/,/g, '') - b.value.replace(/,/g, ''))).reverse()
-        setModifiedFishData([...sortedByValue]);
         break;
       default:
         return modifiedFishData;

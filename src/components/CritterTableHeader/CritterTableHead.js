@@ -4,7 +4,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { TableSortLabel } from "@material-ui/core";
 
-export const CritterTableHead = ({ onRequestSort, isSortableTable = true, isCritterSearched }) => {
+export const CritterTableHead = ({ onRequestSort, isSortableTable = true, isCritterSearched, tableHeaders }) => {
   const [orderBy, setOrderBy] = useState("");
 
   const createSortHandler = headerName => () => {
@@ -15,7 +15,23 @@ export const CritterTableHead = ({ onRequestSort, isSortableTable = true, isCrit
   return (
     <TableHead>
       <TableRow>
-        {isSortableTable ? (
+        {tableHeaders && tableHeaders.map((header, index) => (
+          isSortableTable ? (
+            <TableCell key={index}>
+              <TableSortLabel
+                active={orderBy === header && !isCritterSearched}
+                direction={header === "Value (Bells)" ? "desc" : "asc"}
+                onClick={createSortHandler(header)}
+              >
+                {header}
+              </TableSortLabel>
+            </TableCell>
+          ) : (
+          <TableCell key={index}>{header}</TableCell>
+          )
+        ))}
+
+        {/* {isSortableTable ? (
           <TableCell>
             <TableSortLabel
               active={orderBy === "id" && !isCritterSearched}
@@ -55,7 +71,7 @@ export const CritterTableHead = ({ onRequestSort, isSortableTable = true, isCrit
           </TableCell>
         ) : (
           <TableCell>Month (Northern Hemisphere)</TableCell>
-        )}
+        )} */}
       </TableRow>
     </TableHead>
   );
