@@ -34,7 +34,7 @@ const style = {
   }
 };
 
-const fishTableHeaders = [
+export const fishTableHeaders = [
   {id: "number", name: "Fish #"},
   {id: "name", name: "Fish"},
   {id: "location", name: "Location"},
@@ -43,7 +43,7 @@ const fishTableHeaders = [
   {id: "time", name: "Time"},
   {id: "month", name: "Month (Northern Hemisphere)"}
 ];
-const insectTableHeaders = [
+export const insectTableHeaders = [
 {id: "number", name: "Insect #"},
 {id: "name", name: "Insect"},
 {id: "location", name: "Location"},
