@@ -9,7 +9,8 @@ export const CritterTableHead = ({
   isSortableTable = true,
   tableHeaders,
   order,
-  orderBy
+  orderBy,
+  onWhichCritterTab
 }) => {
 
   const createSortHandler = header => () => {

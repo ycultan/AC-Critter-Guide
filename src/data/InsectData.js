@@ -1,5 +1,21 @@
-import { createData } from "./FishData";
 
+const createData = (
+    id,
+    name,
+    location,
+    value,
+    time,
+    month = null,
+  ) => {
+    return {
+      id,
+      name,
+      location,
+      value,
+      time,
+      month
+    };
+  };
 export const insectData = [
   createData(
     1,
@@ -350,12 +366,13 @@ export const insectData = [
     "All day",
     "May-September"
   ),
-  createData(49, "Blue Weevil Beetle", "800", "All day", "July-August"),
+  createData(49, "Blue Weevil Beetle","Unknown", "800", "All day", "July-August"),
   createData(
     50,
     "Dung Beetle",
     "Pushing snowballs",
     "3,000",
+    "Unknown",
     "December-February"
   ),
   createData(
@@ -551,4 +568,16 @@ export const insectData = [
   )
 ];
 
-export const importantInsectData = []
+const nonyearRoundInsect = insectData.filter(insect => insect.month !== "Year-round")
+
+export const importantInsectData = nonyearRoundInsect.reduce((acc, insect) => {
+    const currentMonth = new Date().toLocaleDateString("default", {
+      month: "long"
+    });
+    const insectEndMonths = insect.month.split(/[-,]/g)
+  
+    if (insectEndMonths[1] === currentMonth || (insectEndMonths[3] && insectEndMonths[3] === currentMonth)) acc.push(insect)
+  
+    return acc;
+  
+  }, []);

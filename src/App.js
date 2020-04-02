@@ -131,7 +131,8 @@ function App() {
         isSearchingForCritter={isSearchingForCritter}
         order={order}
         orderBy={orderBy}
-        critterTab={handleCritterTabChange}
+        onCritterTabChange={handleCritterTabChange}
+        onWhichCritterTab={critterTab}
       />
     </div>
   );
