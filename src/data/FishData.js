@@ -104,7 +104,7 @@ export const fishData = [
     "River",
     "X Large",
     "5,000",
-    "9 a.m. - 4 a.m.",
+    "9 p.m. - 4 a.m.",
     false,
     "April-October"
   ),
