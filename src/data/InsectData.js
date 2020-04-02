@@ -1,6 +1,6 @@
 import { createData } from "./FishData";
 
-export const InsectData = [
+export const insectData = [
   createData(
     1,
     "Common Butterfly",

@@ -43,7 +43,7 @@ export const CritterTable = ({
             <TableBody>
               {critterData.length < 1 && !isSearchingForCritter ? (
                 <TableRow>
-                  <TableCell>`No ${critter} leaving this month`</TableCell>
+                  <TableCell>{`No ${critter} leaving this month`}</TableCell>
                 </TableRow>
               ) : (
                 critterData.map(critter => (

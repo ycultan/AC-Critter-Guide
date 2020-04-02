@@ -20,7 +20,6 @@ export const createData = (
   time,
   isYearRound = null,
   month = null,
-  rarity = "Unknown"
 ) => {
   return {
     id,

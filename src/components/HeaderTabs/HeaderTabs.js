@@ -54,7 +54,9 @@ export const insectTableHeaders = [
 
 const TabPanel = ({
   importantFish,
+  importantInsect,
   fishTable,
+  insectTable,
   value,
   index,
   isSearchingForCritter
@@ -68,24 +70,30 @@ const TabPanel = ({
       id={`scrollable-force-tabpanel-${index}`}
       aria-labelledby={`scrollable-force-tab-${index}`}
     >
-      {importantFish && !isSearchingForCritter && importantFish}
-      {value === index && fishTable}
+      {!isSearchingForCritter && importantFish}
+      {!isSearchingForCritter && importantInsect}
+
+      {fishTable}
+      {insectTable}
     </Typography>
   );
 };
 
 export const HeaderTabs = ({
   modifiedFishData,
+  modifiedInsectData,
   handleRequestSort,
   isSearchingForCritter,
   order,
-  orderBy
+  orderBy,
+  critterTab
 }) => {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState("fish");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    critterTab(newValue)
   };
 
   return (
@@ -97,14 +105,14 @@ export const HeaderTabs = ({
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Fish" icon={<FontAwesomeIcon icon={faFish} />} />
-          <Tab label="Insect" icon={<FontAwesomeIcon icon={faBug} />} />
+          <Tab value="fish" label="Fish" icon={<FontAwesomeIcon icon={faFish} />} />
+          <Tab value="insect" label="Insect" icon={<FontAwesomeIcon icon={faBug} />} />
         </Tabs>
       </AppBar>
       <TabPanel
         value={value}
-        index={0}
-        importantFish={<ImportantCritter importantCritterData={importantFishData} />}
+        index="fish"
+        importantFish={<ImportantCritter critterTableHeaders={fishTableHeaders} importantCritterData={importantFishData} />}
         fishTable={
           <CritterTable
             title="All Fish"
@@ -124,9 +132,25 @@ export const HeaderTabs = ({
         isSearchingForCritter={isSearchingForCritter}
       />
       <TabPanel 
-        value={value} 
-        index={1}
-        importantInsect={<ImportantCritter importantCritterData={importantInsectData} />}
+        value={value}
+        index="insect"
+        importantInsect={<ImportantCritter critterTableHeaders={insectTableHeaders} importantCritterData={importantInsectData} />}
+        insectTable={
+            <CritterTable 
+                title="All Insects"
+                critter="insect"
+                critterData={modifiedInsectData}
+                isSearchingForCritter={isSearchingForCritter}
+                critterTableHead={
+                    <CritterTableHead
+                        onRequestSort={handleRequestSort}
+                        tableHeaders={insectTableHeaders}
+                        order={order}
+                        orderBy={orderBy}
+                    />
+                }
+            />
+        }
         />
     </div>
   );

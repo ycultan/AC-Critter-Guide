@@ -3,12 +3,15 @@ import { SearchBar } from "./components/SearchBar/SearchBar";
 import { fishData } from "./data/FishData";
 import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
+import { insectData } from "./data/InsectData";
 
 function App() {
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
+  const [modifiedInsectData, setModifiedInsectData] = useState(insectData)
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
   const [order, setOrder] = useState("asc")
   const [orderBy, setOrderBy] = useState("number")
+  const [critterTab, setCritterTab] = useState("fish")
 
   const searchCritter = value => {
     if (value === "") {
@@ -32,6 +35,7 @@ function App() {
   }
 
   const handleRequestSort = header => {
+    console.log('header', header)
     const isAsc = orderBy === header.id && order === "asc"
     const newOrder = isAsc ? "desc" : "asc";
     setOrder(newOrder)
@@ -113,15 +117,21 @@ function App() {
     }
   };
 
+  const handleCritterTabChange = tab => {
+    setCritterTab(tab)
+  }
+
   return (
     <div>
       <NavBar searchBar={<SearchBar searchCritter={searchCritter} />} />
       <HeaderTabs
         modifiedFishData={modifiedFishData}
+        modifiedInsectData={modifiedInsectData}
         handleRequestSort={handleRequestSort}
         isSearchingForCritter={isSearchingForCritter}
         order={order}
         orderBy={orderBy}
+        critterTab={handleCritterTabChange}
       />
     </div>
   );
