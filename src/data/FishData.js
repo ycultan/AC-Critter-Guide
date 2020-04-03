@@ -11,16 +11,15 @@
     }
  */
 
-export const createData = (
+const createData = (
   id,
   name,
   location,
   shadowSize = null,
   value,
   time,
-  isYearRound = null,
+  isYearRound,
   month = null,
-  rarity = "Unknown"
 ) => {
   return {
     id,
