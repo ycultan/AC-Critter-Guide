@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: ImportantCritter.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 import React from "react";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { CritterTableHead } from "../CritterTableHeader/CritterTableHead";

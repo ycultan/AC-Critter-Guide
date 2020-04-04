@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: FishData.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 /** model template
     {
         id: ,

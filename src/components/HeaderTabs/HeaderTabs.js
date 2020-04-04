@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: HeaderTabs.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 import React, { useState } from "react";
 import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

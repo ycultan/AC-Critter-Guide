@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: CritterTableHead.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 import React from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";

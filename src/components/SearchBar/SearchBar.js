@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: SearchBar.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";

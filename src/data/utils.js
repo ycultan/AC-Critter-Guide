@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: utils.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 export const getCrittersLeavingThisMonth = crittersWithDates => crittersWithDates.reduce((acc, crit) => {
   const currentMonth = new Date().toLocaleDateString("default", { month: "long" });
   const endMonths = crit.month.split(/[-,]/g)

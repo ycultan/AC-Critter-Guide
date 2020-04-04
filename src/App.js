@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: App.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 import React, { useState } from "react";
 import { SearchBar } from "./components/SearchBar/SearchBar";
 import { fishData } from "./data/FishData";

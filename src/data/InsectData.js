@@ -1,3 +1,9 @@
+/* 
+ *  
+ *  File: InsectData.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
 
 const createData = (
     id,

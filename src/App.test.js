@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: App.test.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';

@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: index.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

@@ -1,3 +1,10 @@
+/* 
+ *  
+ *  File: NavBar.js 
+ *  Author: Lucy
+ *  Copyright (c) 2020 Lucy Tan
+ */
+
 import React from "react";
 import "./NavBar.css";
 
