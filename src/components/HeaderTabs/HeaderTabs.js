@@ -4,9 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { CritterTableHead } from "../CritterTableHeader/CritterTableHead";
-import { importantFishData } from "../../data/FishData";
-import { importantInsectData } from "../../data/InsectData";
-import { ImportantCritter } from "../ImportantCritter/ImportantCritter";
+import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
 import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
@@ -34,31 +32,11 @@ const style = {
   }
 };
 
-export const fishTableHeaders = [
-  { id: "number", name: "Fish #" },
-  { id: "name", name: "Fish" },
-  { id: "location", name: "Location" },
-  { id: "shadowSize", name: "Shadow Size" },
-  { id: "value", name: "Value (Bells)" },
-  { id: "time", name: "Time" },
-  { id: "month", name: "Month (Northern Hemisphere)" }
-];
-export const insectTableHeaders = [
-  { id: "number", name: "Insect #" },
-  { id: "name", name: "Insect" },
-  { id: "location", name: "Location" },
-  { id: "value", name: "Value" },
-  { id: "time", name: "Time" },
-  { id: "month", name: "Month (Northern Hemisphere)" }
-];
-
 const TabPanel = ({
-  importantFish,
-  importantInsect,
   fishTable,
   insectTable,
   value,
-  index,
+  type,
   isSearchingForCritter
 }) => {
   return (
@@ -66,15 +44,14 @@ const TabPanel = ({
       style={style.tabPanel}
       component="div"
       role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-force-tabpanel-${index}`}
-      aria-labelledby={`scrollable-force-tab-${index}`}
+      hidden={value !== type}
+      id={`scrollable-force-tabpanel-${type}`}
+      aria-labelledby={`scrollable-force-tab-${type}`}
     >
-      {!isSearchingForCritter && importantFish}
-      {!isSearchingForCritter && importantInsect}
+      {!isSearchingForCritter && <ImportantCritterSection type={type} />}
 
-      {value === index && fishTable}
-      {value === index && insectTable}
+      {value === type && fishTable}
+      {value === type && insectTable}
     </Typography>
   );
 };
@@ -133,13 +110,7 @@ export const HeaderTabs = ({
             component={() => (
               <TabPanel
                 value={currentTab}
-                index="fish"
-                importantFish={
-                  <ImportantCritter
-                    critterTableHeaders={fishTableHeaders}
-                    importantCritterData={importantFishData}
-                  />
-                }
+                type="fish"
                 fishTable={
                   <CritterTable
                     title="All Fish"
@@ -149,7 +120,6 @@ export const HeaderTabs = ({
                     critterTableHead={
                       <CritterTableHead
                         onRequestSort={handleRequestSort}
-                        tableHeaders={fishTableHeaders}
                         order={order}
                         orderBy={orderBy}
                         onWhichCritterTab={onWhichCritterTab}
@@ -166,13 +136,7 @@ export const HeaderTabs = ({
             component={() => (
               <TabPanel
                 value={currentTab}
-                index="insect"
-                importantInsect={
-                  <ImportantCritter
-                    critterTableHeaders={insectTableHeaders}
-                    importantCritterData={importantInsectData}
-                  />
-                }
+                type="insect"
                 insectTable={
                   <CritterTable
                     title="All Insects"
@@ -182,7 +146,7 @@ export const HeaderTabs = ({
                     critterTableHead={
                       <CritterTableHead
                         onRequestSort={handleRequestSort}
-                        tableHeaders={insectTableHeaders}
+                        type="insect"
                         order={order}
                         orderBy={orderBy}
                       />
