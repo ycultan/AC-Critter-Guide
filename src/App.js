@@ -4,6 +4,7 @@ import { fishData } from "./data/FishData";
 import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
 import { insectData } from "./data/InsectData";
+import { monthNameToNumMap } from "./data/utils";
 
 function App() {
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
@@ -84,20 +85,7 @@ function App() {
      newOrder === "asc" ? setModifiedFishData([...sortByTime, ...allDayFish]) : setModifiedFishData(([...sortByTime, ...allDayFish]).reverse());
         break;
       case "month":
-        const months = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
-        ];
+        const months = Object.keys(monthNameToNumMap);
 
         const fishWithoutDates = modifiedFishData.filter(
           fish => fish.isYearRound === true

@@ -715,16 +715,4 @@ export const fishData = [
   )
 ];
 
-const fishWithDates = fishData.filter(fish => fish.isYearRound === false);
-
-export const importantFishData = fishWithDates.reduce((acc, fish) => {
-  const currentMonth = new Date().toLocaleDateString("default", {
-    month: "long"
-  });
-  const fishEndMonths = fish.month.split(/[-,]/g)
-
-  if (fishEndMonths[1] === currentMonth || (fishEndMonths[3] && fishEndMonths[3] === currentMonth)) acc.push(fish)
-
-  return acc;
-
-}, []);
+export const fishWithDates = fishData.filter(fish => fish.isYearRound === false);

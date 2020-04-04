@@ -568,16 +568,4 @@ export const insectData = [
   )
 ];
 
-const nonyearRoundInsect = insectData.filter(insect => insect.month !== "Year-round")
-
-export const importantInsectData = nonyearRoundInsect.reduce((acc, insect) => {
-    const currentMonth = new Date().toLocaleDateString("default", {
-      month: "long"
-    });
-    const insectEndMonths = insect.month.split(/[-,]/g)
-  
-    if (insectEndMonths[1] === currentMonth || (insectEndMonths[3] && insectEndMonths[3] === currentMonth)) acc.push(insect)
-  
-    return acc;
-  
-  }, []);
+export const insectWithDates = insectData.filter(insect => insect.month !== "Year-round")
