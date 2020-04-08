@@ -34,15 +34,22 @@ export const CritterTableHead = ({
   onRequestSort,
   isSortableTable = true,
   type,
-  order,
-  orderBy,
   currentCritterTab
 }) => {
 
+  const [order, setOrder] = useState("asc")
+  const [orderBy, setOrderBy] = useState("number")
+
   const createSortHandler = header => () => {
-    onRequestSort(header);
+    const isAsc = orderBy === header.id && order === "asc"
+    const newOrder = isAsc ? "desc" : "asc";
+    setOrder(newOrder)
+    setOrderBy(header.id)
+    onRequestSort(header, newOrder);
   };
   const tableHeaders = type === 'fish' ? fishTableHeaders : insectTableHeaders;
+  console.log('order', order)
+  console.log('orderBy', orderBy)
 
   return (
     <TableHead>

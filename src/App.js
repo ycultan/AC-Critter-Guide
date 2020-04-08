@@ -16,8 +16,6 @@ function App() {
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
   const [modifiedInsectData, setModifiedInsectData] = useState(insectData)
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
-  const [order, setOrder] = useState("asc")
-  const [orderBy, setOrderBy] = useState("number")
   const queryString = window.location.href.split("/").pop()
   const [critterTab, setCritterTab] = useState(queryString || "fish")
 
@@ -42,24 +40,20 @@ function App() {
     }
   }
 
-  const handleRequestSort = (header) => {
-    const isAsc = orderBy === header.id && order === "asc"
-    const newOrder = isAsc ? "desc" : "asc";
-    setOrder(newOrder)
-    setOrderBy(header.id)
+  const handleRequestSort = (header,order) => {
 
     switch (header.id) {
       case "number":
-          setModifiedFishData([...sortData("id", newOrder)]);
+          setModifiedFishData([...sortData("id", order)]);
         break;
       case "name":
-        setModifiedFishData([...sortData("name", newOrder)]);
+        setModifiedFishData([...sortData("name", order)]);
         break;
       case "location":
-        setModifiedFishData([...sortData("location",newOrder)]);
+        setModifiedFishData([...sortData("location",order)]);
         break;
       case "shadowSize":
-        setModifiedFishData([...sortData("shadowSize",newOrder)]);
+        setModifiedFishData([...sortData("shadowSize",order)]);
         break;
       case "value":
         const sortedByValue = modifiedFishData
@@ -67,7 +61,7 @@ function App() {
             parseInt(a.value.replace(/,/g, "") - b.value.replace(/,/g, ""))
           )
           .reverse();
-        newOrder === "asc" ? setModifiedFishData([...sortedByValue]) : setModifiedFishData([...sortedByValue.reverse()]);
+        order === "asc" ? setModifiedFishData([...sortedByValue]) : setModifiedFishData([...sortedByValue.reverse()]);
         break;
       case "time":
         const allDayFish = modifiedFishData.filter(
@@ -88,7 +82,7 @@ function App() {
             new Date("1970/01/01 " + bTime.join(" "))
           );
         });
-     newOrder === "asc" ? setModifiedFishData([...sortByTime, ...allDayFish]) : setModifiedFishData(([...sortByTime, ...allDayFish]).reverse());
+     order === "asc" ? setModifiedFishData([...sortByTime, ...allDayFish]) : setModifiedFishData(([...sortByTime, ...allDayFish]).reverse());
         break;
       case "month":
         const months = Object.keys(monthNameToNumMap);
@@ -104,7 +98,7 @@ function App() {
           const bMonth = b.month.substring(0, b.month.indexOf("-")) || b.month;
           return months.indexOf(aMonth) - months.indexOf(bMonth);
         });
-        newOrder === "asc" ? setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates)) : setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates).reverse());
+        order === "asc" ? setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates)) : setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates).reverse());
         break;
       default:
         return modifiedFishData;
@@ -123,8 +117,6 @@ function App() {
         modifiedInsectData={modifiedInsectData}
         handleRequestSort={handleRequestSort}
         isSearchingForCritter={isSearchingForCritter}
-        order={order}
-        orderBy={orderBy}
         onCritterTabChange={handleCritterTabChange}
         currentCritterTab={critterTab}
       />

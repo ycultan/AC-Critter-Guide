@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -33,8 +33,6 @@ export const CritterTable = ({
   critterData,
   isSearchingForCritter,
   handleRequestSort,
-  order,
-  orderBy,
   currentCritterTab,
   isImportantSection
 }) => {
@@ -57,8 +55,6 @@ export const CritterTable = ({
               <CritterTableHead
                 type={critter}
                 onRequestSort={handleRequestSort}
-                order={order}
-                orderBy={orderBy}
                 currentCritterTab={currentCritterTab}
               />
             )}

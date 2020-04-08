@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
-import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,8 +55,8 @@ const TabPanel = ({
     >
       {!isSearchingForCritter && <ImportantCritterSection critter={type} />}
 
-      {value === type && fishTable}
-      {value === type && insectTable}
+      {fishTable}
+      {insectTable}
     </Typography>
   );
 };
@@ -67,19 +66,17 @@ export const HeaderTabs = ({
   modifiedInsectData,
   handleRequestSort,
   isSearchingForCritter,
-  order,
-  orderBy,
   onCritterTabChange,
   currentCritterTab
 }) => {
   const classes = useStyles();
 
   const handleChange = (event, newValue) => {
+      event.preventDefault()
     onCritterTabChange(newValue);
   };
 
   return (
-    <BrowserRouter>
       <div className={classes.root}>
         <AppBar position="static" color="default" className={classes.appBar}>
           <Tabs
@@ -92,66 +89,44 @@ export const HeaderTabs = ({
               value="fish"
               label="Fish"
               icon={<FontAwesomeIcon icon={faFish} />}
-              component={Link}
-              to="/fish"
             />
             <Tab
               value="insect"
               label="Insect"
               icon={<FontAwesomeIcon icon={faBug} />}
-              component={Link}
-              to="/insect"
             />
           </Tabs>
         </AppBar>
 
-        <Switch>
-          <Route
-            exact
-            path={["/", "/fish"]}
-            component={() => (
-              <TabPanel
-                value={currentCritterTab}
-                type="fish"
-                fishTable={
-                  <CritterTable
-                    title="All Fish"
-                    critter="fish"
-                    critterData={modifiedFishData}
-                    isSearchingForCritter={isSearchingForCritter}
-                    handleRequestSort={handleRequestSort}
-                    order={order}
-                    orderBy={orderBy}
-                    currentCritterTab={currentCritterTab}
-                  />
-                }
-                isSearchingForCritter={isSearchingForCritter}
-              />
-            )}
-          />
-          <Route
-            path="/insect"
-            component={() => (
-              <TabPanel
-                value={currentCritterTab}
-                type="insect"
-                insectTable={
-                  <CritterTable
-                    title="All Insects"
-                    critter="insect"
-                    critterData={modifiedInsectData}
-                    isSearchingForCritter={isSearchingForCritter}
-                    handleRequestSort={handleRequestSort}
-                    order={order}
-                    orderBy={orderBy}
-                    currentCritterTab={currentCritterTab}
-                  />
-                }
-              />
-            )}
-          />
-        </Switch>
+            <TabPanel
+              value={currentCritterTab}
+              type="fish"
+              fishTable={
+                <CritterTable
+                  title="All Fish"
+                  critter="fish"
+                  critterData={modifiedFishData}
+                  isSearchingForCritter={isSearchingForCritter}
+                  handleRequestSort={handleRequestSort}
+                  currentCritterTab={currentCritterTab}
+                />
+              }
+              isSearchingForCritter={isSearchingForCritter}
+            />
+            <TabPanel
+              value={currentCritterTab}
+              type="insect"
+              insectTable={
+                <CritterTable
+                  title="All Insects"
+                  critter="insect"
+                  critterData={modifiedInsectData}
+                  isSearchingForCritter={isSearchingForCritter}
+                  handleRequestSort={handleRequestSort}
+                  currentCritterTab={currentCritterTab}
+                />
+              }
+            />
       </div>
-    </BrowserRouter>
   );
 };
