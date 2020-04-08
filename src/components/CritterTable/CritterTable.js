@@ -1,6 +1,6 @@
-/* 
- *  
- *  File: CritterTable.js 
+/*
+ *
+ *  File: CritterTable.js
  *  Author: Lucy
  *  Copyright (c) 2020 Lucy Tan
  */
@@ -13,6 +13,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import { Paper, Typography } from "@material-ui/core";
+import { CritterTableHead } from "../CritterTableHeader/CritterTableHead";
 
 const useStyles = makeStyles({
   root: {
@@ -30,8 +31,12 @@ export const CritterTable = ({
   title,
   critter,
   critterData,
-  critterTableHead,
-  isSearchingForCritter
+  isSearchingForCritter,
+  handleRequestSort,
+  order,
+  orderBy,
+  currentCritterTab,
+  isImportantSection
 }) => {
   const classes = useStyles();
   const style = {
@@ -46,7 +51,17 @@ export const CritterTable = ({
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader size="small">
-            {critterTableHead}
+            {isImportantSection ? (
+              <CritterTableHead type={critter} isSortableTable={false} />
+            ) : (
+              <CritterTableHead
+                type={critter}
+                onRequestSort={handleRequestSort}
+                order={order}
+                orderBy={orderBy}
+                currentCritterTab={currentCritterTab}
+              />
+            )}
             <TableBody>
               {critterData.length < 1 && !isSearchingForCritter ? (
                 <TableRow>

@@ -1,16 +1,15 @@
-/* 
- *  
- *  File: HeaderTabs.js 
+/*
+ *
+ *  File: HeaderTabs.js
  *  Author: Lucy
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
-import { CritterTableHead } from "../CritterTableHeader/CritterTableHead";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
 import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
 
@@ -55,7 +54,7 @@ const TabPanel = ({
       id={`scrollable-force-tabpanel-${type}`}
       aria-labelledby={`scrollable-force-tab-${type}`}
     >
-      {!isSearchingForCritter && <ImportantCritterSection type={type} />}
+      {!isSearchingForCritter && <ImportantCritterSection critter={type} />}
 
       {value === type && fishTable}
       {value === type && insectTable}
@@ -71,24 +70,20 @@ export const HeaderTabs = ({
   order,
   orderBy,
   onCritterTabChange,
-  onWhichCritterTab
+  currentCritterTab
 }) => {
   const classes = useStyles();
-  const queryString = window.location.href.split("/").pop()
-  const [currentTab, setCurrentTab] = useState(queryString || "fish")
 
   const handleChange = (event, newValue) => {
     onCritterTabChange(newValue);
-    setCurrentTab(newValue)
   };
-
 
   return (
     <BrowserRouter>
       <div className={classes.root}>
         <AppBar position="static" color="default" className={classes.appBar}>
           <Tabs
-            value={currentTab}
+            value={currentCritterTab}
             onChange={handleChange}
             indicatorColor="primary"
             textColor="primary"
@@ -116,7 +111,7 @@ export const HeaderTabs = ({
             path={["/", "/fish"]}
             component={() => (
               <TabPanel
-                value={currentTab}
+                value={currentCritterTab}
                 type="fish"
                 fishTable={
                   <CritterTable
@@ -124,14 +119,10 @@ export const HeaderTabs = ({
                     critter="fish"
                     critterData={modifiedFishData}
                     isSearchingForCritter={isSearchingForCritter}
-                    critterTableHead={
-                      <CritterTableHead
-                        onRequestSort={handleRequestSort}
-                        order={order}
-                        orderBy={orderBy}
-                        onWhichCritterTab={onWhichCritterTab}
-                      />
-                    }
+                    handleRequestSort={handleRequestSort}
+                    order={order}
+                    orderBy={orderBy}
+                    currentCritterTab={currentCritterTab}
                   />
                 }
                 isSearchingForCritter={isSearchingForCritter}
@@ -142,7 +133,7 @@ export const HeaderTabs = ({
             path="/insect"
             component={() => (
               <TabPanel
-                value={currentTab}
+                value={currentCritterTab}
                 type="insect"
                 insectTable={
                   <CritterTable
@@ -150,14 +141,10 @@ export const HeaderTabs = ({
                     critter="insect"
                     critterData={modifiedInsectData}
                     isSearchingForCritter={isSearchingForCritter}
-                    critterTableHead={
-                      <CritterTableHead
-                        onRequestSort={handleRequestSort}
-                        type="insect"
-                        order={order}
-                        orderBy={orderBy}
-                      />
-                    }
+                    handleRequestSort={handleRequestSort}
+                    order={order}
+                    orderBy={orderBy}
+                    currentCritterTab={currentCritterTab}
                   />
                 }
               />

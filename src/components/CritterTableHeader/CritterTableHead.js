@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React from "react";
+import React, {useState} from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -33,16 +33,15 @@ const insectTableHeaders = [
 export const CritterTableHead = ({
   onRequestSort,
   isSortableTable = true,
-  type = 'fish',
+  type,
   order,
   orderBy,
-  onWhichCritterTab
+  currentCritterTab
 }) => {
 
   const createSortHandler = header => () => {
     onRequestSort(header);
   };
-
   const tableHeaders = type === 'fish' ? fishTableHeaders : insectTableHeaders;
 
   return (
