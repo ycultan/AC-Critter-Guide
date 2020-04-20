@@ -48,8 +48,6 @@ export const CritterTableHead = ({
     onRequestSort(header, newOrder);
   };
   const tableHeaders = type === 'fish' ? fishTableHeaders : insectTableHeaders;
-  console.log('order', order)
-  console.log('orderBy', orderBy)
 
   return (
     <TableHead>

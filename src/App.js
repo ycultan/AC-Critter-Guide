@@ -32,45 +32,49 @@ function App() {
     );
   };
 
-  const sortData = (title, order) => {
+  const sortData = (title, order, data) => {
     if (order === "asc") {
-      return modifiedFishData.sort((a, b) => (a[title] > b[title] ? 1 : -1));
+      return data.sort((a, b) => (a[title] > b[title] ? 1 : -1));
     } else {
-      return modifiedFishData.sort((a, b) => (a[title] > b[title] ? 1 : -1)).reverse();
+      return data.sort((a, b) => (a[title] > b[title] ? 1 : -1)).reverse();
     }
   }
 
-  const handleRequestSort = (header,order) => {
-
+  const sortHelper = (header, order, whichSet, whichData) => {
     switch (header.id) {
       case "number":
-          setModifiedFishData([...sortData("id", order)]);
+          whichSet([...sortData("id", order, whichData)]);
         break;
       case "name":
-        setModifiedFishData([...sortData("name", order)]);
+        whichSet([...sortData("name", order, whichData)]);
         break;
       case "location":
-        setModifiedFishData([...sortData("location",order)]);
+        whichSet([...sortData("location",order, whichData)]);
         break;
       case "shadowSize":
-        setModifiedFishData([...sortData("shadowSize",order)]);
+        whichSet([...sortData("shadowSize",order, whichData)]);
         break;
       case "value":
-        const sortedByValue = modifiedFishData
+        const critterWithValues = whichData.filter(critter => critter.value !== "N/A")
+        const critterWithoutValues = whichData.filter(critter => critter.value === "N/A")
+        const sortedByValue = critterWithValues
           .sort((a, b) =>
             parseInt(a.value.replace(/,/g, "") - b.value.replace(/,/g, ""))
           )
           .reverse();
-        order === "asc" ? setModifiedFishData([...sortedByValue]) : setModifiedFishData([...sortedByValue.reverse()]);
+        order === "asc" ? whichSet([...sortedByValue, ...critterWithoutValues]) : whichSet(([...sortedByValue, ...critterWithoutValues]).reverse());
         break;
       case "time":
-        const allDayFish = modifiedFishData.filter(
-          fish => fish.time === "All day"
+        const allDayCritter = whichData.filter(
+          critter => critter.time === "All day"
         );
-        const fishWithTimes = modifiedFishData.filter(
-          fish => fish.time !== "All day"
+        const critterWithTimes = whichData.filter(
+          critter => {
+            if (critter.time === "All day" || critter.time === "Unknown") return false
+            return true
+          }
         );
-        const sortByTime = fishWithTimes.sort((a, b) => {
+        const sortByTime = critterWithTimes.sort((a, b) => {
           const aTime = a.time.substring(0, a.time.indexOf("-")).split(" ");
           const bTime = b.time.substring(0, b.time.indexOf("-")).split(" ");
           aTime[0] = aTime[0].concat(":00");
@@ -82,27 +86,42 @@ function App() {
             new Date("1970/01/01 " + bTime.join(" "))
           );
         });
-     order === "asc" ? setModifiedFishData([...sortByTime, ...allDayFish]) : setModifiedFishData(([...sortByTime, ...allDayFish]).reverse());
+     order === "asc" ? whichSet([...sortByTime, ...allDayCritter]) : whichSet(([...sortByTime, ...allDayCritter]).reverse());
         break;
       case "month":
         const months = Object.keys(monthNameToNumMap);
 
-        const fishWithoutDates = modifiedFishData.filter(
-          fish => fish.isYearRound === true
+        const critterWithoutDates = whichData.filter(
+          critter => {
+            if (critter.isYearRound || critter.month === "Year-round") return true
+            return false
+          }
         );
-        const fishWithDates = modifiedFishData.filter(
-          fish => fish.isYearRound === false
+        const critterWithDates = whichData.filter(
+          critter => {
+            if (critter.isYearRound || critter.month === "Year-round") return false
+            return true
+          }
         );
-        const sortedFishWithDates = fishWithDates.sort((a, b) => {
+        const sortedcritterWithDates = critterWithDates.sort((a, b) => {
           const aMonth = a.month.substring(0, a.month.indexOf("-")) || a.month;
           const bMonth = b.month.substring(0, b.month.indexOf("-")) || b.month;
           return months.indexOf(aMonth) - months.indexOf(bMonth);
         });
-        order === "asc" ? setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates)) : setModifiedFishData(sortedFishWithDates.concat(fishWithoutDates).reverse());
+        order === "asc" ? whichSet([...sortedcritterWithDates,...critterWithoutDates]) : whichSet(([...sortedcritterWithDates, ...critterWithoutDates]).reverse());
         break;
       default:
-        return modifiedFishData;
+        return whichData;
     }
+  }
+
+  const handleRequestSort = (header,order) => {
+    if (critterTab === "fish") {
+      sortHelper(header, order, setModifiedFishData, modifiedFishData)
+    } else if (critterTab === "insect") {
+      sortHelper(header, order, setModifiedInsectData, modifiedInsectData)
+    }
+      
   };
 
   const handleCritterTabChange = tab => {
