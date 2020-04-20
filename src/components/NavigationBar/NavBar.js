@@ -7,8 +7,9 @@
 
 import React from "react";
 import "./NavBar.css";
+import { SearchBar } from "../SearchBar/SearchBar";
 
-export const NavBar = ({searchBar}) => {
+export const NavBar = ({searchCritter}) => {
 
   return (
     <div className="container">
@@ -16,7 +17,7 @@ export const NavBar = ({searchBar}) => {
         src="https://www.animal-crossing.com/new-horizons/assets/img/global/logos/logo-acnh-en.png"
         alt=""
       />
-      {searchBar}
+      <SearchBar searchCritter={searchCritter} />
     </div>
   );
 };

@@ -7,13 +7,12 @@
 
 import React from "react";
 import { CritterTable } from "../CritterTable/CritterTable";
-import { CritterTableHead } from "../CritterTableHeader/CritterTableHead";
 import { fishWithDates } from "../../data/FishData";
 import { insectWithDates } from "../../data/InsectData";
 import { getCrittersAvailableThisMonth, getCrittersLeavingThisMonth } from "../../data/utils";
 
-export const ImportantCritterSection = ({ type }) => {
-  const critterWithDates = type === 'fish' ? fishWithDates : insectWithDates;
+export const ImportantCritterSection = ({ critter }) => {
+  const critterWithDates = critter === 'fish' ? fishWithDates : insectWithDates;
 
   return (
     <>
@@ -21,7 +20,8 @@ export const ImportantCritterSection = ({ type }) => {
         <CritterTable
           title="I'm leaving this month :("
           critterData={getCrittersLeavingThisMonth(critterWithDates)}
-          critterTableHead={<CritterTableHead type={type} isSortableTable={false} />}
+          isImportantSection={true}
+          critter={critter}
         />
       </div>
 
@@ -29,7 +29,8 @@ export const ImportantCritterSection = ({ type }) => {
         <CritterTable
           title="I'm available! Catch me if you can! >:)"
           critterData={getCrittersAvailableThisMonth(critterWithDates)}
-          critterTableHead={<CritterTableHead type={type} isSortableTable={false} />}
+          isImportantSection={true}
+          critter={critter}
         />
       </div>
     </>
