@@ -16,8 +16,7 @@ function App() {
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
   const [modifiedInsectData, setModifiedInsectData] = useState(insectData)
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
-  const queryString = window.location.href.split("/").pop()
-  const [critterTab, setCritterTab] = useState(queryString || "fish")
+  const [critterTab, setCritterTab] = useState("fish")
 
   const searchCritter = value => {
     if (value === "") {
