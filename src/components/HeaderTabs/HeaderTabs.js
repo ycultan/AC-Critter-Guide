@@ -72,61 +72,61 @@ export const HeaderTabs = ({
   const classes = useStyles();
 
   const handleChange = (event, newValue) => {
-      event.preventDefault()
+    event.preventDefault();
     onCritterTabChange(newValue);
   };
 
   return (
-      <div className={classes.root}>
-        <AppBar position="static" color="default" className={classes.appBar}>
-          <Tabs
-            value={currentCritterTab}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            <Tab
-              value="fish"
-              label="Fish"
-              icon={<FontAwesomeIcon icon={faFish} />}
-            />
-            <Tab
-              value="insect"
-              label="Insect"
-              icon={<FontAwesomeIcon icon={faBug} />}
-            />
-          </Tabs>
-        </AppBar>
+    <div className={classes.root}>
+      <AppBar position="static" color="default" className={classes.appBar}>
+        <Tabs
+          value={currentCritterTab}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          <Tab
+            value="fish"
+            label="Fish"
+            icon={<FontAwesomeIcon icon={faFish} />}
+          />
+          <Tab
+            value="insect"
+            label="Insect"
+            icon={<FontAwesomeIcon icon={faBug} />}
+          />
+        </Tabs>
+      </AppBar>
 
-            <TabPanel
-              value={currentCritterTab}
-              type="fish"
-              fishTable={
-                <CritterTable
-                  title="All Fish"
-                  critter="fish"
-                  critterData={modifiedFishData}
-                  isSearchingForCritter={isSearchingForCritter}
-                  handleRequestSort={handleRequestSort}
-                  currentCritterTab={currentCritterTab}
-                />
-              }
-              isSearchingForCritter={isSearchingForCritter}
-            />
-            <TabPanel
-              value={currentCritterTab}
-              type="insect"
-              insectTable={
-                <CritterTable
-                  title="All Insects"
-                  critter="insect"
-                  critterData={modifiedInsectData}
-                  isSearchingForCritter={isSearchingForCritter}
-                  handleRequestSort={handleRequestSort}
-                  currentCritterTab={currentCritterTab}
-                />
-              }
-            />
-      </div>
+      <TabPanel
+        value={currentCritterTab}
+        type="fish"
+        fishTable={
+          <CritterTable
+            title="All Fish"
+            critter="fish"
+            critterData={modifiedFishData}
+            isSearchingForCritter={isSearchingForCritter}
+            handleRequestSort={handleRequestSort}
+            currentCritterTab={currentCritterTab}
+          />
+        }
+        isSearchingForCritter={isSearchingForCritter}
+      />
+      <TabPanel
+        value={currentCritterTab}
+        type="insect"
+        insectTable={
+          <CritterTable
+            title="All Insects"
+            critter="insect"
+            critterData={modifiedInsectData}
+            isSearchingForCritter={isSearchingForCritter}
+            handleRequestSort={handleRequestSort}
+            currentCritterTab={currentCritterTab}
+          />
+        }
+      />
+    </div>
   );
 };
