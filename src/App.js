@@ -18,17 +18,26 @@ function App() {
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
   const [critterTab, setCritterTab] = useState("fish")
 
+  const searchHelper = (value, whichSet, whichData) => {
+    whichSet(
+      whichData.filter(critter =>
+        critter.name.toLowerCase().includes(value.toLowerCase())
+      )
+    );
+  }
   const searchCritter = value => {
     if (value === "") {
       setIsSearchingForCritter(false);
     } else {
       setIsSearchingForCritter(true);
     }
-    setModifiedFishData(
-      fishData.filter(fish =>
-        fish.name.toLowerCase().includes(value.toLowerCase())
-      )
-    );
+
+    if (critterTab === "fish") {
+      searchHelper(value, setModifiedFishData, fishData)
+    } else if (critterTab === "insect") {
+      searchHelper(value, setModifiedInsectData, insectData)
+    }
+    
   };
 
   const sortData = (title, order, data) => {
