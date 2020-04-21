@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -30,9 +30,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const SearchBar = ({ searchCritter }) => {
+export const SearchBar = ({ searchCritter, critterTab }) => {
   const classes = useStyles();
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    setSearch('');
+  }, [critterTab])
 
   const onSearchInputChange = e => {
     setSearch(e.target.value);
