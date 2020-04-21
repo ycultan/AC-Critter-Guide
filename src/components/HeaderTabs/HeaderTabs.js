@@ -126,6 +126,7 @@ export const HeaderTabs = ({
             currentCritterTab={currentCritterTab}
           />
         }
+        isSearchingForCritter={isSearchingForCritter}
       />
     </div>
   );
