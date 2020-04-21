@@ -9,7 +9,7 @@ import React from "react";
 import "./NavBar.css";
 import { SearchBar } from "../SearchBar/SearchBar";
 
-export const NavBar = ({searchCritter}) => {
+export const NavBar = ({searchCritter, critterTab}) => {
 
   return (
     <div className="container">
@@ -17,7 +17,7 @@ export const NavBar = ({searchCritter}) => {
         src="https://www.animal-crossing.com/new-horizons/assets/img/global/logos/logo-acnh-en.png"
         alt=""
       />
-      <SearchBar searchCritter={searchCritter} />
+      <SearchBar searchCritter={searchCritter} critterTab={critterTab} />
     </div>
   );
 };

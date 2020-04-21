@@ -129,7 +129,7 @@ function App() {
 
   return (
     <div>
-      <NavBar searchCritter={searchCritter} />
+      <NavBar searchCritter={searchCritter} critterTab={critterTab} />
       <HeaderTabs
         modifiedFishData={modifiedFishData}
         modifiedInsectData={modifiedInsectData}
