@@ -10,13 +10,16 @@ import { fishData } from "./data/FishData";
 import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
 import { insectData } from "./data/InsectData";
-import { monthNameToNumMap } from "./data/utils";
+import { getQueryParam, monthNameToNumMap } from "./data/utils";
 
 function App() {
+  const params = getQueryParam();
+  const isQueryTypeInsect = params.type === 'Insect' || params.type === 'Bug';
+
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
   const [modifiedInsectData, setModifiedInsectData] = useState(insectData)
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
-  const [critterTab, setCritterTab] = useState("fish")
+  const [critterTab, setCritterTab] = useState(isQueryTypeInsect ? 'insect' : 'fish')
 
   const searchHelper = (value, whichSet, whichData) => {
     whichSet(

@@ -5,16 +5,38 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-export const getCrittersLeavingThisMonth = crittersWithDates => crittersWithDates.reduce((acc, crit) => {
-  const currentMonth = new Date().toLocaleDateString("default", { month: "long" });
+export const getCrittersLeavingByMonth = (crittersWithDates, monthName) => crittersWithDates.reduce((acc, crit) => {
   const endMonths = crit.month.split(/[-,]/g)
 
-  if (endMonths[1] === currentMonth || (endMonths[3] && endMonths[3] === currentMonth)) acc.push(crit)
+  if (endMonths[1] === monthName || (endMonths[3] && endMonths[3] === monthName)) acc.push(crit)
 
   return acc;
 }, []);
 
- export const monthNameToNumMap = {
+function toTitleCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
+
+export const getQueryParam = (params = document.location.search.split(/[&?]/g)) => {
+  const obj = {};
+
+  for (const param of params) {
+    if (!param) continue;
+
+    const [key = '', value = ''] = param.split('=');
+
+    obj[key.toLowerCase()] = toTitleCase(value.trim());
+  }
+
+  return obj;
+};
+
+export const monthNameToNumMap = {
   "January": 0,
   "February": 1,
   "March": 2,
@@ -29,8 +51,8 @@ export const getCrittersLeavingThisMonth = crittersWithDates => crittersWithDate
   "December": 11
 }
 
-export const getCrittersAvailableThisMonth = critterWithDates => {
-  const thisMonth = new Date().getMonth();
+export const getCrittersAvailableByMonth = (critterWithDates, monthNum) => {
+  const thisMonth = monthNum || new Date().getMonth(); // int
 
   const crittersThisMonth = critterWithDates.filter(crit => {
     const monthRanges = crit.month.split(',');

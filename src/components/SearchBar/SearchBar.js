@@ -5,11 +5,14 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+
+import { getQueryParam } from "../../data/utils";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,10 +35,20 @@ const useStyles = makeStyles(theme => ({
 
 export const SearchBar = ({ searchCritter, critterTab }) => {
   const classes = useStyles();
-  const [search, setSearch] = useState("");
+  const initRender = useRef(true);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    setSearch('');
+    if (initRender.current) {
+      const params = getQueryParam();
+      const q = params.search || params.q || '';
+      setSearch(q);
+      searchCritter(q)
+
+      initRender.current = false;
+    } else {
+      setSearch('');
+    }
   }, [critterTab])
 
   const onSearchInputChange = e => {
