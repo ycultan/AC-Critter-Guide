@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Rosemary Chen
  */
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import "./styles.css";
@@ -27,10 +27,20 @@ const useStyles = makeStyles((theme) => ({
 export const VillagerCard = ({ villager, highlight }) => {
   const { name, description, img } = villager;
   const classes = useStyles();
-  const newDesc = insertBoldTagsForImportantInfo(description)
+  const newDesc = insertBoldTagsForImportantInfo(description);
+  const ref = useRef();
+
+  useEffect(() => {
+    if (highlight && ref.current) {
+      ref.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end'
+      });
+    }
+  }, [highlight, ref]);
 
   return (
-    <Paper className={`card ${classes.root} ${highlight && 'highlight'}`}>
+    <Paper id={`${name}-card`} className={`card ${classes.root} ${highlight && 'highlight'}`} ref={ref}>
       <img src={img} alt={name}/>
       <Typography gutterBottom variant="h5" component="h2">
         {name}
