@@ -34,7 +34,7 @@ const villagerMap = villagerData.villagers;
 
 export const VillagerTable = ({ foundVillager, clearFoundVillager }) => {
   const classes = useStyles();
-  const animalParam = getQueryParam().animal.toLowerCase();
+  const animalParam = (getQueryParam().animal || '').toLowerCase();
   const initAnimal = foundVillager?.category || categories.includes(animalParam) ? animalParam : categories[0];
 
   const [animalType, setAnimalType] = useState(initAnimal);

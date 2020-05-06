@@ -22,6 +22,6 @@
   margin-right: auto;
 }
 
-.titleCase {
-  text-transform: capitalize;
+.caps {
+  text-transform: uppercase;
 }
