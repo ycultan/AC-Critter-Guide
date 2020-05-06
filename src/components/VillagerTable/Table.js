@@ -18,10 +18,10 @@ const useStyles = makeStyles({
   cardContainer: {
     display: 'flex',
     flexWrap: 'wrap',
-    alignContent: 'space-between'
+    justifyContent: 'space-between'
   },
   categoryContainer: {
-    margin: '8px 0'
+    margin: '16px 0'
   },
   button: {
     margin: '2px'
