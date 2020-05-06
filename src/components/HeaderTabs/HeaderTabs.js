@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
+import { MAX_WIDTH } from "../../const";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +22,9 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     background: "transparent",
     boxShadow: "none",
-    flexDirection: "row"
+    flexDirection: "row",
+    maxWidth: MAX_WIDTH,
+    margin: "auto"
   },
   icon: {
     marginRight: theme.spacing(0.5),

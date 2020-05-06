@@ -11,8 +11,13 @@ import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
 import { insectData } from "./data/InsectData";
 import { getQueryParam, monthNameToNumMap } from "./data/utils";
+import {MAX_WIDTH} from "./const";
 
 function App() {
+  const style = {
+    app: { margin: '16px' }
+  };
+
   const params = getQueryParam();
   const isQueryTypeInsect = params.type === 'Insect' || params.type === 'Bug';
 
@@ -140,7 +145,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div style={style.app}>
       <NavBar searchCritter={searchCritter} critterTab={critterTab} />
       <HeaderTabs
         modifiedFishData={modifiedFishData}
