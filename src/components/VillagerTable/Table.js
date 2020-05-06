@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography } from "@material-ui/core";
 import { VillagerCard } from "./Card";
 import { villagerData } from "../../data/VillagerData";
+import { getQueryParam } from "../../data/utils";
 
 const useStyles = makeStyles({
   root: {
@@ -33,8 +34,12 @@ const villagerMap = villagerData.villagers;
 
 export const VillagerTable = () => {
   const classes = useStyles();
-  const [animalType, setAnimalType] = useState(categories[0]);
+  const animalParam = getQueryParam().animal.toLowerCase();
+  const initAnimal = categories.includes(animalParam) ? animalParam : categories[0];
+
+  const [animalType, setAnimalType] = useState(initAnimal);
   const [villagers, setVillagers] = useState([]);
+
   useEffect(() => {
     if (!animalType) return; // should not happen
 
@@ -46,14 +51,16 @@ export const VillagerTable = () => {
       <Typography variant="h6">Villagers</Typography>
       <div className={classes.root}>
         <div className={classes.categoryContainer}>
-          {categories.map(animalType =>
+          {categories.map(category =>
             <Button
+              key={`${category}-btn`}
               className={classes.button}
               size="small"
-              variant="outlined"
-              onClick={() => setAnimalType(animalType)}
+              variant={category === animalType ? 'contained' : 'outlined'}
+              onClick={() => setAnimalType(category)}
+              color={category === animalType ? 'primary' : 'default'}
             >
-              {animalType}
+              {category}
             </Button>
           )}
         </div>
