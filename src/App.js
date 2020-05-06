@@ -11,7 +11,6 @@ import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
 import { insectData } from "./data/InsectData";
 import { getQueryParam, monthNameToNumMap } from "./data/utils";
-import {MAX_WIDTH} from "./const";
 
 function App() {
   const style = {
@@ -19,12 +18,15 @@ function App() {
   };
 
   const params = getQueryParam();
-  const isQueryTypeInsect = params.type === 'Insect' || params.type === 'Bug';
 
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
   const [modifiedInsectData, setModifiedInsectData] = useState(insectData)
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
-  const [critterTab, setCritterTab] = useState(isQueryTypeInsect ? 'insect' : 'fish')
+  const [critterTab, setCritterTab] = useState({
+    Bug: 'insect',
+    Insect: 'insect',
+    Villager: 'villager'
+  }[params.type] || 'fish')
 
   const searchHelper = (value, whichSet, whichData) => {
     whichSet(
