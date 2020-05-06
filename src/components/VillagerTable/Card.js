@@ -24,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const VillagerCard = ({ villager }) => {
+export const VillagerCard = ({ villager, highlight }) => {
   const { name, description, img } = villager;
   const classes = useStyles();
 
   return (
-    <Paper className={`card ${classes.root}`}>
+    <Paper className={`card ${classes.root} ${highlight && 'highlight'}`}>
       <img src={img} alt={name}/>
       <Typography gutterBottom variant="h5" component="h2">
         {name}

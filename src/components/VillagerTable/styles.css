@@ -12,6 +12,9 @@
 .card.MuiPaper-root {
   background-color: #fdfdfd;
 }
+.card.MuiPaper-root.highlight {
+  background-color: #E2F2FC;
+}
 
 .card img {
   display: block;

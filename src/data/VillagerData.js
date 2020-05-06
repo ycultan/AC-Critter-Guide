@@ -5548,3 +5548,7 @@ export const villagerData = {
     }],
   }
 };
+
+export const villagersList = villagerData.categories.reduce((acc, key) => {
+  return [...acc, ...villagerData.villagers[key]];
+}, []);

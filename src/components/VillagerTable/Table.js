@@ -32,18 +32,20 @@ const useStyles = makeStyles({
 const categories = villagerData.categories;
 const villagerMap = villagerData.villagers;
 
-export const VillagerTable = () => {
+export const VillagerTable = ({ foundVillager, clearFoundVillager }) => {
   const classes = useStyles();
   const animalParam = getQueryParam().animal.toLowerCase();
-  const initAnimal = categories.includes(animalParam) ? animalParam : categories[0];
+  const initAnimal = foundVillager?.category || categories.includes(animalParam) ? animalParam : categories[0];
 
   const [animalType, setAnimalType] = useState(initAnimal);
   const [villagers, setVillagers] = useState([]);
 
   useEffect(() => {
-    if (!animalType) return; // should not happen
+    if (foundVillager) setAnimalType(foundVillager.category)
+  }, [foundVillager])
 
-    setVillagers(villagerMap[animalType]);
+  useEffect(() => {
+    if (animalType) setVillagers(villagerMap[animalType]);
   }, [animalType]);
 
   return (
@@ -57,7 +59,7 @@ export const VillagerTable = () => {
               className={classes.button}
               size="small"
               variant={category === animalType ? 'contained' : 'outlined'}
-              onClick={() => setAnimalType(category)}
+              onClick={() => { setAnimalType(category); clearFoundVillager(); } }
               color={category === animalType ? 'primary' : 'default'}
             >
               {category}
@@ -65,7 +67,12 @@ export const VillagerTable = () => {
           )}
         </div>
         <div className={classes.cardContainer}>
-          {villagers.map(villager => <VillagerCard villager={villager} />)}
+          {villagers.map(villager =>
+            <VillagerCard
+              villager={villager}
+              highlight={villager.name === foundVillager?.name}
+            />
+          )}
         </div>
       </div>
     </div>

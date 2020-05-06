@@ -8,7 +8,7 @@
 import React from "react";
 import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFish, faBug, faAddressCard } from "@fortawesome/free-solid-svg-icons";
+import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { VillagerTable } from "../VillagerTable/Table";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
@@ -63,6 +63,8 @@ const TabPanel = ({
 };
 
 export const HeaderTabs = ({
+  clearFoundVillager,
+  foundVillager,
   modifiedFishData,
   modifiedInsectData,
   handleRequestSort,
@@ -98,7 +100,7 @@ export const HeaderTabs = ({
           <Tab
             value="villager"
             label="villager"
-            icon={<FontAwesomeIcon icon={faAddressCard} />}
+            icon={<FontAwesomeIcon icon={faHouseUser} />}
           />
         </Tabs>
       </AppBar>
@@ -137,7 +139,7 @@ export const HeaderTabs = ({
         value={currentCritterTab}
         type="villager"
         table={
-          <VillagerTable />
+          <VillagerTable foundVillager={foundVillager} clearFoundVillager={clearFoundVillager} />
         }
         showImportantSection={false}
       />
