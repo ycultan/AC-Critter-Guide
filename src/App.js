@@ -11,25 +11,35 @@ import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
 import { insectData } from "./data/InsectData";
 import { getQueryParam, monthNameToNumMap } from "./data/utils";
+import { villagersList } from "./data/VillagerData";
 
 function App() {
-  const params = getQueryParam();
-  const isQueryTypeInsect = params.type === 'Insect' || params.type === 'Bug';
+  const style = {
+    app: { margin: '16px' }
+  };
 
+  const params = getQueryParam();
+
+  const [foundVillager, setFoundVillager] = useState();
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
   const [modifiedInsectData, setModifiedInsectData] = useState(insectData)
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
-  const [critterTab, setCritterTab] = useState(isQueryTypeInsect ? 'insect' : 'fish')
+  const [critterTab, setCritterTab] = useState({
+    Bug: 'insect',
+    Insect: 'insect',
+    Villager: 'villager'
+  }[params.type] || 'fish')
 
-  const searchHelper = (value, whichSet, whichData) => {
-    whichSet(
+  const searchHelper = (searchVal, whichSetter, whichData) => {
+    whichSetter(
       whichData.filter(critter =>
-        critter.name.toLowerCase().includes(value.toLowerCase())
+        critter.name.toLowerCase().includes(searchVal.toLowerCase())
       )
     );
   }
-  const searchCritter = value => {
-    if (value === "") {
+
+  const searchCritter = (value = '') => {
+    if (!value) {
       setIsSearchingForCritter(false);
     } else {
       setIsSearchingForCritter(true);
@@ -39,8 +49,13 @@ function App() {
       searchHelper(value, setModifiedFishData, fishData)
     } else if (critterTab === "insect") {
       searchHelper(value, setModifiedInsectData, insectData)
+    } else if (critterTab === "villager") {
+      if (value.length < 2) return setFoundVillager()
+
+      const foundVillager = villagersList.find(villager  => villager.name.toLowerCase().includes(value))
+
+      if (foundVillager) setFoundVillager(foundVillager)
     }
-    
   };
 
   const sortData = (title, order, data) => {
@@ -140,9 +155,11 @@ function App() {
   }
 
   return (
-    <div>
+    <div style={style.app}>
       <NavBar searchCritter={searchCritter} critterTab={critterTab} />
       <HeaderTabs
+        clearFoundVillager={() => setFoundVillager()}
+        foundVillager={foundVillager}
         modifiedFishData={modifiedFishData}
         modifiedInsectData={modifiedInsectData}
         handleRequestSort={handleRequestSort}

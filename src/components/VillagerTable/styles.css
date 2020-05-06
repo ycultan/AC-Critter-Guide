@@ -1,0 +1,27 @@
+/* *
+ *
+ *  File: styles.scss
+ *  Author: Rosemary
+ *  Copyright (c) 2020 Rosemary Chen
+ */
+.card {
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
+.card.MuiPaper-root {
+  background-color: #fdfdfd;
+}
+.card.MuiPaper-root.highlight {
+  background-color: #E2F2FC;
+}
+
+.card img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.caps {
+  text-transform: uppercase;
+}

@@ -8,9 +8,11 @@
 import React from "react";
 import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFish, faBug } from "@fortawesome/free-solid-svg-icons";
+import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
+import { VillagerTable } from "../VillagerTable/Table";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
+import { MAX_WIDTH } from "../../const";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +23,9 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     background: "transparent",
     boxShadow: "none",
-    flexDirection: "row"
+    flexDirection: "row",
+    maxWidth: MAX_WIDTH,
+    margin: "auto"
   },
   icon: {
     marginRight: theme.spacing(0.5),
@@ -38,11 +42,10 @@ const style = {
 };
 
 const TabPanel = ({
-  fishTable,
-  insectTable,
+  table,
   value,
   type,
-  isSearchingForCritter
+  showImportantSection
 }) => {
   return (
     <Typography
@@ -53,15 +56,15 @@ const TabPanel = ({
       id={`scrollable-force-tabpanel-${type}`}
       aria-labelledby={`scrollable-force-tab-${type}`}
     >
-      {!isSearchingForCritter && <ImportantCritterSection critter={type} />}
-
-      {fishTable}
-      {insectTable}
+      {showImportantSection && <ImportantCritterSection critter={type} />}
+      {table}
     </Typography>
   );
 };
 
 export const HeaderTabs = ({
+  clearFoundVillager,
+  foundVillager,
   modifiedFishData,
   modifiedInsectData,
   handleRequestSort,
@@ -70,7 +73,6 @@ export const HeaderTabs = ({
   currentCritterTab
 }) => {
   const classes = useStyles();
-
   const handleChange = (event, newValue) => {
     event.preventDefault();
     onCritterTabChange(newValue);
@@ -95,13 +97,18 @@ export const HeaderTabs = ({
             label="Insect"
             icon={<FontAwesomeIcon icon={faBug} />}
           />
+          <Tab
+            value="villager"
+            label="villager"
+            icon={<FontAwesomeIcon icon={faHouseUser} />}
+          />
         </Tabs>
       </AppBar>
 
       <TabPanel
         value={currentCritterTab}
         type="fish"
-        fishTable={
+        table={
           <CritterTable
             title="All Fish"
             critter="fish"
@@ -111,12 +118,12 @@ export const HeaderTabs = ({
             currentCritterTab={currentCritterTab}
           />
         }
-        isSearchingForCritter={isSearchingForCritter}
+        showImportantSection={!isSearchingForCritter}
       />
       <TabPanel
         value={currentCritterTab}
         type="insect"
-        insectTable={
+        table={
           <CritterTable
             title="All Insects"
             critter="insect"
@@ -126,7 +133,15 @@ export const HeaderTabs = ({
             currentCritterTab={currentCritterTab}
           />
         }
-        isSearchingForCritter={isSearchingForCritter}
+        showImportantSection={!isSearchingForCritter}
+      />
+      <TabPanel
+        value={currentCritterTab}
+        type="villager"
+        table={
+          <VillagerTable foundVillager={foundVillager} clearFoundVillager={clearFoundVillager} />
+        }
+        showImportantSection={false}
       />
     </div>
   );

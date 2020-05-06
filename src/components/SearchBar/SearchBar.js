@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     width: 290,
     height: 40,
-    margin: "auto 10px auto auto"
+    margin: "auto 0 auto auto"
   },
   input: {
     marginLeft: theme.spacing(1),
