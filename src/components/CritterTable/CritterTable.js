@@ -19,11 +19,11 @@ const useStyles = makeStyles({
   root: {
     width: "100%"
   },
-  container: {
-    maxHeight: "100vh"
-  },
   table: {
     minWidth: 650
+  },
+  h6: {
+    margin: "16px 0"
   }
 });
 
@@ -37,17 +37,14 @@ export const CritterTable = ({
   isImportantSection
 }) => {
   const classes = useStyles();
-  const style = {
-    marginLeft: "15px"
-  };
 
   return (
     <>
-      <Typography variant="h6" style={style}>
+      <Typography variant="h6" className={classes.h6}>
         {title}
       </Typography>
       <Paper className={classes.root}>
-        <TableContainer className={classes.container}>
+        <TableContainer>
           <Table stickyHeader size="small">
             {isImportantSection ? (
               <CritterTableHead type={critter} isSortableTable={false} />
