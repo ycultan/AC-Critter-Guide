@@ -7,6 +7,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 
+import { debounce } from 'lodash';
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -35,8 +36,11 @@ const useStyles = makeStyles(theme => ({
 
 export const SearchBar = ({ searchCritter, critterTab }) => {
   const classes = useStyles();
-  const initRender = useRef(true);
   const [search, setSearch] = useState('');
+  const initRender = useRef(true);
+  const debouncer = useRef(debounce(val => {
+    searchCritter(val);
+  }, 300, { leading: false, trailing: true }));
 
   useEffect(() => {
     if (initRender.current) {
@@ -53,7 +57,7 @@ export const SearchBar = ({ searchCritter, critterTab }) => {
 
   const onSearchInputChange = e => {
     setSearch(e.target.value);
-    searchCritter(e.target.value);
+    debouncer.current(e.target.value);
   };
 
   return (

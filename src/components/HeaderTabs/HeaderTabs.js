@@ -110,7 +110,7 @@ export const HeaderTabs = ({
         type="fish"
         table={
           <CritterTable
-            title="All Fish"
+            title="Fishes"
             critter="fish"
             critterData={modifiedFishData}
             isSearchingForCritter={isSearchingForCritter}
@@ -125,7 +125,7 @@ export const HeaderTabs = ({
         type="insect"
         table={
           <CritterTable
-            title="All Insects"
+            title="Insects"
             critter="insect"
             critterData={modifiedInsectData}
             isSearchingForCritter={isSearchingForCritter}
