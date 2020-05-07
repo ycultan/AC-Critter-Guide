@@ -9,10 +9,11 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography } from "@material-ui/core";
 import { VillagerCard } from "./Card";
+import { DropdownSelector } from "../DropdownSelector/DropdownSelector";
 import { villagerData } from "../../data/VillagerData";
 import { getQueryParam } from "../../data/utils";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100%'
   },
@@ -22,12 +23,29 @@ const useStyles = makeStyles({
     justifyContent: 'space-between'
   },
   categoryContainer: {
-    margin: '16px 0'
+    margin: '16px 0',
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.up('sm')]: {
+      display: 'block'
+    },
+  },
+  dropdownContainer: {
+    margin: '16px 0',
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'block'
+    },
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
+    },
   },
   button: {
     margin: '2px'
   }
-});
+}));
 
 const categories = villagerData.categories;
 const villagerMap = villagerData.villagers;
@@ -48,6 +66,11 @@ export const VillagerTable = ({ foundVillager, clearFoundVillager }) => {
     if (animalType) setVillagers(villagerMap[animalType]);
   }, [animalType]);
 
+  const onSelectCategory = e => {
+    setAnimalType(e.target.value);
+    clearFoundVillager();
+  };
+
   return (
     <div>
       <Typography variant="h6">Villagers</Typography>
@@ -65,6 +88,9 @@ export const VillagerTable = ({ foundVillager, clearFoundVillager }) => {
               {category}
             </Button>
           )}
+        </div>
+        <div className={classes.dropdownContainer}>
+          <DropdownSelector label="Category" data={categories} selected={animalType} onSelect={onSelectCategory} />
         </div>
         <div className={classes.cardContainer}>
           {villagers.map(villager =>

@@ -6,10 +6,11 @@
  */
 
 import React, { useState } from "react";
-import { Button, FormControl, Select, Input, InputLabel, MenuItem } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { CritterTable } from "../CritterTable/CritterTable";
+import { DropdownSelector } from "../DropdownSelector/DropdownSelector";
 import { fishWithDates } from "../../data/FishData";
 import { insectWithDates } from "../../data/InsectData";
 import { getCrittersAvailableByMonth, getCrittersLeavingByMonth, getQueryParam, monthNameToNumMap } from "../../data/utils";
@@ -35,23 +36,10 @@ const useStyles = makeStyles((theme) => ({
       display: 'none'
     },
   },
-  formControl: {
-    width: '100%'
-  },
   button: {
     margin: '2px'
   }
 }));
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP
-    },
-  },
-};
 
 const monthNames = Object.keys(monthNameToNumMap)
 
@@ -77,21 +65,7 @@ export const ImportantCritterSection = ({ critter }) => {
         )}
       </div>
       <div className={classes.dropdownContainer}>
-        <FormControl className={classes.formControl}>
-          <InputLabel>Month</InputLabel>
-          <Select
-            value={selectedMonth}
-            onChange={e => setSelectedMonth(e.target.value)}
-            input={<Input />}
-            MenuProps={MenuProps}
-          >
-            {monthNames.map((name) => (
-              <MenuItem key={name} value={name}>
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <DropdownSelector label="Month" data={monthNames} selected={selectedMonth} onSelect={e => setSelectedMonth(e.target.value)} />
       </div>
       <div style={{margin: '20px 0px'}}>
         <CritterTable

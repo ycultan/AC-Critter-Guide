@@ -38,9 +38,7 @@ export const SearchBar = ({ searchCritter, critterTab }) => {
   const classes = useStyles();
   const [search, setSearch] = useState('');
   const initRender = useRef(true);
-  const debouncer = useRef(debounce(val => {
-    searchCritter(val);
-  }, 300, { leading: false, trailing: true }));
+  const debouncer = useRef();
 
   useEffect(() => {
     if (initRender.current) {
@@ -52,6 +50,11 @@ export const SearchBar = ({ searchCritter, critterTab }) => {
       initRender.current = false;
     } else {
       setSearch('');
+      searchCritter('');
+
+      debouncer.current = debounce(val => {
+        searchCritter(val);
+      }, 300, { leading: false, trailing: true });
     }
   }, [critterTab])
 
