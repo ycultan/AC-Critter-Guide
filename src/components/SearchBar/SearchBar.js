@@ -56,7 +56,7 @@ export const SearchBar = ({ searchCritter, critterTab }) => {
         searchCritter(val);
       }, 300, { leading: false, trailing: true });
     }
-  }, [critterTab])
+  }, [critterTab, searchCritter])
 
   const onSearchInputChange = e => {
     setSearch(e.target.value);
