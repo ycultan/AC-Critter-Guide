@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const VillagerCard = ({ villager, highlight }) => {
+export const VillagerCard = ({ villager, highlight, ...props }) => {
   const { name, description, img } = villager;
   const classes = useStyles();
   const newDesc = insertBoldTagsForImportantInfo(description);
@@ -40,7 +40,7 @@ export const VillagerCard = ({ villager, highlight }) => {
   }, [highlight, ref]);
 
   return (
-    <Paper id={`${name}-card`} className={`card ${classes.root} ${highlight && 'highlight'}`} ref={ref}>
+    <Paper id={`${name}-card`} className={`card ${classes.root} ${highlight && 'highlight'}`} ref={ref} {...props}>
       <img src={img} alt={name}/>
       <Typography gutterBottom variant="h5" component="h2">
         {name}

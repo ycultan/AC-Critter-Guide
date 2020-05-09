@@ -95,6 +95,7 @@ export const VillagerTable = ({ foundVillager, clearFoundVillager }) => {
         <div className={classes.cardContainer}>
           {villagers.map(villager =>
             <VillagerCard
+              key={`${villager.name}-card`}
               villager={villager}
               highlight={villager.name === foundVillager?.name}
             />

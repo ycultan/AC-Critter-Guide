@@ -68,6 +68,9 @@ export const getCrittersAvailableByMonth = (critterWithDates, monthNum) => {
 
       } else if (startRange <= thisMonth && thisMonth <= endRange) {
         return true;
+      } else if (startRange > endRange && startRange >= thisMonth && endRange >= thisMonth) {
+        // use case for when the dates loop back around Ex: November-March
+        return true;
       }
     }
 
