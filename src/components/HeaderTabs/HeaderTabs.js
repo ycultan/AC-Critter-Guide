@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
@@ -14,52 +14,31 @@ import { VillagerTable } from "../VillagerTable/Table";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
 import { MAX_WIDTH } from "../../const";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   appBar: {
     background: "transparent",
     boxShadow: "none",
     flexDirection: "row",
     maxWidth: MAX_WIDTH,
-    margin: "auto"
+    margin: "auto",
   },
   icon: {
     marginRight: theme.spacing(0.5),
     width: 20,
-    height: 20
-  }
+    height: 20,
+  },
 }));
 
 const style = {
   tabPanel: {
     maxWidth: "1278px",
-    margin: "auto"
-  }
-};
-
-const TabPanel = ({
-  table,
-  value,
-  type,
-  showImportantSection
-}) => {
-  return (
-    <Typography
-      style={style.tabPanel}
-      component="div"
-      role="tabpanel"
-      hidden={value !== type}
-      id={`scrollable-force-tabpanel-${type}`}
-      aria-labelledby={`scrollable-force-tab-${type}`}
-    >
-      {showImportantSection && <ImportantCritterSection critter={type} />}
-      {table}
-    </Typography>
-  );
+    margin: "auto",
+  },
 };
 
 export const HeaderTabs = ({
@@ -70,13 +49,54 @@ export const HeaderTabs = ({
   handleRequestSort,
   isSearchingForCritter,
   onCritterTabChange,
-  currentCritterTab
+  currentCritterTab,
 }) => {
+  const TabPanel = ({ table, value, type, showImportantSection }) => {
+    return value === type && (
+      <Typography
+        style={style.tabPanel}
+        component="div"
+        role="tabpanel"
+        id={`scrollable-force-tabpanel-${type}`}
+        aria-labelledby={`scrollable-force-tab-${type}`}
+      >
+        {showImportantSection && (
+          <ImportantCritterSection
+            critter={type}
+            handleCheckboxChange={handleCheckboxChange}
+            checkedCritters={checkedCritters}
+          />
+        )}
+        {table}
+      </Typography>
+    );
+  };
   const classes = useStyles();
   const handleChange = (event, newValue) => {
     event.preventDefault();
     onCritterTabChange(newValue);
   };
+
+  const [checkedCritters, setCheckedCritter] = useState(
+    JSON.parse(localStorage.getItem(`checked${currentCritterTab}`)) || {}
+  );
+
+  const handleCheckboxChange = (critterName) => {
+    setCheckedCritter({
+      ...checkedCritters,
+      [critterName]: !checkedCritters[critterName],
+    });
+  };
+
+  useEffect(() => {
+    debugger;
+    localStorage.setItem(`checked${currentCritterTab}`, JSON.stringify(checkedCritters));
+  }, [checkedCritters]);
+
+  useEffect(() => {
+    debugger;
+    setCheckedCritter(JSON.parse(localStorage.getItem(`checked${currentCritterTab}`)) || {});
+  }, [currentCritterTab]);
 
   return (
     <div className={classes.root}>
@@ -116,6 +136,8 @@ export const HeaderTabs = ({
             isSearchingForCritter={isSearchingForCritter}
             handleRequestSort={handleRequestSort}
             currentCritterTab={currentCritterTab}
+            handleCheckboxChange={handleCheckboxChange}
+            checkedCritters={checkedCritters}
           />
         }
         showImportantSection={!isSearchingForCritter}
@@ -131,6 +153,8 @@ export const HeaderTabs = ({
             isSearchingForCritter={isSearchingForCritter}
             handleRequestSort={handleRequestSort}
             currentCritterTab={currentCritterTab}
+            handleCheckboxChange={handleCheckboxChange}
+            checkedCritters={checkedCritters}
           />
         }
         showImportantSection={!isSearchingForCritter}
@@ -139,7 +163,10 @@ export const HeaderTabs = ({
         value={currentCritterTab}
         type="villager"
         table={
-          <VillagerTable foundVillager={foundVillager} clearFoundVillager={clearFoundVillager} />
+          <VillagerTable
+            foundVillager={foundVillager}
+            clearFoundVillager={clearFoundVillager}
+          />
         }
         showImportantSection={false}
       />
