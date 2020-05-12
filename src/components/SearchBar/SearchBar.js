@@ -51,11 +51,11 @@ export const SearchBar = ({ searchCritter, critterTab }) => {
     } else {
       setSearch('');
       searchCritter('');
-
-      debouncer.current = debounce(val => {
-        searchCritter(val);
-      }, 300, { leading: false, trailing: true });
     }
+
+    debouncer.current = debounce(val => {
+      searchCritter(val);
+    }, 300, { leading: false, trailing: true });
   }, [critterTab])
 
   const onSearchInputChange = e => {
