@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,6 +14,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import { Paper, Typography, Checkbox } from "@material-ui/core";
 import { CritterTableHead } from "../CritterTableHeader/CritterTableHead";
+import LocalStorageContext from "../../context/LocalStorageContext";
 
 const useStyles = makeStyles({
   root: {
@@ -35,10 +36,9 @@ export const CritterTable = ({
   handleRequestSort,
   currentCritterTab,
   isImportantSection,
-  checkedCritters,
-  handleCheckboxChange
 }) => {
   const classes = useStyles();
+  const { critterStorage, toggleCritter } = useContext(LocalStorageContext);
 
   return (
     <>
@@ -68,8 +68,8 @@ export const CritterTable = ({
                     <TableCell>
                       <Checkbox 
                         color='primary' 
-                        checked={checkedCritters[critter.name]}
-                        onChange={() => handleCheckboxChange(critter.name)}
+                        checked={critterStorage[critter.name]}
+                        onChange={() => toggleCritter(critter.name)}
                       />
                     </TableCell>
                     <TableCell component="th" scope="row">

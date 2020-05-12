@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 const monthNames = Object.keys(monthNameToNumMap)
 
-export const ImportantCritterSection = ({ critter, handleCheckboxChange, checkedCritters }) => {
+export const ImportantCritterSection = ({ critter }) => {
   const [selectedMonth, setSelectedMonth] = useState(getMonth());
   const critterWithDates = critter === 'fish' ? fishWithDates : insectWithDates;
   const classes = useStyles();
@@ -73,8 +73,6 @@ export const ImportantCritterSection = ({ critter, handleCheckboxChange, checked
           critterData={getCrittersLeavingByMonth(critterWithDates, selectedMonth)}
           isImportantSection={true}
           critter={critter}
-          handleCheckboxChange={handleCheckboxChange}
-          checkedCritters={checkedCritters}
         />
       </div>
 
@@ -84,8 +82,6 @@ export const ImportantCritterSection = ({ critter, handleCheckboxChange, checked
           critterData={getCrittersAvailableByMonth(critterWithDates, monthNameToNumMap[selectedMonth])}
           isImportantSection={true}
           critter={critter}
-          handleCheckboxChange={handleCheckboxChange}
-          checkedCritters={checkedCritters}
         />
       </div>
     </>

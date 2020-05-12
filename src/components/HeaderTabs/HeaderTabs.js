@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
@@ -51,6 +51,8 @@ export const HeaderTabs = ({
   onCritterTabChange,
   currentCritterTab,
 }) => {
+  const classes = useStyles();
+
   const TabPanel = ({ table, value, type, showImportantSection }) => {
     return value === type && (
       <Typography
@@ -61,42 +63,17 @@ export const HeaderTabs = ({
         aria-labelledby={`scrollable-force-tab-${type}`}
       >
         {showImportantSection && (
-          <ImportantCritterSection
-            critter={type}
-            handleCheckboxChange={handleCheckboxChange}
-            checkedCritters={checkedCritters}
-          />
+          <ImportantCritterSection critter={type} />
         )}
         {table}
       </Typography>
     );
   };
-  const classes = useStyles();
+
   const handleChange = (event, newValue) => {
     event.preventDefault();
     onCritterTabChange(newValue);
   };
-
-  const [checkedCritters, setCheckedCritter] = useState(
-    JSON.parse(localStorage.getItem(`checked${currentCritterTab}`)) || {}
-  );
-
-  const handleCheckboxChange = (critterName) => {
-    setCheckedCritter({
-      ...checkedCritters,
-      [critterName]: !checkedCritters[critterName],
-    });
-  };
-
-  useEffect(() => {
-    debugger;
-    localStorage.setItem(`checked${currentCritterTab}`, JSON.stringify(checkedCritters));
-  }, [checkedCritters]);
-
-  useEffect(() => {
-    debugger;
-    setCheckedCritter(JSON.parse(localStorage.getItem(`checked${currentCritterTab}`)) || {});
-  }, [currentCritterTab]);
 
   return (
     <div className={classes.root}>
@@ -136,8 +113,6 @@ export const HeaderTabs = ({
             isSearchingForCritter={isSearchingForCritter}
             handleRequestSort={handleRequestSort}
             currentCritterTab={currentCritterTab}
-            handleCheckboxChange={handleCheckboxChange}
-            checkedCritters={checkedCritters}
           />
         }
         showImportantSection={!isSearchingForCritter}
@@ -153,8 +128,6 @@ export const HeaderTabs = ({
             isSearchingForCritter={isSearchingForCritter}
             handleRequestSort={handleRequestSort}
             currentCritterTab={currentCritterTab}
-            handleCheckboxChange={handleCheckboxChange}
-            checkedCritters={checkedCritters}
           />
         }
         showImportantSection={!isSearchingForCritter}
