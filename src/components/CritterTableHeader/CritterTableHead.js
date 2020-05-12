@@ -12,6 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { TableSortLabel } from "@material-ui/core";
 
 const fishTableHeaders = [
+  {id: "checkBox", name: "Caught"},
   { id: "number", name: "Fish #" },
   { id: "name", name: "Fish" },
   { id: "location", name: "Location" },
@@ -22,6 +23,7 @@ const fishTableHeaders = [
 ];
 
 const insectTableHeaders = [
+  {id: "checkBox", name: "Caught"},
   { id: "number", name: "Insect #" },
   { id: "name", name: "Insect" },
   { id: "location", name: "Location" },

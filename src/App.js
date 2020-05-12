@@ -12,6 +12,7 @@ import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
 import { insectData } from "./data/InsectData";
 import { getQueryParam, monthNameToNumMap } from "./data/utils";
 import { villagersList } from "./data/VillagerData";
+import { LocalStorageProvider } from "./context/LocalStorageContext";
 
 function App() {
   const style = {
@@ -155,19 +156,21 @@ function App() {
   }
 
   return (
-    <div style={style.app}>
-      <NavBar searchCritter={searchCritter} critterTab={critterTab} />
-      <HeaderTabs
-        clearFoundVillager={() => setFoundVillager()}
-        foundVillager={foundVillager}
-        modifiedFishData={modifiedFishData}
-        modifiedInsectData={modifiedInsectData}
-        handleRequestSort={handleRequestSort}
-        isSearchingForCritter={isSearchingForCritter}
-        onCritterTabChange={handleCritterTabChange}
-        currentCritterTab={critterTab}
-      />
-    </div>
+    <LocalStorageProvider>
+      <div style={style.app}>
+        <NavBar searchCritter={searchCritter} critterTab={critterTab} />
+        <HeaderTabs
+          clearFoundVillager={() => setFoundVillager()}
+          foundVillager={foundVillager}
+          modifiedFishData={modifiedFishData}
+          modifiedInsectData={modifiedInsectData}
+          handleRequestSort={handleRequestSort}
+          isSearchingForCritter={isSearchingForCritter}
+          onCritterTabChange={handleCritterTabChange}
+          currentCritterTab={critterTab}
+        />
+      </div>
+    </LocalStorageProvider>
   );
 }
 
