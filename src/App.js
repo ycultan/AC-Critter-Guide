@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fishData } from "./data/FishData";
 import { NavBar } from "./components/NavigationBar/NavBar";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
@@ -13,12 +13,9 @@ import { insectData } from "./data/InsectData";
 import { getQueryParam, monthNameToNumMap } from "./data/utils";
 import { villagersList } from "./data/VillagerData";
 import { LocalStorageProvider } from "./context/LocalStorageContext";
+import { initializeHeap } from "./heap";
 
 function App() {
-  const style = {
-    app: { margin: '16px' }
-  };
-
   const params = getQueryParam();
 
   const [foundVillager, setFoundVillager] = useState();
@@ -30,6 +27,10 @@ function App() {
     Insect: 'insect',
     Villager: 'villager'
   }[params.type] || 'fish')
+
+  useEffect(() => {
+    initializeHeap();
+  }, []);
 
   const searchHelper = (searchVal, whichSetter, whichData) => {
     whichSetter(
@@ -161,16 +162,11 @@ function App() {
     } else if (critterTab === "insect") {
       sortHelper(header, order, setModifiedInsectData, modifiedInsectData)
     }
-      
   };
-
-  const handleCritterTabChange = tab => {
-    setCritterTab(tab)
-  }
 
   return (
     <LocalStorageProvider>
-      <div style={style.app}>
+      <div style={{ margin: '16px' }}>
         <NavBar searchCritter={searchCritter} critterTab={critterTab} />
         <HeaderTabs
           clearFoundVillager={() => setFoundVillager()}
@@ -179,7 +175,7 @@ function App() {
           modifiedInsectData={modifiedInsectData}
           handleRequestSort={handleRequestSort}
           isSearchingForCritter={isSearchingForCritter}
-          onCritterTabChange={handleCritterTabChange}
+          onCritterTabChange={tab => setCritterTab(tab)}
           currentCritterTab={critterTab}
         />
       </div>
