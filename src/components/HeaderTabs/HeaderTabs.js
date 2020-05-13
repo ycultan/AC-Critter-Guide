@@ -41,6 +41,23 @@ const style = {
   },
 };
 
+const TabPanel = ({ table, value, type, showImportantSection }) => {
+  return value === type && (
+    <Typography
+      style={style.tabPanel}
+      component="div"
+      role="tabpanel"
+      id={`scrollable-force-tabpanel-${type}`}
+      aria-labelledby={`scrollable-force-tab-${type}`}
+    >
+      {showImportantSection && (
+        <ImportantCritterSection critter={type} />
+      )}
+      {table}
+    </Typography>
+  );
+};
+
 export const HeaderTabs = ({
   clearFoundVillager,
   foundVillager,
@@ -52,23 +69,6 @@ export const HeaderTabs = ({
   currentCritterTab,
 }) => {
   const classes = useStyles();
-
-  const TabPanel = ({ table, value, type, showImportantSection }) => {
-    return value === type && (
-      <Typography
-        style={style.tabPanel}
-        component="div"
-        role="tabpanel"
-        id={`scrollable-force-tabpanel-${type}`}
-        aria-labelledby={`scrollable-force-tab-${type}`}
-      >
-        {showImportantSection && (
-          <ImportantCritterSection critter={type} />
-        )}
-        {table}
-      </Typography>
-    );
-  };
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
