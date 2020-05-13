@@ -53,7 +53,20 @@ function App() {
     } else if (critterTab === "villager") {
       if (value.length < 2) return setFoundVillager()
 
-      const foundVillager = villagersList.find(villager  => villager.name.toLowerCase().includes(value))
+      const searchVal = value.toLowerCase()
+
+      let firstMatch;
+      let bestMatch;
+
+      for (const villager of villagersList) {
+        if (!firstMatch && villager.name.toLowerCase().includes(searchVal)) {
+          firstMatch = villager;
+        } else if (firstMatch && villager.name.toLowerCase() === searchVal) {
+          bestMatch = villager;
+        }
+      }
+
+      const foundVillager = bestMatch || firstMatch;
 
       if (foundVillager) setFoundVillager(foundVillager)
     }
