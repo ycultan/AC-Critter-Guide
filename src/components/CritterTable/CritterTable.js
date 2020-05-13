@@ -26,6 +26,9 @@ const useStyles = makeStyles({
   h6: {
     margin: "16px 0",
   },
+  strikeThrough: {
+    textDecoration: "line-through",
+  }
 });
 
 export const CritterTable = ({
@@ -64,7 +67,7 @@ export const CritterTable = ({
                 </TableRow>
               ) : (
                 critterData.map((critter) => (
-                  <TableRow key={critter.id}>
+                  <TableRow key={critter.id} className={`${critterStorage[critter.name] && classes.strikeThrough}`}>
                     <TableCell>
                       <Checkbox 
                         color='primary' 
