@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +13,7 @@ import { CritterTable } from "../CritterTable/CritterTable";
 import { VillagerTable } from "../VillagerTable/Table";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
 import { MAX_WIDTH } from "../../const";
+import { getVillagers } from "../requests";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "none",
     flexDirection: "row",
     maxWidth: MAX_WIDTH,
-    margin: "auto",
+    margin: "16px auto",
   },
   icon: {
     marginRight: theme.spacing(0.5),
@@ -69,6 +70,11 @@ export const HeaderTabs = ({
   currentCritterTab,
 }) => {
   const classes = useStyles();
+  const [basicVillagerData, setBasicVillagerData] = useState({});
+
+  useEffect(() => {
+    getVillagers().then(data => setBasicVillagerData(data));
+  }, []);
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
@@ -139,6 +145,7 @@ export const HeaderTabs = ({
           <VillagerTable
             foundVillager={foundVillager}
             clearFoundVillager={clearFoundVillager}
+            basicVillagerData={basicVillagerData}
           />
         }
         showImportantSection={false}

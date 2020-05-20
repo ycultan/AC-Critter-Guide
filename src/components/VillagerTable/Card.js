@@ -25,9 +25,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const VillagerCard = ({ villager, highlight, ...props }) => {
-  const { name, description, img } = villager;
+  const { name, description, img, personality, gender } = villager;
   const classes = useStyles();
-  const newDesc = insertBoldTagsForImportantInfo(description);
   const ref = useRef();
 
   useEffect(() => {
@@ -42,35 +41,30 @@ export const VillagerCard = ({ villager, highlight, ...props }) => {
   return (
     <Paper id={`${name}-card`} className={`card ${classes.root} ${highlight && 'highlight'}`} ref={ref} {...props}>
       <img src={img} alt={name}/>
-      <Typography gutterBottom variant="h5" component="h2">
+
+      <Typography gutterBottom variant="h5">
         {name}
       </Typography>
-      <p className="MuiTypography-colorTextSecondary MuiTypography-body2" dangerouslySetInnerHTML={{ __html: newDesc }} />
+
+      <Typography gutterBottom variant="body2">
+        <strong>Gender:&ensp;</strong> {gender}
+      </Typography>
+
+      <Typography gutterBottom variant="body2">
+        <strong>Personality:&ensp;</strong> {personality}
+      </Typography>
+
+      <Typography gutterBottom variant="body2">
+        <strong>Birthday:&ensp;</strong> {villager['birthday-string']}
+      </Typography>
+
+      <Typography gutterBottom variant="subtitle2">
+        Description:
+      </Typography>
+
+      <Typography gutterBottom variant="body2">
+        {description}
+      </Typography>
     </Paper>
   );
-};
-
-// used for adding bold text into the description to highlight useful information: personality, birthday, fave song
-const insertBoldTagsForImportantInfo = description => {
-  const typeRegex = /(?<=is an?)\s(\w+)/g
-  const dobRegex = /(?<=born on)\s(\w+)\s(\w+)/g
-  const songRegex = /(?<=song is)\s.*/g
-
-  const splitChar = '. '
-  const regexes = [typeRegex, dobRegex, songRegex]
-  const splitDesc = description.trim().split(splitChar)
-
-  let newDesc = '';
-
-  for (let i = 0; i < splitDesc.length; i++) {
-    const fragment = splitDesc[i];
-
-    newDesc += fragment.replace(regexes[i] || /.*/, match => {
-      return `<strong class="caps">${match}</strong>`;
-    })
-
-    if (i !== splitDesc.length - 1) newDesc += splitChar
-  }
-
-  return newDesc;
 };
