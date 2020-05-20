@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 const categories = villagerData.categories;
 const villagerMap = villagerData.villagers;
 
-export const VillagerTable = ({ foundVillager, clearFoundVillager }) => {
+export const VillagerTable = ({ foundVillager, clearFoundVillager, basicVillagerData }) => {
   const classes = useStyles();
   const animalParam = (getQueryParam().animal || '').toLowerCase();
   const initAnimal = foundVillager?.category || categories.includes(animalParam) ? animalParam : categories[0];
@@ -93,13 +93,17 @@ export const VillagerTable = ({ foundVillager, clearFoundVillager }) => {
           <DropdownSelector label="Category" data={categories} selected={animalType} onSelect={onSelectCategory} />
         </div>
         <div className={classes.cardContainer}>
-          {villagers.map(villager =>
-            <VillagerCard
-              key={`${villager.name}-card`}
-              villager={villager}
-              highlight={villager.name === foundVillager?.name}
-            />
-          )}
+          {villagers.map(villager => {
+            const basicInfo = (basicVillagerData[animalType] || {})[villager.name];
+
+            return (
+              <VillagerCard
+                key={`${villager.name}-card`}
+                villager={{...basicInfo, ...villager}}
+                highlight={villager.name === foundVillager?.name}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
