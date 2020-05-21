@@ -1,0 +1,42 @@
+/* *
+ *
+ *  File: styles.scss
+ *  Author: Rosemary
+ *  Copyright (c) 2020 Rosemary Chen
+ */
+.footer {
+  background-color: #31434e;
+  color: white;
+  display: flex;
+  padding: 48px;
+}
+
+.linkContainer a {
+  margin: 0 8px;
+}
+
+.footer .material-icons {
+  margin: 0 32px;
+}
+
+.footer .body {
+  margin: auto;
+  text-align: center;
+}
+
+.iconContainer {
+  margin: 16px;
+}
+
+.iconContainer span {
+  font-size: 32px;
+}
+
+.creator {
+  margin: 16px;
+  opacity: 0.2;
+}
+
+.creator a {
+  color: inherit;
+}

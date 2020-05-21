@@ -8,6 +8,7 @@
 import React, { useEffect, useState } from "react";
 import { fishData } from "./data/FishData";
 import { NavBar } from "./components/NavigationBar/NavBar";
+import { Footer } from "./components/Footer/Footer";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
 import { insectData } from "./data/InsectData";
 import { getQueryParam, monthNameToNumMap } from "./data/utils";
@@ -15,7 +16,20 @@ import { villagersList } from "./data/VillagerData";
 import { LocalStorageProvider } from "./context/LocalStorageContext";
 import { initializeHeap } from "./heap";
 
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles((theme) => ({
+  gutter: {
+    [theme.breakpoints.down('lg')]: {
+      padding: '16px 24px'
+    },
+    [theme.breakpoints.up('lg')]: {
+      padding: '48px 80px'
+    },
+  },
+}));
+
 function App() {
+  const classes = useStyles();
   const params = getQueryParam();
 
   const [foundVillager, setFoundVillager] = useState();
@@ -166,7 +180,7 @@ function App() {
 
   return (
     <LocalStorageProvider>
-      <div style={{ margin: '16px' }}>
+      <div className={classes.gutter}>
         <NavBar searchCritter={searchCritter} critterTab={critterTab} />
         <HeaderTabs
           clearFoundVillager={() => setFoundVillager()}
@@ -179,6 +193,7 @@ function App() {
           currentCritterTab={critterTab}
         />
       </div>
+      <Footer />
     </LocalStorageProvider>
   );
 }

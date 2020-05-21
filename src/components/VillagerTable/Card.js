@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const VillagerCard = ({ villager, highlight, ...props }) => {
-  const { name, description, img, personality, gender } = villager;
+  const { name, description, img, personality, gender, id } = villager;
   const classes = useStyles();
   const ref = useRef();
 
@@ -40,7 +40,7 @@ export const VillagerCard = ({ villager, highlight, ...props }) => {
 
   return (
     <Paper id={`${name}-card`} className={`card ${classes.root} ${highlight && 'highlight'}`} ref={ref} {...props}>
-      <img src={img} alt={name}/>
+      <img src={`http://acnhapi.com/icons/villagers/${id}`} alt={name}/>
 
       <Typography gutterBottom variant="h5">
         {name}

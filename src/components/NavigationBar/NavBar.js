@@ -22,10 +22,10 @@ export const NavBar = ({searchCritter, critterTab}) => {
   };
 
   return (
-    <div className="container" style={style.container}>
+    <div style={style.container}>
       <img
         src="https://www.animal-crossing.com/new-horizons/assets/img/global/logos/logo-acnh-en.png"
-        alt=""
+        alt="animal crossing new horizons logo"
         style={style.img}
       />
       <SearchBar searchCritter={searchCritter} critterTab={critterTab} />
