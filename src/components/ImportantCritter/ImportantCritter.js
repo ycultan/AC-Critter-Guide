@@ -67,23 +67,18 @@ export const ImportantCritterSection = ({ critter }) => {
       <div className={classes.dropdownContainer}>
         <DropdownSelector label="Month" data={monthNames} selected={selectedMonth} onSelect={e => setSelectedMonth(e.target.value)} />
       </div>
-      <div style={{margin: '20px 0px'}}>
-        <CritterTable
-          title={`Leaving end of ${selectedMonth}`}
-          critterData={getCrittersLeavingByMonth(critterWithDates, selectedMonth)}
-          isImportantSection={true}
-          critter={critter}
-        />
-      </div>
-
-      <div style={{margin: '20px 0px'}}>
-        <CritterTable
-          title={`Available in ${selectedMonth}`}
-          critterData={getCrittersAvailableByMonth(critterWithDates, monthNameToNumMap[selectedMonth])}
-          isImportantSection={true}
-          critter={critter}
-        />
-      </div>
+      <CritterTable
+        title={`Leaving end of ${selectedMonth}`}
+        critterData={getCrittersLeavingByMonth(critterWithDates, selectedMonth)}
+        isImportantSection={true}
+        critter={critter}
+      />
+      <CritterTable
+        title={`Available in ${selectedMonth}`}
+        critterData={getCrittersAvailableByMonth(critterWithDates, monthNameToNumMap[selectedMonth])}
+        isImportantSection={true}
+        critter={critter}
+      />
     </>
   );
 };

@@ -44,7 +44,7 @@ export const CritterTable = ({
   const { critterStorage, toggleCritter } = useContext(LocalStorageContext);
 
   return (
-    <>
+    <div style={{ margin: '20px 0px' }}>
       <Typography variant="h6" className={classes.h6}>
         {title}
       </Typography>
@@ -71,7 +71,7 @@ export const CritterTable = ({
                     <TableCell>
                       <Checkbox 
                         color='primary' 
-                        checked={critterStorage[critter.name]}
+                        checked={critterStorage[critter.name] || false}
                         onChange={() => toggleCritter(critter.name)}
                       />
                     </TableCell>
@@ -95,6 +95,6 @@ export const CritterTable = ({
           </Table>
         </TableContainer>
       </Paper>
-    </>
+    </div>
   );
 };

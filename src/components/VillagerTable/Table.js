@@ -99,7 +99,7 @@ export const VillagerTable = ({ foundVillager, clearFoundVillager, basicVillager
             return (
               <VillagerCard
                 key={`${villager.name}-card`}
-                villager={{...basicInfo, ...villager}}
+                villager={{...villager, ...basicInfo, name: villager.name}}
                 highlight={villager.name === foundVillager?.name}
               />
             );
