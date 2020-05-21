@@ -71,7 +71,7 @@ export const CritterTable = ({
                     <TableCell>
                       <Checkbox 
                         color='primary' 
-                        checked={critterStorage[critter.name]}
+                        checked={critterStorage[critter.name] || false}
                         onChange={() => toggleCritter(critter.name)}
                       />
                     </TableCell>
