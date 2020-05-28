@@ -5,9 +5,9 @@
  *  Copyright (c) 2020 Rosemary Chen
  */
 
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState, createContext } from 'react';
 
-const LocalStorageContext = React.createContext(null);
+const LocalStorageContext = createContext(null);
 LocalStorageContext.displayName = 'LocalStorageContext';
 
 export default LocalStorageContext;

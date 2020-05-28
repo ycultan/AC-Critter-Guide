@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +14,7 @@ import { VillagerTable } from "../VillagerTable/Table";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
 import { MAX_WIDTH } from "../../const";
 import { getVillagers } from "../requests";
+import { CritterDataContext } from "../../context/CritterDataContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,17 +60,9 @@ const TabPanel = ({ table, value, type, showImportantSection }) => {
   );
 };
 
-export const HeaderTabs = ({
-  clearFoundVillager,
-  foundVillager,
-  modifiedFishData,
-  modifiedInsectData,
-  handleRequestSort,
-  isSearchingForCritter,
-  onCritterTabChange,
-  currentCritterTab,
-}) => {
+export const HeaderTabs = () => {
   const classes = useStyles();
+  const {onCritterTabChange, currentCritterTab, modifiedFishData, isSearchingForCritter, handleRequestSort, modifiedInsectData, foundVillager, clearFoundVillager} = useContext(CritterDataContext)
   const [basicVillagerData, setBasicVillagerData] = useState({});
 
   useEffect(() => {
