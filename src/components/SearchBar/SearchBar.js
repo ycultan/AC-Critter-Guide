@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 
 import { debounce } from 'lodash';
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,6 +14,7 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 
 import { getQueryParam } from "../../data/utils";
+import { CritterDataContext } from "../../context/CritterDataContext";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,7 +35,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const SearchBar = ({ searchCritter, critterTab }) => {
+export const SearchBar = () => {
+  const {searchCritter, currentCritterTab} = useContext(CritterDataContext)
   const classes = useStyles();
   const [search, setSearch] = useState('');
   const initRender = useRef(true);
@@ -56,7 +58,7 @@ export const SearchBar = ({ searchCritter, critterTab }) => {
     debouncer.current = debounce(val => {
       searchCritter(val);
     }, 300, { leading: false, trailing: true });
-  }, [critterTab])
+  }, [currentCritterTab])
 
   const onSearchInputChange = e => {
     setSearch(e.target.value);

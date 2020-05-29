@@ -1,6 +1,6 @@
-/* 
- *  
- *  File: NavBar.js 
+/*
+ *
+ *  File: NavBar.js
  *  Author: Lucy
  *  Copyright (c) 2020 Lucy Tan
  */
@@ -9,16 +9,16 @@ import React from "react";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { MAX_WIDTH } from "../../const";
 
-export const NavBar = ({searchCritter, critterTab}) => {
+export const NavBar = () => {
   const style = {
     img: {
-      height: '10vh'
+      height: "10vh",
     },
     container: {
-      display: 'flex',
+      display: "flex",
       maxWidth: MAX_WIDTH,
-      margin: 'auto'
-    }
+      margin: "auto",
+    },
   };
 
   return (
@@ -28,7 +28,7 @@ export const NavBar = ({searchCritter, critterTab}) => {
         alt="animal crossing new horizons logo"
         style={style.img}
       />
-      <SearchBar searchCritter={searchCritter} critterTab={critterTab} />
+      <SearchBar />
     </div>
   );
 };
