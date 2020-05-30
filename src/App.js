@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "16px 24px",
     },
     [theme.breakpoints.up("lg")]: {
-      padding: "48px 80px",
+      padding: "16px 80px",
     },
   },
 }));
@@ -36,11 +36,13 @@ function App() {
   return (
     <CritterDataProvider>
       <LocalStorageProvider>
-        <div className={classes.gutter}>
-          <NavBar />
-          <HeaderTabs />
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+          <div className={classes.gutter}>
+            <NavBar />
+            <HeaderTabs />
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </LocalStorageProvider>
     </CritterDataProvider>
   );
