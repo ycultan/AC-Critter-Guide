@@ -1,10 +1,12 @@
-export const ACNH_API = 'https://acnhapi.com';
+const ACNH_BASE_API = 'https://acnhapi.com/v1';
 
-export const getVillagers = () => fetch(`${ACNH_API}/villagers`)
+const ENG_NAME = 'name-USen';
+
+export const getVillagers = () => fetch(`${ACNH_BASE_API}/villagers`)
   .then(resp => resp.json())
   .then(data => Object.values(data).reduce((acc, villager) => {
     const species = villager.species.toLowerCase();
-    const name = villager.name['name-en'];
+    const name = villager.name[ENG_NAME];
 
     if (!acc[species]) {
       acc[species] = {};

@@ -10,7 +10,6 @@ import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
 import "./styles.css";
-import { ACNH_API } from "../requests";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const VillagerCard = ({ villager, highlight, ...props }) => {
-  const { name, description, img, personality, gender, id } = villager;
+  const { name, description, personality, gender, icon_uri } = villager;
   const classes = useStyles();
   const ref = useRef();
 
@@ -45,7 +44,7 @@ export const VillagerCard = ({ villager, highlight, ...props }) => {
 
   return (
     <Paper id={`${name}-card`} className={`card ${classes.root} ${highlight && 'highlight'}`} ref={ref} {...props}>
-      <img className={classes.img} src={`${ACNH_API}/icons/villagers/${id}`} alt={name}/>
+      <img className={classes.img} src={icon_uri} alt={name}/>
 
       <Typography gutterBottom variant="h5">
         {name}
