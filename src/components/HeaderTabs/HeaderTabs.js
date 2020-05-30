@@ -63,7 +63,7 @@ const TabPanel = ({ table, value, type, showImportantSection }) => {
 export const HeaderTabs = () => {
   const classes = useStyles();
   const {onCritterTabChange, currentCritterTab, modifiedFishData, isSearchingForCritter, handleRequestSort, modifiedInsectData, foundVillager, clearFoundVillager} = useContext(CritterDataContext)
-  const [basicVillagerData, setBasicVillagerData] = useState({});
+  const [basicVillagerData, setBasicVillagerData] = useState();
 
   useEffect(() => {
     getVillagers().then(data => setBasicVillagerData(data));

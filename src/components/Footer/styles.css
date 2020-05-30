@@ -16,16 +16,12 @@
 }
 
 .footer .material-icons {
-  margin: 0 32px;
+  margin: 16px 32px;
 }
 
 .footer .body {
   margin: auto;
   text-align: center;
-}
-
-.iconContainer {
-  margin: 16px;
 }
 
 .iconContainer span {
