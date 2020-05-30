@@ -8,7 +8,9 @@
 import React, { useEffect, useRef } from "react";
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+
 import "./styles.css";
+import { ACNH_API } from "../requests";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: 'calc(100%/3 - 40px)'
     },
+  },
+  img: {
+    height: '128px'
   },
 }));
 
@@ -40,7 +45,7 @@ export const VillagerCard = ({ villager, highlight, ...props }) => {
 
   return (
     <Paper id={`${name}-card`} className={`card ${classes.root} ${highlight && 'highlight'}`} ref={ref} {...props}>
-      <img src={`http://acnhapi.com/icons/villagers/${id}`} alt={name}/>
+      <img className={classes.img} src={`${ACNH_API}/icons/villagers/${id}`} alt={name}/>
 
       <Typography gutterBottom variant="h5">
         {name}

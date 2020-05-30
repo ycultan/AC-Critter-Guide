@@ -6,7 +6,7 @@
  */
 
 import React, { useEffect, useState, useContext } from "react";
-import { makeStyles, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
+import { makeStyles, AppBar, Button, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
@@ -44,6 +44,10 @@ const style = {
 };
 
 const TabPanel = ({ table, value, type, showImportantSection }) => {
+  const [showTable, setShowTable] = useState(false);
+  const shouldShowTable = showTable || !showImportantSection;
+  const isCritter = type !== 'villager';
+
   return value === type && (
     <Typography
       style={style.tabPanel}
@@ -55,7 +59,18 @@ const TabPanel = ({ table, value, type, showImportantSection }) => {
       {showImportantSection && (
         <ImportantCritterSection critter={type} />
       )}
-      {table}
+
+      {isCritter ? (
+        <>
+          {shouldShowTable && table}
+          {showImportantSection &&
+            <Button variant="text" color="primary" onClick={() => setShowTable(!showTable)}>
+              {`${shouldShowTable ? 'Hide' : 'Show'} all ${type}`}
+            </Button>
+          }
+        </>
+      ) : table}
+
     </Typography>
   );
 };
@@ -63,7 +78,7 @@ const TabPanel = ({ table, value, type, showImportantSection }) => {
 export const HeaderTabs = () => {
   const classes = useStyles();
   const {onCritterTabChange, currentCritterTab, modifiedFishData, isSearchingForCritter, handleRequestSort, modifiedInsectData, foundVillager, clearFoundVillager} = useContext(CritterDataContext)
-  const [basicVillagerData, setBasicVillagerData] = useState({});
+  const [basicVillagerData, setBasicVillagerData] = useState();
 
   useEffect(() => {
     getVillagers().then(data => setBasicVillagerData(data));

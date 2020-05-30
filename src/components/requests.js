@@ -1,4 +1,6 @@
-export const getVillagers = () => fetch('http://acnhapi.com/villagers')
+export const ACNH_API = 'https://acnhapi.com';
+
+export const getVillagers = () => fetch(`${ACNH_API}/villagers`)
   .then(resp => resp.json())
   .then(data => Object.values(data).reduce((acc, villager) => {
     const species = villager.species.toLowerCase();

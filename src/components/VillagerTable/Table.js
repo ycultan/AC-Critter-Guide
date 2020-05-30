@@ -7,7 +7,7 @@
 
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Typography } from "@material-ui/core";
+import { Button, CircularProgress, Typography } from "@material-ui/core";
 import { VillagerCard } from "./Card";
 import { DropdownSelector } from "../DropdownSelector/DropdownSelector";
 import { villagerData } from "../../data/VillagerData";
@@ -70,6 +70,13 @@ export const VillagerTable = ({ foundVillager, clearFoundVillager, basicVillager
     setAnimalType(e.target.value);
     clearFoundVillager();
   };
+
+  // show spinner if data isn't ready
+  if (!basicVillagerData) return (
+    <div style={{ textAlign: 'center', margin: '64px auto' }}>
+      <CircularProgress />
+    </div>
+  );
 
   return (
     <div>
