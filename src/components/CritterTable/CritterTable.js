@@ -100,7 +100,7 @@ export const CritterTable = ({
                 critterData.map((critter) => (
                   <>
                   <TableRow
-                    key={critter.id}
+                    key={`${critter.id}-desktop`}
                     className={`${classes.desktop} ${classes.tr} ${critterStorage[critter.name] && classes.strikeThrough}`}
                     onClick={() => toggleCritter(critter.name)}
                     hover
@@ -128,20 +128,22 @@ export const CritterTable = ({
                   </TableRow>
 
                   <TableRow
-                    key={critter.id}
+                    key={`${critter.id}-mobile`}
                     className={classes.mobile}
                     onClick={() => toggleCritter(critter.name)}
                   >
                     <TableCell style={{ display: "flex" }}>
                       <div className={classes.alignLeft}>
-                        <Typography variant="h6" className={critterStorage[critter.name] && classes.strikeThrough}>{critter.name}</Typography>
+                        <Typography variant="h6" className={critterStorage[critter.name] ? classes.strikeThrough : ''}>{critter.name}</Typography>
                         <Typography variant="body2">{critter.location}</Typography>
                         <Typography variant="body2">{critter.shadowSize}</Typography>
                       </div>
                       <div className={classes.alignRight}>
                         <Typography variant="h6">$ {critter.value}</Typography>
-                        {critter.time.split(',').map(time => (
-                          <Typography variant="body2" style={{ whiteSpace: "nowrap" }}>{time}</Typography>
+                        {critter.time.split(',').map((time, i) => (
+                          <Typography key={`${critter.name}-time-${i}`} variant="body2" style={{ whiteSpace: "nowrap" }}>
+                            {time}
+                          </Typography>
                         ))}
                       </div>
                     </TableCell>
