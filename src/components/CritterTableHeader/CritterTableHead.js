@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -13,19 +13,19 @@ import { TableSortLabel } from "@material-ui/core";
 
 const fishTableHeaders = [
   {id: "checkBox", name: "Caught"},
-  { id: "number", name: "Fish #" },
-  { id: "name", name: "Fish" },
+  { id: "number", name: "#" },
+  { id: "name", name: "Name" },
   { id: "location", name: "Location" },
   { id: "shadowSize", name: "Shadow Size" },
-  { id: "value", name: "Value (Bells)" },
+  { id: "value", name: "Value" },
   { id: "time", name: "Time" },
   { id: "month", name: "Month (Northern Hemisphere)" }
 ];
 
 const insectTableHeaders = [
   {id: "checkBox", name: "Caught"},
-  { id: "number", name: "Insect #" },
-  { id: "name", name: "Insect" },
+  { id: "number", name: "#" },
+  { id: "name", name: "Name" },
   { id: "location", name: "Location" },
   { id: "value", name: "Value" },
   { id: "time", name: "Time" },
@@ -36,7 +36,7 @@ export const CritterTableHead = ({
   onRequestSort,
   isSortableTable = true,
   type,
-  currentCritterTab
+  className,
 }) => {
 
   const [order, setOrder] = useState("asc")
@@ -53,7 +53,7 @@ export const CritterTableHead = ({
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow className={className}>
         {
           tableHeaders.map(header =>
             isSortableTable ? (
