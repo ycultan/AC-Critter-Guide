@@ -5,11 +5,12 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useState, createContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { fishData } from "../data/FishData";
 import { insectData } from "../data/InsectData";
 import { villagersList } from "../data/VillagerData";
 import { getQueryParam, monthNameToNumMap } from "../data/utils";
+import { getAllFish, getAllVillagers } from "../components/requests";
 
 // Initial state
 const initialState = {
@@ -25,6 +26,10 @@ export const CritterDataProvider = ({ children }) => {
   const params = getQueryParam();
   const [modifiedFishData, setModifiedFishData] = useState(fishData);
   const [modifiedInsectData, setModifiedInsectData] = useState(insectData);
+
+  const [allFish, setAllFish] = useState();
+  const [allVillagers, setAllVillagers] = useState();
+
   const [critterTab, setCritterTab] = useState(
     {
       Bug: "insect",
@@ -34,6 +39,11 @@ export const CritterDataProvider = ({ children }) => {
   );
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
   const [foundVillager, setFoundVillager] = useState();
+
+  useEffect(() => {
+    getAllVillagers().then(data => setAllVillagers(data));
+    getAllFish().then(data => setAllFish(data));
+  }, []);
 
   const onCritterTabChange = (tab) => setCritterTab(tab);
 
@@ -192,6 +202,8 @@ export const CritterDataProvider = ({ children }) => {
         currentCritterTab: critterTab,
         onCritterTabChange,
         handleRequestSort,
+        allFish,
+        allVillagers,
       }}
     >
       {children}

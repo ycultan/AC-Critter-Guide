@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles, AppBar, Button, Tabs, Tab, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,6 @@ import { CritterTable } from "../CritterTable/CritterTable";
 import { VillagerTable } from "../VillagerTable/Table";
 import { HemisphereSwitch } from "../HemisphereSwitch/Switch";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
-import { getVillagers } from "../requests";
 import { MAX_WIDTH } from "../../const";
 import { CritterDataContext } from "../../context/CritterDataContext";
 
@@ -80,12 +79,11 @@ const TabPanel = ({ table, value, type, showImportantSection }) => {
 
 export const HeaderTabs = () => {
   const classes = useStyles();
-  const {onCritterTabChange, currentCritterTab, modifiedFishData, isSearchingForCritter, handleRequestSort, modifiedInsectData, foundVillager, clearFoundVillager} = useContext(CritterDataContext)
-  const [basicVillagerData, setBasicVillagerData] = useState();
-
-  useEffect(() => {
-    getVillagers().then(data => setBasicVillagerData(data));
-  }, []);
+  const {
+    onCritterTabChange, currentCritterTab,
+    modifiedFishData, modifiedInsectData,
+    isSearchingForCritter, handleRequestSort, foundVillager, clearFoundVillager
+  } = useContext(CritterDataContext)
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
@@ -156,7 +154,6 @@ export const HeaderTabs = () => {
           <VillagerTable
             foundVillager={foundVillager}
             clearFoundVillager={clearFoundVillager}
-            basicVillagerData={basicVillagerData}
           />
         }
         showImportantSection={false}

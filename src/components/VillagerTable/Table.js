@@ -5,13 +5,14 @@
  *  Copyright (c) 2020 Rosemary Chen
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, CircularProgress, Typography } from "@material-ui/core";
 import { VillagerCard } from "./Card";
 import { DropdownSelector } from "../DropdownSelector/DropdownSelector";
 import { villagerData } from "../../data/VillagerData";
 import { getQueryParam } from "../../data/utils";
+import { CritterDataContext } from "../../context/CritterDataContext";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,13 +51,14 @@ const useStyles = makeStyles(theme => ({
 const categories = villagerData.categories;
 const villagerMap = villagerData.villagers;
 
-export const VillagerTable = ({ foundVillager, clearFoundVillager, basicVillagerData }) => {
+export const VillagerTable = ({ foundVillager, clearFoundVillager }) => {
   const classes = useStyles();
   const animalParam = (getQueryParam().animal || '').toLowerCase();
   const initAnimal = foundVillager?.category || categories.includes(animalParam) ? animalParam : categories[0];
 
   const [animalType, setAnimalType] = useState(initAnimal);
   const [villagers, setVillagers] = useState([]);
+  const { allVillagers } = useContext(CritterDataContext)
 
   useEffect(() => {
     if (foundVillager) setAnimalType(foundVillager.category)
@@ -72,7 +74,7 @@ export const VillagerTable = ({ foundVillager, clearFoundVillager, basicVillager
   };
 
   // show spinner if data isn't ready
-  if (!basicVillagerData) return (
+  if (!allVillagers) return (
     <div style={{ textAlign: 'center', margin: '64px auto' }}>
       <CircularProgress />
     </div>
@@ -101,7 +103,7 @@ export const VillagerTable = ({ foundVillager, clearFoundVillager, basicVillager
         </div>
         <div className={classes.cardContainer}>
           {villagers.map(villager => {
-            const basicInfo = (basicVillagerData[animalType] || {})[villager.name];
+            const basicInfo = (allVillagers[animalType] || {})[villager.name];
 
             return (
               <VillagerCard
