@@ -11,9 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { VillagerTable } from "../VillagerTable/Table";
+import { HemisphereSwitch } from "../HemisphereSwitch/Switch";
 import { ImportantCritterSection } from "../ImportantCritter/ImportantCritter";
-import { MAX_WIDTH } from "../../const";
 import { getVillagers } from "../requests";
+import { MAX_WIDTH } from "../../const";
 import { CritterDataContext } from "../../context/CritterDataContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +58,10 @@ const TabPanel = ({ table, value, type, showImportantSection }) => {
       aria-labelledby={`scrollable-force-tab-${type}`}
     >
       {showImportantSection && (
-        <ImportantCritterSection critter={type} />
+        <>
+          <HemisphereSwitch />
+          <ImportantCritterSection critter={type} />
+        </>
       )}
 
       {isCritter ? (
@@ -70,7 +74,6 @@ const TabPanel = ({ table, value, type, showImportantSection }) => {
           }
         </>
       ) : table}
-
     </Typography>
   );
 };
