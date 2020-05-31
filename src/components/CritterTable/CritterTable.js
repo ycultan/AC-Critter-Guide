@@ -16,7 +16,7 @@ import { Paper, Typography, Checkbox } from "@material-ui/core";
 import { CritterTableHead } from "../CritterTableHeader/CritterTableHead";
 import LocalStorageContext from "../../context/LocalStorageContext";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
   },
@@ -28,8 +28,34 @@ const useStyles = makeStyles({
   },
   strikeThrough: {
     textDecoration: "line-through",
+  },
+  tr: {
+    cursor: "pointer",
+  },
+  alignLeft: {
+    marginRight: "auto",
+  },
+  alignRight: {
+    marginLeft: "auto",
+    textAlign: "right",
+  },
+  desktop: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+    [theme.breakpoints.up("sm")]: {
+      display: "table-row",
+    },
+  },
+  mobile: {
+    [theme.breakpoints.down("sm")]: {
+      display: "table-row",
+    },
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
   }
-});
+}));
 
 export const CritterTable = ({
   title,
@@ -52,9 +78,14 @@ export const CritterTable = ({
         <TableContainer>
           <Table stickyHeader size="small">
             {isImportantSection ? (
-              <CritterTableHead type={critter} isSortableTable={false} />
+              <CritterTableHead
+                className={classes.desktop}
+                type={critter}
+                isSortableTable={false}
+              />
             ) : (
               <CritterTableHead
+                className={classes.desktop}
                 type={critter}
                 onRequestSort={handleRequestSort}
                 currentCritterTab={currentCritterTab}
@@ -67,7 +98,13 @@ export const CritterTable = ({
                 </TableRow>
               ) : (
                 critterData.map((critter) => (
-                  <TableRow key={critter.id} className={`${critterStorage[critter.name] && classes.strikeThrough}`}>
+                  <>
+                  <TableRow
+                    key={critter.id}
+                    className={`${classes.desktop} ${classes.tr} ${critterStorage[critter.name] && classes.strikeThrough}`}
+                    onClick={() => toggleCritter(critter.name)}
+                    hover
+                  >
                     <TableCell>
                       <Checkbox 
                         color='primary' 
@@ -75,7 +112,7 @@ export const CritterTable = ({
                         onChange={() => toggleCritter(critter.name)}
                       />
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell>
                       {critter.id}
                     </TableCell>
                     <TableCell>{critter.name}</TableCell>
@@ -89,6 +126,27 @@ export const CritterTable = ({
                       {critter.isYearRound ? "Year Round" : critter.month}
                     </TableCell>
                   </TableRow>
+
+                  <TableRow
+                    key={critter.id}
+                    className={classes.mobile}
+                    onClick={() => toggleCritter(critter.name)}
+                  >
+                    <TableCell style={{ display: "flex" }}>
+                      <div className={classes.alignLeft}>
+                        <Typography variant="h6" className={critterStorage[critter.name] && classes.strikeThrough}>{critter.name}</Typography>
+                        <Typography variant="body2">{critter.location}</Typography>
+                        <Typography variant="body2">{critter.shadowSize}</Typography>
+                      </div>
+                      <div className={classes.alignRight}>
+                        <Typography variant="h6">$ {critter.value}</Typography>
+                        {critter.time.split(',').map(time => (
+                          <Typography variant="body2" style={{ whiteSpace: "nowrap" }}>{time}</Typography>
+                        ))}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                  </>
                 ))
               )}
             </TableBody>
