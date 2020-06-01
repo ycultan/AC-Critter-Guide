@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { blue, red } from '@material-ui/core/colors';
+import { brown, indigo } from '@material-ui/core/colors';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -10,17 +10,17 @@ import LocalStorageContext from "../../context/LocalStorageContext";
 
 const CustomSwitch = withStyles({
   switchBase: {
-    color: red[500],
+    color: brown[500],
     '&$checked': {
-      color: blue[500],
+      color: indigo[500],
     },
     '&$checked + $track': {
-      backgroundColor: blue[500],
+      backgroundColor: indigo[500],
     },
   },
   checked: {},
   track: {
-    backgroundColor: red[500],
+    backgroundColor: brown[500],
   },
 })(Switch);
 
