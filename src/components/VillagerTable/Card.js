@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const VillagerCard = ({ villager, highlight, ...props }) => {
-  const { name, description, personality, gender, icon_uri } = villager;
+  const { displayName, description, personality, gender, icon_uri } = villager;
   const classes = useStyles();
   const ref = useRef();
 
@@ -43,11 +43,11 @@ export const VillagerCard = ({ villager, highlight, ...props }) => {
   }, [highlight, ref]);
 
   return (
-    <Paper id={`${name}-card`} className={`card ${classes.root} ${highlight && 'highlight'}`} ref={ref} {...props}>
-      <img className={classes.img} src={icon_uri} alt={name}/>
+    <Paper id={`${displayName}-card`} className={`card ${classes.root} ${highlight && 'highlight'}`} ref={ref} {...props}>
+      <img className={classes.img} src={icon_uri} alt={displayName}/>
 
       <Typography gutterBottom variant="h5">
-        {name}
+        {displayName}
       </Typography>
 
       <Typography gutterBottom variant="body2">

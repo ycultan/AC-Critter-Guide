@@ -6,9 +6,11 @@
  */
 
 export const getCrittersLeavingByMonth = (crittersWithDates, monthName) => crittersWithDates.reduce((acc, crit) => {
-  const endMonths = crit.month.split(/[-,]/g)
+  const endMonths = crit.availability.month.split(/[-&]/g);
+  const months = endMonths.map(end => parseInt(end.trim()) - 1);
 
-  if (endMonths[1] === monthName || (endMonths[3] && endMonths[3] === monthName)) acc.push(crit)
+  if (monthNames[months[1]] === monthName || (monthNames[months[3]] && monthNames[months[3]] === monthName))
+    acc.push(crit)
 
   return acc;
 }, []);
@@ -51,16 +53,16 @@ export const monthNameToNumMap = {
   "December": 11
 }
 
+export const monthNames = Object.keys(monthNameToNumMap);
+
 export const getCrittersAvailableByMonth = (critterWithDates, monthNum) => {
   const thisMonth = monthNum || new Date().getMonth(); // int
 
   const crittersThisMonth = critterWithDates.filter(crit => {
-    const monthRanges = crit.month.split(',');
+    const monthRanges = crit.availability.month.split('&');
 
     for (const range of monthRanges) {
-      const [begin, end = ''] = range.split('-');
-      const startRange = monthNameToNumMap[begin.trim()];
-      const endRange = monthNameToNumMap[end.trim()];
+      const [startRange, endRange] = range.trim().split('-').map(m => parseInt(m) - 1);
 
       if (!endRange) {
         // some critters don't have an end range

@@ -5,31 +5,32 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { TableSortLabel } from "@material-ui/core";
+import LocalStorageContext from "../../context/LocalStorageContext";
 
-const fishTableHeaders = [
+const fishTableHeaders = (hemisphere) => [
   {id: "checkBox", name: "Caught"},
   { id: "number", name: "#" },
   { id: "name", name: "Name" },
   { id: "location", name: "Location" },
   { id: "shadowSize", name: "Shadow Size" },
-  { id: "value", name: "Value" },
+  { id: "value", name: "Price" },
   { id: "time", name: "Time" },
-  { id: "month", name: "Month (Northern Hemisphere)" }
+  { id: "month", name: `Month (${hemisphere})` }
 ];
 
-const insectTableHeaders = [
+const insectTableHeaders = (hemisphere) => [
   {id: "checkBox", name: "Caught"},
   { id: "number", name: "#" },
   { id: "name", name: "Name" },
   { id: "location", name: "Location" },
-  { id: "value", name: "Value" },
+  { id: "value", name: "Price" },
   { id: "time", name: "Time" },
-  { id: "month", name: "Month (Northern Hemisphere)" }
+  { id: "month", name: `Month (${hemisphere})` }
 ];
 
 export const CritterTableHead = ({
@@ -38,7 +39,7 @@ export const CritterTableHead = ({
   type,
   className,
 }) => {
-
+  const { isNorth } = useContext(LocalStorageContext);
   const [order, setOrder] = useState("asc")
   const [orderBy, setOrderBy] = useState("number")
 
@@ -49,7 +50,8 @@ export const CritterTableHead = ({
     setOrderBy(header.id)
     onRequestSort(header, newOrder);
   };
-  const tableHeaders = type === 'fish' ? fishTableHeaders : insectTableHeaders;
+  const hemisphere = isNorth ? 'Northern Hemisphere' : 'Southern Hemisphere';
+  const tableHeaders = type === 'fish' ? fishTableHeaders(hemisphere) : insectTableHeaders(hemisphere);
 
   return (
     <TableHead>

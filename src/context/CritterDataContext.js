@@ -5,26 +5,26 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useState, createContext } from "react";
-import { fishData } from "../data/FishData";
-import { insectData } from "../data/InsectData";
+import React, { useContext, useEffect, useState, createContext } from "react";
 import { villagersList } from "../data/VillagerData";
-import { getQueryParam, monthNameToNumMap } from "../data/utils";
-
-// Initial state
-const initialState = {
-  fishData,
-  insectData,
-};
+import { getQueryParam } from "../data/utils";
+import { getAllBugs, getAllFish, getAllVillagers } from "../components/requests";
+import LocalStorageContext from "./LocalStorageContext";
 
 // Create context
-export const CritterDataContext = createContext(initialState);
+export const CritterDataContext = createContext(null);
 
 // Provider component
 export const CritterDataProvider = ({ children }) => {
+  const { isNorth } = useContext(LocalStorageContext);
   const params = getQueryParam();
-  const [modifiedFishData, setModifiedFishData] = useState(fishData);
-  const [modifiedInsectData, setModifiedInsectData] = useState(insectData);
+  const [modifiedFishData, setModifiedFishData] = useState([]);
+  const [modifiedInsectData, setModifiedInsectData] = useState([]);
+
+  const [allFish, setAllFish] = useState([]);
+  const [allBugs, setAllBugs] = useState([]);
+  const [allVillagers, setAllVillagers] = useState();
+
   const [critterTab, setCritterTab] = useState(
     {
       Bug: "insect",
@@ -34,6 +34,25 @@ export const CritterDataProvider = ({ children }) => {
   );
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
   const [foundVillager, setFoundVillager] = useState();
+
+  useEffect(() => {
+    getAllVillagers().then(data => setAllVillagers(data));
+    getAllFish().then(data => { setAllFish(data); setModifiedFishData(data); });
+    getAllBugs().then(data => { setAllBugs(data); setModifiedInsectData(data); });
+  }, []);
+
+  useEffect(() => {
+    const setMonth = critter => {
+      critter.availability.month = critter.availability[`month-${isNorth ? 'northern' : 'southern'}`];
+
+      return critter;
+    };
+
+    setAllFish(allFish.map(setMonth));
+    setAllBugs(allBugs.map(setMonth));
+    setModifiedFishData(modifiedFishData.map(setMonth));
+    setModifiedInsectData(modifiedInsectData.map(setMonth));
+  }, [isNorth]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onCritterTabChange = (tab) => setCritterTab(tab);
 
@@ -53,9 +72,9 @@ export const CritterDataProvider = ({ children }) => {
     }
 
     if (critterTab === "fish") {
-      searchHelper(value, setModifiedFishData, fishData);
+      searchHelper(value, setModifiedFishData, allFish);
     } else if (critterTab === "insect") {
-      searchHelper(value, setModifiedInsectData, insectData);
+      searchHelper(value, setModifiedInsectData, allBugs);
     } else if (critterTab === "villager") {
       if (value.length < 2) return setFoundVillager();
 
@@ -102,14 +121,14 @@ export const CritterDataProvider = ({ children }) => {
         break;
       case "value":
         const critterWithValues = whichData.filter(
-          (critter) => critter.value !== "N/A"
+          (critter) => critter.price !== "N/A"
         );
         const critterWithoutValues = whichData.filter(
-          (critter) => critter.value === "N/A"
+          (critter) => critter.price === "N/A"
         );
         const sortedByValue = critterWithValues
           .sort((a, b) =>
-            parseInt(a.value.replace(/,/g, "") - b.value.replace(/,/g, ""))
+            parseInt(a.price.replace(/,/g, "") - b.price.replace(/,/g, ""))
           )
           .reverse();
         order === "asc"
@@ -118,16 +137,16 @@ export const CritterDataProvider = ({ children }) => {
         break;
       case "time":
         const allDayCritter = whichData.filter(
-          (critter) => critter.time === "All day"
+          (critter) => critter.availability.time === "All day"
         );
         const critterWithTimes = whichData.filter((critter) => {
-          if (critter.time === "All day" || critter.time === "Unknown")
+          if (critter.availability.time === "All day" || critter.availability.time === "Unknown")
             return false;
           return true;
         });
         const sortByTime = critterWithTimes.sort((a, b) => {
-          const aTime = a.time.substring(0, a.time.indexOf("-")).split(" ");
-          const bTime = b.time.substring(0, b.time.indexOf("-")).split(" ");
+          const aTime = a.availability.time.substring(0, a.availability.time.indexOf("-")).split(" ");
+          const bTime = b.availability.time.substring(0, b.availability.time.indexOf("-")).split(" ");
           aTime[0] = aTime[0].concat(":00");
           aTime[1] = aTime[1].replace(/[.]/g, "").toUpperCase();
           bTime[0] = bTime[0].concat(":00");
@@ -142,23 +161,27 @@ export const CritterDataProvider = ({ children }) => {
           : whichSet([...sortByTime, ...allDayCritter].reverse());
         break;
       case "month":
-        const months = Object.keys(monthNameToNumMap);
-
         const critterWithoutDates = whichData.filter((critter) => {
-          if (critter.isYearRound || critter.month === "Year-round")
-            return true;
+          if (critter.isYearRound) return true;
+
           return false;
         });
+
         const critterWithDates = whichData.filter((critter) => {
-          if (critter.isYearRound || critter.month === "Year-round")
-            return false;
+          if (critter.isYearRound) return false;
+
           return true;
         });
+
         const sortedcritterWithDates = critterWithDates.sort((a, b) => {
-          const aMonth = a.month.substring(0, a.month.indexOf("-")) || a.month;
-          const bMonth = b.month.substring(0, b.month.indexOf("-")) || b.month;
-          return months.indexOf(aMonth) - months.indexOf(bMonth);
+          const aSubstr = a.availability.month.substring(0, a.availability.month.indexOf("-"));
+          const bSubstr = b.availability.month.substring(0, b.availability.month.indexOf("-"));
+          const aMonth = parseInt(aSubstr || a.availability.month);
+          const bMonth = parseInt(bSubstr || b.availability.month);
+
+          return aMonth - bMonth;
         });
+
         order === "asc"
           ? whichSet([...sortedcritterWithDates, ...critterWithoutDates])
           : whichSet(
@@ -192,6 +215,11 @@ export const CritterDataProvider = ({ children }) => {
         currentCritterTab: critterTab,
         onCritterTabChange,
         handleRequestSort,
+        allFish,
+        allBugs,
+        allVillagers,
+        fishWithDates: allFish.filter(critter => critter.isYearRound === false),
+        insectWithDates: allBugs.filter(critter => critter.isYearRound === false),
       }}
     >
       {children}
