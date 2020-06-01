@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -110,7 +110,7 @@ export const CritterTable = ({
                 </TableRow>
               ) : (
                 critterData.map((critter) => (
-                  <>
+                  <Fragment key={critter.id}>
                   <TableRow
                     key={`${critter.id}-desktop`}
                     className={`${classes.desktop} ${classes.tr} ${critterStorage[critter.name] && classes.strikeThrough}`}
@@ -160,7 +160,7 @@ export const CritterTable = ({
                       </div>
                     </TableCell>
                   </TableRow>
-                  </>
+                  </Fragment>
                 ))
               )}
             </TableBody>

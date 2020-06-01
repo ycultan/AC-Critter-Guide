@@ -58,7 +58,7 @@ export const SearchBar = () => {
     debouncer.current = debounce(val => {
       searchCritter(val);
     }, 300, { leading: false, trailing: true });
-  }, [currentCritterTab])
+  }, [currentCritterTab]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSearchInputChange = e => {
     setSearch(e.target.value);

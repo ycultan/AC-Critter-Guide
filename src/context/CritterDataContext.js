@@ -7,7 +7,7 @@
 
 import React, { useContext, useEffect, useState, createContext } from "react";
 import { villagersList } from "../data/VillagerData";
-import { getQueryParam, monthNameToNumMap } from "../data/utils";
+import { getQueryParam } from "../data/utils";
 import { getAllBugs, getAllFish, getAllVillagers } from "../components/requests";
 import LocalStorageContext from "./LocalStorageContext";
 
@@ -52,7 +52,7 @@ export const CritterDataProvider = ({ children }) => {
     setAllBugs(allBugs.map(setMonth));
     setModifiedFishData(modifiedFishData.map(setMonth));
     setModifiedInsectData(modifiedInsectData.map(setMonth));
-  }, [isNorth]);
+  }, [isNorth]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onCritterTabChange = (tab) => setCritterTab(tab);
 
@@ -161,8 +161,6 @@ export const CritterDataProvider = ({ children }) => {
           : whichSet([...sortByTime, ...allDayCritter].reverse());
         break;
       case "month":
-        const months = Object.keys(monthNameToNumMap);
-
         const critterWithoutDates = whichData.filter((critter) => {
           if (critter.isYearRound) return true;
 
