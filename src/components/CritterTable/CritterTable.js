@@ -15,6 +15,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { Paper, Typography, Checkbox } from "@material-ui/core";
 import { CritterTableHead } from "../CritterTableHeader/CritterTableHead";
 import LocalStorageContext from "../../context/LocalStorageContext";
+import { monthNames } from "../../data/utils";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,8 +55,19 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
-  }
+  },
+  titleCase: {
+    textTransform: "capitalize",
+  },
 }));
+
+const displayMonth = (monthRange) => {
+  const ranges = monthRange.split('&');
+
+  const months = ranges.map(range => range.trim().split('-').map(m => monthNames[parseInt(m) - 1]).join('-'));
+
+  return months.join(', ');
+}
 
 export const CritterTable = ({
   title,
@@ -115,15 +127,15 @@ export const CritterTable = ({
                     <TableCell>
                       {critter.id}
                     </TableCell>
-                    <TableCell>{critter.name}</TableCell>
-                    <TableCell>{critter.location}</TableCell>
+                    <TableCell className={classes.titleCase}>{critter.name}</TableCell>
+                    <TableCell>{critter.availability.location}</TableCell>
                     {critter.shadowSize && (
                       <TableCell>{critter.shadowSize}</TableCell>
                     )}
-                    <TableCell>{critter.value}</TableCell>
-                    <TableCell>{critter.time}</TableCell>
+                    <TableCell>$ {critter.price}</TableCell>
+                    <TableCell>{critter.availability.time}</TableCell>
                     <TableCell>
-                      {critter.isYearRound ? "Year Round" : critter.month}
+                      {critter.isYearRound ? "Year Round" : displayMonth(critter.availability.month)}
                     </TableCell>
                   </TableRow>
 
@@ -134,13 +146,13 @@ export const CritterTable = ({
                   >
                     <TableCell style={{ display: "flex" }}>
                       <div className={classes.alignLeft}>
-                        <Typography variant="h6" className={critterStorage[critter.name] ? classes.strikeThrough : ''}>{critter.name}</Typography>
-                        <Typography variant="body2">{critter.location}</Typography>
+                        <Typography variant="h6" className={`${classes.titleCase} ${critterStorage[critter.name] ? classes.strikeThrough : ''}`}>{critter.name}</Typography>
+                        <Typography variant="body2">{critter.availability.location}</Typography>
                         <Typography variant="body2">{critter.shadowSize}</Typography>
                       </div>
                       <div className={classes.alignRight}>
-                        <Typography variant="h6">$ {critter.value}</Typography>
-                        {critter.time.split(',').map((time, i) => (
+                        <Typography variant="h6">$ {critter.price}</Typography>
+                        {critter.availability.time.split(',').map((time, i) => (
                           <Typography key={`${critter.name}-time-${i}`} variant="body2" style={{ whiteSpace: "nowrap" }}>
                             {time}
                           </Typography>

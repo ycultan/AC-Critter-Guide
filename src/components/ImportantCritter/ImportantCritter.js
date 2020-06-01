@@ -5,15 +5,14 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { CritterTable } from "../CritterTable/CritterTable";
 import { DropdownSelector } from "../DropdownSelector/DropdownSelector";
-import { fishWithDates } from "../../data/FishData";
-import { insectWithDates } from "../../data/InsectData";
 import { getCrittersAvailableByMonth, getCrittersLeavingByMonth, getQueryParam, monthNameToNumMap } from "../../data/utils";
+import { CritterDataContext } from "../../context/CritterDataContext";
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -44,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const monthNames = Object.keys(monthNameToNumMap)
 
 export const ImportantCritterSection = ({ critter }) => {
+  const { fishWithDates, insectWithDates } = useContext(CritterDataContext)
   const [selectedMonth, setSelectedMonth] = useState(getMonth());
   const critterWithDates = critter === 'fish' ? fishWithDates : insectWithDates;
   const classes = useStyles();

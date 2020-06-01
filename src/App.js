@@ -34,8 +34,8 @@ function App() {
   }, []);
 
   return (
-    <CritterDataProvider>
-      <LocalStorageProvider>
+    <LocalStorageProvider>
+      <CritterDataProvider>
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
           <div className={classes.gutter}>
             <NavBar />
@@ -43,8 +43,8 @@ function App() {
           </div>
           <Footer />
         </div>
-      </LocalStorageProvider>
-    </CritterDataProvider>
+      </CritterDataProvider>
+    </LocalStorageProvider>
   );
 }
 

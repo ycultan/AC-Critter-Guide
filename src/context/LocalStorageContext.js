@@ -13,7 +13,9 @@ LocalStorageContext.displayName = 'LocalStorageContext';
 export default LocalStorageContext;
 
 export const LocalStorageProvider = memo(function LocalStorageProvider({ children }) {
-  const [critterStorage, setCritterStorage] = useState(JSON.parse(localStorage.getItem('critterStorage')) || {});
+  // toLowerCase for backwards compatibility (before we were using titleCase in storage)
+  const [critterStorage, setCritterStorage] = useState(JSON.parse(localStorage.getItem('critterStorage').toLowerCase()) || {});
+  const [isNorth, setIsNorth] = useState(localStorage.getItem('northernHemisphere') !== 'false');
 
   const toggleCritter = critter => {
     setCritterStorage({ ...critterStorage, [critter]: !critterStorage[critter] });
@@ -23,8 +25,12 @@ export const LocalStorageProvider = memo(function LocalStorageProvider({ childre
     localStorage.setItem('critterStorage', JSON.stringify(critterStorage));
   }, [critterStorage]);
 
+  useEffect(() => {
+    localStorage.setItem('northernHemisphere', JSON.stringify(isNorth));
+  }, [isNorth]);
+
   return (
-    <LocalStorageContext.Provider value={{ critterStorage, toggleCritter }}>
+    <LocalStorageContext.Provider value={{ critterStorage, toggleCritter, isNorth, setIsNorth }}>
       {children}
     </LocalStorageContext.Provider>
   );
