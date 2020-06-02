@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
-import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
+import { Switch, Redirect, Route, Link, BrowserRouter } from "react-router-dom";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { VillagerTable } from "../VillagerTable/Table";
 import { HemisphereSelector } from "../HemisphereSelector/HemisphereSelector";
@@ -107,8 +107,7 @@ export const HeaderTabs = () => {
   } = useContext(CritterDataContext);
 
   const handleChange = (event, newValue) => {
-    event.preventDefault();
-    onCritterTabChange(newValue);
+    onCritterTabChange(newValue);    
   };
 
   return (
@@ -146,27 +145,9 @@ export const HeaderTabs = () => {
         </AppBar>
 
         <Switch>
-          <Route
-            path="/"
-            exact
-            render={() => (
-              <TabPanel
-                value={currentCritterTab}
-                type="fish"
-                table={
-                  <CritterTable
-                    title="Fishes"
-                    critter="fish"
-                    critterData={modifiedFishData}
-                    isSearchingForCritter={isSearchingForCritter}
-                    handleRequestSort={handleRequestSort}
-                    currentCritterTab={currentCritterTab}
-                  />
-                }
-                showImportantSection={!isSearchingForCritter}
-              />
-            )}
-          />
+          <Route path="/" exact>
+            <Redirect to="/fish" />
+          </Route>
           <Route
             path="/fish"
             render={() => (
