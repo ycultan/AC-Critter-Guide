@@ -205,48 +205,6 @@ export const HeaderTabs = () => {
             )}
           />
         </Switch>
-
-        {/* <TabPanel
-          value={currentCritterTab}
-          type="fish"
-          table={
-            <CritterTable
-              title="Fishes"
-              critter="fish"
-              critterData={modifiedFishData}
-              isSearchingForCritter={isSearchingForCritter}
-              handleRequestSort={handleRequestSort}
-              currentCritterTab={currentCritterTab}
-            />
-          }
-          showImportantSection={!isSearchingForCritter}
-        /> */}
-        {/* <TabPanel
-          value={currentCritterTab}
-          type="insect"
-          table={
-            <CritterTable
-              title="Insects"
-              critter="insect"
-              critterData={modifiedInsectData}
-              isSearchingForCritter={isSearchingForCritter}
-              handleRequestSort={handleRequestSort}
-              currentCritterTab={currentCritterTab}
-            />
-          }
-          showImportantSection={!isSearchingForCritter}
-        /> */}
-        {/* <TabPanel
-          value={currentCritterTab}
-          type="villager"
-          table={
-            <VillagerTable
-              foundVillager={foundVillager}
-              clearFoundVillager={clearFoundVillager}
-            />
-          }
-          showImportantSection={false}
-        /> */}
       </div>
     </BrowserRouter>
   );
