@@ -25,13 +25,7 @@ export const CritterDataProvider = ({ children }) => {
   const [allBugs, setAllBugs] = useState([]);
   const [allVillagers, setAllVillagers] = useState();
 
-  const [critterTab, setCritterTab] = useState(
-    {
-      Bug: "insect",
-      Insect: "insect",
-      Villager: "villager",
-    }[params.type] || "fish"
-  );
+  const [critterTab, setCritterTab] = useState(document.location.pathname.split('/')[1] || 'fish');
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
   const [foundVillager, setFoundVillager] = useState();
 

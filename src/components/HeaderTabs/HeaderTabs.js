@@ -6,9 +6,17 @@
  */
 
 import React, { useState, useContext } from "react";
-import { makeStyles, AppBar, Button, Tabs, Tab, Typography } from "@material-ui/core";
+import {
+  makeStyles,
+  AppBar,
+  Button,
+  Tabs,
+  Tab,
+  Typography,
+} from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
+import { Switch, Redirect, Route, Link, BrowserRouter } from "react-router-dom";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { VillagerTable } from "../VillagerTable/Table";
 import { HemisphereSelector } from "../HemisphereSelector/HemisphereSelector";
@@ -46,118 +54,158 @@ const style = {
 const TabPanel = ({ table, value, type, showImportantSection }) => {
   const [showTable, setShowTable] = useState(false);
   const shouldShowTable = showTable || !showImportantSection;
-  const isCritter = type !== 'villager';
+  const isCritter = type !== "villager";
 
-  return value === type && (
-    <Typography
-      style={style.tabPanel}
-      component="div"
-      role="tabpanel"
-      id={`scrollable-force-tabpanel-${type}`}
-      aria-labelledby={`scrollable-force-tab-${type}`}
-    >
-      {showImportantSection && (
-        <>
-          <HemisphereSelector />
-          <ImportantCritterSection critter={type} />
-        </>
-      )}
+  return (
+    value === type && (
+      <Typography
+        style={style.tabPanel}
+        component="div"
+        role="tabpanel"
+        id={`scrollable-force-tabpanel-${type}`}
+        aria-labelledby={`scrollable-force-tab-${type}`}
+      >
+        {showImportantSection && (
+          <>
+            <HemisphereSelector />
+            <ImportantCritterSection critter={type} />
+          </>
+        )}
 
-      {isCritter ? (
-        <>
-          {shouldShowTable && table}
-          {showImportantSection &&
-            <Button variant="text" color="primary" onClick={() => setShowTable(!showTable)}>
-              {`${shouldShowTable ? 'Hide' : 'Show'} all ${type}`}
-            </Button>
-          }
-        </>
-      ) : table}
-    </Typography>
+        {isCritter ? (
+          <>
+            {shouldShowTable && table}
+            {showImportantSection && (
+              <Button
+                variant="text"
+                color="primary"
+                onClick={() => setShowTable(!showTable)}
+              >
+                {`${shouldShowTable ? "Hide" : "Show"} all ${type}`}
+              </Button>
+            )}
+          </>
+        ) : (
+          table
+        )}
+      </Typography>
+    )
   );
 };
 
 export const HeaderTabs = () => {
   const classes = useStyles();
   const {
-    onCritterTabChange, currentCritterTab,
-    modifiedFishData, modifiedInsectData,
-    isSearchingForCritter, handleRequestSort, foundVillager, clearFoundVillager
-  } = useContext(CritterDataContext)
+    onCritterTabChange,
+    currentCritterTab,
+    modifiedFishData,
+    modifiedInsectData,
+    isSearchingForCritter,
+    handleRequestSort,
+    foundVillager,
+    clearFoundVillager,
+  } = useContext(CritterDataContext);
 
   const handleChange = (event, newValue) => {
-    event.preventDefault();
-    onCritterTabChange(newValue);
+    onCritterTabChange(newValue);    
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="default" className={classes.appBar}>
-        <Tabs
-          value={currentCritterTab}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-        >
-          <Tab
-            value="fish"
-            label="Fish"
-            icon={<FontAwesomeIcon icon={faFish} />}
-          />
-          <Tab
-            value="insect"
-            label="Insect"
-            icon={<FontAwesomeIcon icon={faBug} />}
-          />
-          <Tab
-            value="villager"
-            label="villager"
-            icon={<FontAwesomeIcon icon={faHouseUser} />}
-          />
-        </Tabs>
-      </AppBar>
+    <BrowserRouter>
+      <div className={classes.root}>
+        <AppBar position="static" color="default" className={classes.appBar}>
+          <Tabs
+            value={currentCritterTab}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+          >
+            <Tab
+              value="fish"
+              label="Fish"
+              icon={<FontAwesomeIcon icon={faFish} />}
+              component={Link}
+              to="/fish"
+            />
+            <Tab
+              value="insect"
+              label="Insect"
+              icon={<FontAwesomeIcon icon={faBug} />}
+              component={Link}
+              to="/insect"
+            />
+            <Tab
+              value="villager"
+              label="villager"
+              icon={<FontAwesomeIcon icon={faHouseUser} />}
+              component={Link}
+              to="/villager"
+            />
+          </Tabs>
+        </AppBar>
 
-      <TabPanel
-        value={currentCritterTab}
-        type="fish"
-        table={
-          <CritterTable
-            title="Fishes"
-            critter="fish"
-            critterData={modifiedFishData}
-            isSearchingForCritter={isSearchingForCritter}
-            handleRequestSort={handleRequestSort}
-            currentCritterTab={currentCritterTab}
+        <Switch>
+          <Route path="/" exact>
+            <Redirect to="/fish" />
+          </Route>
+          <Route
+            path="/fish"
+            render={() => (
+              <TabPanel
+                value={currentCritterTab}
+                type="fish"
+                table={
+                  <CritterTable
+                    title="Fishes"
+                    critter="fish"
+                    critterData={modifiedFishData}
+                    isSearchingForCritter={isSearchingForCritter}
+                    handleRequestSort={handleRequestSort}
+                    currentCritterTab={currentCritterTab}
+                  />
+                }
+                showImportantSection={!isSearchingForCritter}
+              />
+            )}
           />
-        }
-        showImportantSection={!isSearchingForCritter}
-      />
-      <TabPanel
-        value={currentCritterTab}
-        type="insect"
-        table={
-          <CritterTable
-            title="Insects"
-            critter="insect"
-            critterData={modifiedInsectData}
-            isSearchingForCritter={isSearchingForCritter}
-            handleRequestSort={handleRequestSort}
-            currentCritterTab={currentCritterTab}
+          <Route
+            path="/insect"
+            render={() => (
+              <TabPanel
+                value={currentCritterTab}
+                type="insect"
+                table={
+                  <CritterTable
+                    title="Insects"
+                    critter="insect"
+                    critterData={modifiedInsectData}
+                    isSearchingForCritter={isSearchingForCritter}
+                    handleRequestSort={handleRequestSort}
+                    currentCritterTab={currentCritterTab}
+                  />
+                }
+                showImportantSection={!isSearchingForCritter}
+              />
+            )}
           />
-        }
-        showImportantSection={!isSearchingForCritter}
-      />
-      <TabPanel
-        value={currentCritterTab}
-        type="villager"
-        table={
-          <VillagerTable
-            foundVillager={foundVillager}
-            clearFoundVillager={clearFoundVillager}
+          <Route
+            path="/villager"
+            render={() => (
+              <TabPanel
+                value={currentCritterTab}
+                type="villager"
+                table={
+                  <VillagerTable
+                    foundVillager={foundVillager}
+                    clearFoundVillager={clearFoundVillager}
+                  />
+                }
+                showImportantSection={false}
+              />
+            )}
           />
-        }
-        showImportantSection={false}
-      />
-    </div>
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 };
