@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const SearchBar = () => {
-  const {searchCritter, currentCritterTab} = useContext(CritterDataContext)
+  const { searchCritter, currentCritterTab } = useContext(CritterDataContext)
   const classes = useStyles();
   const [search, setSearch] = useState('');
   const initRender = useRef(true);

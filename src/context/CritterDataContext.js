@@ -7,7 +7,6 @@
 
 import React, { useContext, useEffect, useState, createContext } from "react";
 import { villagersList } from "../data/VillagerData";
-import { getQueryParam } from "../data/utils";
 import { getAllBugs, getAllFish, getAllVillagers } from "../components/requests";
 import LocalStorageContext from "./LocalStorageContext";
 
@@ -17,7 +16,6 @@ export const CritterDataContext = createContext(null);
 // Provider component
 export const CritterDataProvider = ({ children }) => {
   const { isNorth } = useContext(LocalStorageContext);
-  const params = getQueryParam();
   const [modifiedFishData, setModifiedFishData] = useState([]);
   const [modifiedInsectData, setModifiedInsectData] = useState([]);
 
