@@ -5,7 +5,7 @@
  *  Copyright (c) 2020 Lucy Tan
  */
 
-import React, { useContext, useEffect, useState, createContext } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { villagersList } from "../data/VillagerData";
 import { getAllBugs, getAllFish, getAllVillagers } from "../components/requests";
 import LocalStorageContext from "./LocalStorageContext";
@@ -19,18 +19,18 @@ export const CritterDataProvider = ({ children }) => {
   const [modifiedFishData, setModifiedFishData] = useState([]);
   const [modifiedInsectData, setModifiedInsectData] = useState([]);
 
-  const [allFish, setAllFish] = useState([]);
-  const [allBugs, setAllBugs] = useState([]);
-  const [allVillagers, setAllVillagers] = useState();
+  const allFish = useRef([]);
+  const allBugs = useRef([]);
+  const allVillagers = useRef([]);
 
   const [critterTab, setCritterTab] = useState(document.location.pathname.split('/')[1] || 'fish');
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
   const [foundVillager, setFoundVillager] = useState();
 
   useEffect(() => {
-    getAllVillagers().then(data => setAllVillagers(data));
-    getAllFish().then(data => { setAllFish(data); setModifiedFishData(data); });
-    getAllBugs().then(data => { setAllBugs(data); setModifiedInsectData(data); });
+    getAllVillagers().then(data => allVillagers.current = data);
+    getAllFish().then(data => { allFish.current = data; setModifiedFishData(data); });
+    getAllBugs().then(data => { allBugs.current = data; setModifiedInsectData(data); });
   }, []);
 
   useEffect(() => {
@@ -40,8 +40,8 @@ export const CritterDataProvider = ({ children }) => {
       return critter;
     };
 
-    setAllFish(allFish.map(setMonth));
-    setAllBugs(allBugs.map(setMonth));
+    allFish.current = allFish.current.map(setMonth);
+    allBugs.current = allBugs.current.map(setMonth)
     setModifiedFishData(modifiedFishData.map(setMonth));
     setModifiedInsectData(modifiedInsectData.map(setMonth));
   }, [isNorth]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -64,9 +64,9 @@ export const CritterDataProvider = ({ children }) => {
     }
 
     if (critterTab === "fish") {
-      searchHelper(value, setModifiedFishData, allFish);
+      searchHelper(value, setModifiedFishData, allFish.current);
     } else if (critterTab === "insect") {
-      searchHelper(value, setModifiedInsectData, allBugs);
+      searchHelper(value, setModifiedInsectData, allBugs.current);
     } else if (critterTab === "villager") {
       if (value.length < 2) return setFoundVillager();
 
@@ -207,11 +207,9 @@ export const CritterDataProvider = ({ children }) => {
         currentCritterTab: critterTab,
         onCritterTabChange,
         handleRequestSort,
-        allFish,
-        allBugs,
         allVillagers,
-        fishWithDates: allFish.filter(critter => critter.isYearRound === false),
-        insectWithDates: allBugs.filter(critter => critter.isYearRound === false),
+        fishWithDates: allFish.current.filter(critter => critter.isYearRound === false),
+        insectWithDates: allBugs.current.filter(critter => critter.isYearRound === false),
       }}
     >
       {children}
