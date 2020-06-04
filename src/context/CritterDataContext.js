@@ -21,14 +21,14 @@ export const CritterDataProvider = ({ children }) => {
 
   const allFish = useRef([]);
   const allBugs = useRef([]);
-  const allVillagers = useRef([]);
+  const [allVillagers, setAllVillagers] = useState();
 
   const [critterTab, setCritterTab] = useState(document.location.pathname.split('/')[1] || 'fish');
   const [isSearchingForCritter, setIsSearchingForCritter] = useState(false);
   const [foundVillager, setFoundVillager] = useState();
 
   useEffect(() => {
-    getAllVillagers().then(data => allVillagers.current = data);
+    getAllVillagers(setAllVillagers);
     getAllFish().then(data => { allFish.current = data; setModifiedFishData(data); });
     getAllBugs().then(data => { allBugs.current = data; setModifiedInsectData(data); });
   }, []);
@@ -207,7 +207,7 @@ export const CritterDataProvider = ({ children }) => {
         currentCritterTab: critterTab,
         onCritterTabChange,
         handleRequestSort,
-        allVillagers: allVillagers.current,
+        allVillagers,
         fishWithDates: allFish.current.filter(critter => critter.isYearRound === false),
         insectWithDates: allBugs.current.filter(critter => critter.isYearRound === false),
       }}

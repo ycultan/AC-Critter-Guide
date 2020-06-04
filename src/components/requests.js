@@ -2,21 +2,25 @@ const ACNH_BASE_API = 'https://acnhapi.com/v1';
 
 const ENG_NAME = 'name-USen';
 
-export const getAllVillagers = () => fetch(`${ACNH_BASE_API}/villagers`)
-  .then(resp => resp.json())
-  .then(data => Object.values(data).reduce((acc, villager) => {
-    const species = villager.species.toLowerCase();
-    const name = villager.name[ENG_NAME];
-    villager.displayName = name;
+export const getAllVillagers = async (setter) => {
+  const data = await fetch(`${ACNH_BASE_API}/villagers`)
+      .then(resp => resp.json())
+      .then(data => Object.values(data).reduce((acc, villager) => {
+        const species = villager.species.toLowerCase();
+        const name = villager.name[ENG_NAME];
+        villager.displayName = name;
 
-    if (!acc[species]) {
-      acc[species] = {};
-    }
+        if (!acc[species]) {
+          acc[species] = {};
+        }
 
-    acc[species][name] = villager;
+        acc[species][name] = villager;
 
-    return acc;
-  }, {}));
+        return acc;
+      }, {}));
+
+  setter(data);
+}
 
 const isNorth = localStorage.getItem('northernHemisphere') !== 'false';
 
