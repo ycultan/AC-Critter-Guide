@@ -207,7 +207,7 @@ export const CritterDataProvider = ({ children }) => {
         currentCritterTab: critterTab,
         onCritterTabChange,
         handleRequestSort,
-        allVillagers,
+        allVillagers: allVillagers.current,
         fishWithDates: allFish.current.filter(critter => critter.isYearRound === false),
         insectWithDates: allBugs.current.filter(critter => critter.isYearRound === false),
       }}
