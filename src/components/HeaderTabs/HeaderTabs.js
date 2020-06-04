@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFish, faBug, faHouseUser } from "@fortawesome/free-solid-svg-icons";
-import { Switch, Redirect, Route, Link, BrowserRouter } from "react-router-dom";
+import { Switch, Redirect, Route, Link } from "react-router-dom";
 import { CritterTable } from "../CritterTable/CritterTable";
 import { VillagerTable } from "../VillagerTable/Table";
 import { HemisphereSelector } from "../HemisphereSelector/HemisphereSelector";
@@ -111,7 +111,6 @@ export const HeaderTabs = () => {
   };
 
   return (
-    <BrowserRouter>
       <div className={classes.root}>
         <AppBar position="static" color="default" className={classes.appBar}>
           <Tabs
@@ -206,6 +205,5 @@ export const HeaderTabs = () => {
           />
         </Switch>
       </div>
-    </BrowserRouter>
   );
 };

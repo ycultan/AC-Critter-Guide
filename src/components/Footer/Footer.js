@@ -5,29 +5,23 @@
  *  Copyright (c) 2020 Rosemary Chen
  */
 
-import React from "react";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Icon, Link, Typography } from "@material-ui/core";
 import { AC_CRITTER_GUIDE_DISCORD_URL, GITHUB_URL, LINKED_IN_SECONDARY_URL, LINKED_IN_URL, VENMO_URL } from "../../const";
-import { getQueryParam } from "../../data/utils";
+import { CritterDataContext } from "../../context/CritterDataContext";
 import "./styles.css";
 
-// TODO: use later to update queryParams when clicking on critter tabs
-const replaceRedirect = (type) => {
-  const params = getQueryParam();
-  params.type = type;
-
-  let queryStr = '?';
-  for (const key in params) {
-    queryStr += `${key}=${params[key]}&`;
-  }
-  queryStr = queryStr.slice(0, -1); // remove trailing '&'
-
-  const path = `${document.location.origin}${queryStr}`;
-
-  window.history.pushState({ path },'', path);
-}
-
 export const Footer = () => {
+  const { onCritterTabChange } = useContext(CritterDataContext);
+  const history = useHistory();
+
+  const buttonClicked = (critterType) => {
+    onCritterTabChange(critterType);
+    history.push(`/${critterType}`);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className={'footer'}>
       <div className="body">
@@ -55,16 +49,16 @@ export const Footer = () => {
         </div>
 
         <div className="linkContainer">
-          <Link href="/?type=fish" variant="overline" color="inherit">
-            Fish
+          <Link component="button" variant="overline" color="inherit" onClick={e => buttonClicked(e.target.innerHTML)}>
+            fish
           </Link>
           &middot;
-          <Link href="/?type=insect" variant="overline" color="inherit">
-            Insect
+          <Link component="button" variant="overline" color="inherit" onClick={e => buttonClicked(e.target.innerHTML)}>
+            insect
           </Link>
           &middot;
-          <Link href="/?type=villager" variant="overline" color="inherit">
-            Villager
+          <Link component="button" variant="overline" color="inherit" onClick={e => buttonClicked(e.target.innerHTML)}>
+            villager
           </Link>
         </div>
 

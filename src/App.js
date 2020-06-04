@@ -6,6 +6,7 @@
  */
 
 import React, { useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { NavBar } from "./components/NavigationBar/NavBar";
 import { Footer } from "./components/Footer/Footer";
 import { HeaderTabs } from "./components/HeaderTabs/HeaderTabs";
@@ -36,13 +37,15 @@ function App() {
   return (
     <LocalStorageProvider>
       <CritterDataProvider>
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-          <div className={classes.gutter}>
-            <NavBar />
-            <HeaderTabs />
+        <BrowserRouter>
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+            <div className={classes.gutter}>
+              <NavBar />
+              <HeaderTabs />
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
+        </BrowserRouter>
       </CritterDataProvider>
     </LocalStorageProvider>
   );

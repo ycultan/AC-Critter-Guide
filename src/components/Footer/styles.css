@@ -12,7 +12,8 @@
   margin-top: auto;
 }
 
-.linkContainer a {
+.linkContainer a,
+.linkContainer button {
   margin: 0 8px;
 }
 
